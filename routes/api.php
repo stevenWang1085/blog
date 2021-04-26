@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,13 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+//Route::middleware('auth:api')->get('/user', function (Request $request) {
+//    return $request->user();
+//});
+
+//Route::post('/user/register', 'User\Controller@register');
+Route::resource('/user', 'User\Controller');
+Route::post('/user/login', 'User\Controller@login');
+Route::post('/user/forget_password/send', 'User\Controller@forgetPasswordSendEmail');
+Route::post('/user/forget_password/page', 'User\Controller@forgetPasswordPage');
+Route::post('/user/forget_password/check', 'User\Controller@forgetPasswordCheck');
