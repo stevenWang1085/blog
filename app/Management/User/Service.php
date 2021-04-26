@@ -21,6 +21,12 @@ class Service extends BaseService
         $this->repository = new Repository();
     }
 
+    /**
+     * 使用者註冊
+     *
+     * @param $request
+     * @return mixed
+     */
     public function registerUser($request)
     {
         $user_data = [
@@ -32,6 +38,12 @@ class Service extends BaseService
         return $this->repository->insert($user_data);
     }
 
+    /**
+     * 使用者登入
+     *
+     * @param $request
+     * @return bool
+     */
     public function loginUser($request)
     {
         $user_data = $this->repository->first(['email' => $request->email]);
@@ -40,6 +52,12 @@ class Service extends BaseService
         return true;
     }
 
+    /**
+     * 忘記密碼寄信
+     *
+     * @param $request
+     * @return bool
+     */
     public function forgetPasswordSendEmail($request)
     {
         $mail_to = $request->email;
@@ -68,6 +86,14 @@ class Service extends BaseService
         return false;
     }
 
+    /**
+     * 更新重置資料
+     *
+     * @param $mail
+     * @param $reset_code
+     * @param $link_limit_time
+     * @return bool
+     */
     private function updateResetData($mail, $reset_code, $link_limit_time)
     {
         $where = ['email' => $mail];
@@ -81,6 +107,12 @@ class Service extends BaseService
         return true;
     }
 
+    /**
+     * 重置密碼
+     *
+     * @param $request
+     * @return bool
+     */
     public function forgetPasswordCheck($request)
     {
         #驗證reset_code
@@ -101,6 +133,12 @@ class Service extends BaseService
         return true;
     }
 
+    /**
+     * 重置密碼頁面檢測
+     *
+     * @param $request
+     * @return bool
+     */
     public function forgetPasswordPageCheck($request)
     {
         $user_data = $this->repository->first(['reset_password_code' => $request->reset_password_code]);
