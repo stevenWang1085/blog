@@ -51,6 +51,24 @@ trait ResponseHelper
                     'status_message' => '代碼檢測成功',
                 ];
                 break;
+            case 106:
+                $response = [
+                    'http_status_code' => 200,
+                    'status_message' => '看板新增成功',
+                ];
+                break;
+            case 301:
+                $response = [
+                    'http_status_code' => 200,
+                    'status_message' => '看板修改成功',
+                ];
+                break;
+            case 401:
+                $response = [
+                    'http_status_code' => 200,
+                    'status_message' => '看板刪除成功',
+                ];
+                break;
             case 501:
                 $response = [
                     'http_status_code' => 400,
@@ -91,6 +109,24 @@ trait ResponseHelper
                 $response = [
                     'http_status_code' => 400,
                     'status_message' => '重置代碼失效或是錯誤的代碼。'
+                ];
+                break;
+            case 606:
+                $response = [
+                    'http_status_code' => 400,
+                    'status_message' => '看板新增失敗。'
+                ];
+                break;
+            case 801:
+                $response = [
+                    'http_status_code' => 400,
+                    'status_message' => '看板修改失敗。'
+                ];
+                break;
+            case 901:
+                $response = [
+                    'http_status_code' => 400,
+                    'status_message' => '看板刪除失敗。'
                 ];
                 break;
             default:

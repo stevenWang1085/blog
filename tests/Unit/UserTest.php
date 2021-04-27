@@ -80,8 +80,6 @@ class UserTest extends TestCase
      */
     public function testUserLogin()
     {
-        $this->withoutExceptionHandling();
-
         #註冊
         $this->post('api/user', [
             'name' => 'steven',
@@ -112,8 +110,6 @@ class UserTest extends TestCase
      */
     public function testForgetPasswordSendEmail()
     {
-        $this->withoutExceptionHandling();
-
         $this->post('api/user', [
             'name' => 'steven',
             'email' => '4a114019@stust.edu.tw',
@@ -155,8 +151,6 @@ class UserTest extends TestCase
      */
     public function testResetPasswordCheck()
     {
-        $this->withoutExceptionHandling();
-
         $user_data = new  UserRepository();
         $user_data->insert(
             [

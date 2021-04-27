@@ -24,3 +24,5 @@ Route::post('/user/login', 'User\Controller@login');
 Route::post('/user/forget_password/send', 'User\Controller@forgetPasswordSendEmail');
 Route::post('/user/forget_password/page', 'User\Controller@forgetPasswordPage');
 Route::post('/user/forget_password/check', 'User\Controller@forgetPasswordCheck');
+
+Route::resource('/board', 'Board\Controller');

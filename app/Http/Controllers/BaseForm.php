@@ -28,6 +28,7 @@ abstract class BaseForm extends FormRequest implements IForm
     protected function failedValidation(Validator $validator)
     {
         $messages = $this->processErrorMessage($validator->errors()->messages());
+        dd($validator->errors()->messages());
         throw new HttpResponseException(response()->json($messages, $messages['http_status_code'])->header('Content-Type', 'application/json'));
     }
 

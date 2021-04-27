@@ -75,4 +75,14 @@ abstract class BaseRepository
         return $this->query()->where($where_data)->update($update_data);
     }
 
+    /**
+     * @param $where
+     * @param $data
+     * @return mixed
+     */
+    public function delete($where)
+    {
+        return $this->query()->where($where)->delete();
+    }
+
 }
