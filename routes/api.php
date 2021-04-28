@@ -28,3 +28,6 @@ Route::post('/user/forget_password/check', 'User\Controller@forgetPasswordCheck'
 Route::resource('/board', 'Board\Controller');
 Route::resource('/article', 'Article\Controller');
 Route::patch('/article/{id}/favor', 'Article\Controller@updateFavor');
+Route::post('/article/{article_id}/comment', 'ArticleComment\Controller@store');
+Route::patch('/article/{comment_id}/comment', 'ArticleComment\Controller@update');
+Route::delete('/article/{comment_id}/comment', 'ArticleComment\Controller@destroy');

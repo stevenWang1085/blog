@@ -63,6 +63,12 @@ trait ResponseHelper
                     'status_message' => '文章新增成功',
                 ];
                 break;
+            case 108:
+                $response = [
+                    'http_status_code' => 200,
+                    'status_message' => '新增成功',
+                ];
+                break;
             case 301:
                 $response = [
                     'http_status_code' => 200,
@@ -139,6 +145,12 @@ trait ResponseHelper
                 $response = [
                     'http_status_code' => 400,
                     'status_message' => '文章新增失敗。'
+                ];
+                break;
+            case 608:
+                $response = [
+                    'http_status_code' => 400,
+                    'status_message' => '新增失敗。'
                 ];
                 break;
             case 801:

@@ -81,4 +81,9 @@ class Service extends BaseService
         }
     }
 
+    public function storeComment($request, $id)
+    {
+
+    }
+
 }
