@@ -57,16 +57,34 @@ trait ResponseHelper
                     'status_message' => '看板新增成功',
                 ];
                 break;
+            case 107:
+                $response = [
+                    'http_status_code' => 200,
+                    'status_message' => '文章新增成功',
+                ];
+                break;
             case 301:
                 $response = [
                     'http_status_code' => 200,
                     'status_message' => '看板修改成功',
                 ];
                 break;
+            case 302:
+                $response = [
+                    'http_status_code' => 200,
+                    'status_message' => '更新成功',
+                ];
+                break;
             case 401:
                 $response = [
                     'http_status_code' => 200,
                     'status_message' => '看板刪除成功',
+                ];
+                break;
+            case 402:
+                $response = [
+                    'http_status_code' => 200,
+                    'status_message' => '刪除成功',
                 ];
                 break;
             case 501:
@@ -117,16 +135,34 @@ trait ResponseHelper
                     'status_message' => '看板新增失敗。'
                 ];
                 break;
+            case 607:
+                $response = [
+                    'http_status_code' => 400,
+                    'status_message' => '文章新增失敗。'
+                ];
+                break;
             case 801:
                 $response = [
                     'http_status_code' => 400,
                     'status_message' => '看板修改失敗。'
                 ];
                 break;
+            case 802:
+                $response = [
+                    'http_status_code' => 400,
+                    'status_message' => '更新失敗。'
+                ];
+                break;
             case 901:
                 $response = [
                     'http_status_code' => 400,
                     'status_message' => '看板刪除失敗。'
+                ];
+                break;
+            case 902:
+                $response = [
+                    'http_status_code' => 400,
+                    'status_message' => '刪除失敗。'
                 ];
                 break;
             default:

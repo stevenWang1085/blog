@@ -43,6 +43,11 @@ abstract class BaseRepository
         return $this->query()->findOrFail($id);
     }
 
+    public function lockForUpdate($id)
+    {
+        return $this->query()->lockForUpdate()->findOrFail($id);
+    }
+
     public function get($validator_data = null)
     {
         if ($validator_data == null) {

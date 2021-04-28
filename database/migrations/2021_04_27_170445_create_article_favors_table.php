@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBoardTable extends Migration
+class CreateArticleFavorsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,17 @@ class CreateBoardTable extends Migration
      */
     public function up()
     {
-        Schema::create('boards', function (Blueprint $table) {
+        Schema::create('article_favors', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name', 10)->comment('名稱')->unique();
-            $table->string('memo', 60)->comment('備註');
-            $table->integer('edited_user_id')->comment('編輯者')->unsigned();
-            $table->foreign('edited_user_id')
+            $table->integer('article_id')->unsigned();
+            $table->integer('user_id')->unsigned();
+            $table->unique(['article_id', 'user_id']);
+            $table->foreign('user_id')
                 ->references('id')
                 ->on('users');
+            $table->foreign('article_id')
+                ->references('id')
+                ->on('articles');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
         });
@@ -33,6 +36,6 @@ class CreateBoardTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('boards');
+        Schema::dropIfExists('article_favors');
     }
 }

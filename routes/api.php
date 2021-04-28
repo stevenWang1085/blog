@@ -26,3 +26,5 @@ Route::post('/user/forget_password/page', 'User\Controller@forgetPasswordPage');
 Route::post('/user/forget_password/check', 'User\Controller@forgetPasswordCheck');
 
 Route::resource('/board', 'Board\Controller');
+Route::resource('/article', 'Article\Controller');
+Route::patch('/article/{id}/favor', 'Article\Controller@updateFavor');
