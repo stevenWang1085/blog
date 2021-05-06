@@ -25,6 +25,24 @@ class ArticleCommentTest extends TestCase
         $response->assertStatus(200);
     }
 
+    public function testGetComment()
+    {
+        $this->setArticleInit();
+        $this->post('api/article', [
+            'board_id' => 1,
+            'title' => '閒聊',
+            'content' => '安安你好'
+        ]);
+        $article = new Repository();
+        $data = $article->first(['title' => '閒聊']);
+        $this->post("api/article/{$data->id}/comment", [
+            'comment' => 'comment1'
+        ]);
+
+        $response = $this->get("api/article/{$data->id}/comment");
+        $response->assertJson(['code' => "1201"]);
+    }
+
     public function testCreateComment()
     {
         $this->setArticleInit();
@@ -103,6 +121,26 @@ class ArticleCommentTest extends TestCase
         $this->assertSoftDeleted('article_comments', [
             'id' => $data->id
         ]);
+    }
+
+
+    public function testCountArticleComments()
+    {
+        $this->setArticleInit();
+        $this->post('api/article', [
+            'board_id' => 1,
+            'title' => '閒聊',
+            'content' => '安安你好'
+        ]);
+
+        $article = new Repository();
+        $data = $article->first(['title' => '閒聊']);
+        $this->post("api/article/{$data->id}/comment", [
+            'comment' => 'comment1'
+        ]);
+        $check_data = $article->first(['title' => '閒聊']);
+
+        $this->assertEquals(1, $check_data['comments']);
     }
 
 }

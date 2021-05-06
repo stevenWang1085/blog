@@ -31,6 +31,7 @@ class Form extends BaseForm
                 ];
                 break;
             case "forgetPasswordSendEmail":
+            case "resetCodePageCheck":
                 $different_rules = [
                     'email'    => 'required|email|exists:users',
                 ];

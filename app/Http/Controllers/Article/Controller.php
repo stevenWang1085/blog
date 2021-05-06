@@ -8,23 +8,36 @@
 
 namespace App\Http\Controllers\Article;
 
+use App\Management\Article\SearchService\Search;
 use Illuminate\Http\Request;
 use App\Management\Article\Service as ArticleService;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Article\Transformer as ArticleTransformer;
 
 class Controller extends \App\Http\Controllers\Controller
 {
     private $articleService;
+    private $articleTransformer;
 
     public function __construct()
     {
         $this->articleService = new ArticleService();
+        $this->articleTransformer = new ArticleTransformer();
     }
 
-    public function index()
+    public function index(Form $request)
     {
         try {
-            $response = $this->responseMaker(501, null, null);
+            $filters = [
+                'board_id' => $request->board_id,
+                'contents' => $request->contents,
+                'title'    => $request->title,
+                'per_page' => $request->per_page ?? 20
+            ];
+            $result = Search::apply($filters, 'page');
+            if (count($result) === 0) return $this->responseMaker(202, null, null);
+            $data = $this->articleTransformer->articleIndexTransform($result, $filters['per_page']);
+            $response = $this->responseMaker(201, null, $data);
         } catch (\Exception $e) {
             $response = $this->responseMaker(1, $e->getMessage(), null);
         }
@@ -37,7 +50,7 @@ class Controller extends \App\Http\Controllers\Controller
             DB::beginTransaction();
             $result = $this->articleService->store($request);
             if ($result === false) return $this->responseMaker(607, null, null);
-            $response = $this->responseMaker(106, null, null);
+            $response = $this->responseMaker(108, null, null);
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
@@ -46,10 +59,12 @@ class Controller extends \App\Http\Controllers\Controller
         return $response;
     }
 
-    public function show()
+    public function show(Form $request, $id)
     {
         try {
-            $response = $this->responseMaker(501, null, null);
+            $result = $this->articleService->showOneArticle($id);
+            $data = $this->articleTransformer->articleShowTransform($result);
+            $response = $this->responseMaker(201, null, $data);
         } catch (\Exception $e) {
             $response = $this->responseMaker(1, $e->getMessage(), null);
         }

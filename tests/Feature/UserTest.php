@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Feature;
 
 use App\Management\User\Repository as UserRepository;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -68,7 +68,7 @@ class UserTest extends TestCase
         $response = $this->post('api/user', [
             'name' => 'steven2',
             'email' => '0ada@mail.com',
-            'password' => 'asa2'
+            'password' => 'asas122wf'
         ]);
 
         $response->assertStatus(402);
@@ -139,7 +139,7 @@ class UserTest extends TestCase
                 'reset_password_limit_time' => '2022-04-26 10:59:11'
             ]
         );
-        $response = $this->post('api/user/forget_password/page', [
+        $response = $this->post('api/user/reset_code/check', [
             'reset_password_code' => 'reset_code',
         ]);
         $response->assertOk();

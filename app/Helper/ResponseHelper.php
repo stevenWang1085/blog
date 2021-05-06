@@ -21,6 +21,12 @@ trait ResponseHelper
                     'status_message' => '查詢成功',
                 ];
                 break;
+            case 202:
+                $response = [
+                    'http_status_code' => 200,
+                    'status_message' => '查無資料',
+                ];
+                break;
             case 101:
                 $response = [
                     'http_status_code' => 200,
@@ -67,6 +73,12 @@ trait ResponseHelper
                 $response = [
                     'http_status_code' => 200,
                     'status_message' => '新增成功',
+                ];
+                break;
+            case 109:
+                $response = [
+                    'http_status_code' => 200,
+                    'status_message' => '登出成功',
                 ];
                 break;
             case 301:
@@ -151,6 +163,12 @@ trait ResponseHelper
                 $response = [
                     'http_status_code' => 400,
                     'status_message' => '新增失敗。'
+                ];
+                break;
+            case 701:
+                $response = [
+                    'http_status_code' => 400,
+                    'status_message' => '請檢查代碼並確認連結失效或是信箱錯誤。'
                 ];
                 break;
             case 801:

@@ -21,6 +21,11 @@ class Service extends BaseService
         $this->repository = new Repository();
     }
 
+    public function getCurrentUser()
+    {
+        return $this->repository->find(session()->get('user_id'));
+    }
+
     /**
      * 使用者註冊
      *
@@ -48,6 +53,7 @@ class Service extends BaseService
     {
         $user_data = $this->repository->first(['email' => $request->email]);
         if ($user_data === null || password_verify($request->password, $user_data['password']) === false) return false;
+        session()->put('user_id', $user_data->id);
 
         return true;
     }
@@ -67,7 +73,7 @@ class Service extends BaseService
         $title = "[會員重置密碼]";
         $content = "會員：{$mail_to}";
         $content .= "重置代碼：".$reset_code.PHP_EOL;
-        $link = "http://localhost:90/reset_password/{$reset_code}";
+        $link = "http://localhost:90/reset_password.html?email={$mail_to}";
         $data = [
             'subject' => $title,
             'content' => nl2br($content),
@@ -75,7 +81,7 @@ class Service extends BaseService
             'link_limit_time' => $link_limit_time
         ];
 
-        if ($this->updateResetData($mail_to, $reset_code, $now)) {
+        if ($this->updateResetData($mail_to, $reset_code, $link_limit_time)) {
             Mail::send('reset_password', $data, function($message) use ($title, $mail_to){
                 $message->to($mail_to)->subject($title);
             });
@@ -98,7 +104,7 @@ class Service extends BaseService
     {
         $where = ['email' => $mail];
         $update_data = [
-            'reset_password_code' => $reset_code,
+            'reset_password_code'       => $reset_code,
             'reset_password_limit_time' => $link_limit_time
         ];
         $result = $this->repository->updateWheres($where, $update_data);
@@ -139,11 +145,20 @@ class Service extends BaseService
      * @param $request
      * @return bool
      */
-    public function forgetPasswordPageCheck($request)
+    public function resetCodeCheck($request)
     {
         $user_data = $this->repository->first(['reset_password_code' => $request->reset_password_code]);
         #檢測重置碼是否過期
-        if (time() > strtotime($user_data['reset_password_limit_time'])) return false;
+        if (is_null($user_data) || time() > strtotime($user_data['reset_password_limit_time'])) return false;
+
+        return true;
+    }
+
+    public function resetCodePageCheck($request)
+    {
+        $user_data = $this->repository->first(['email' => $request->email]);
+        #檢測信箱是否有被重設密碼
+        if (is_null($user_data['reset_password_code'])) return false;
 
         return true;
     }

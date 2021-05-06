@@ -11,5 +11,13 @@ namespace App\Http\Controllers\User;
 
 class Transformer
 {
+    public function getCurrentUserTransform($result)
+    {
+        return [
+            'id'    => $result['id'],
+            'name'  => $result['name'],
+            'email' => $result['email']
+        ];
+    }
 
 }

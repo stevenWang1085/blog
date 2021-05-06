@@ -11,14 +11,17 @@ namespace App\Http\Controllers\User;
 use Illuminate\Http\Request;
 use App\Management\User\Service as UserService;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\User\Transformer as UserTransFormer;
 
 class Controller extends \App\Http\Controllers\Controller
 {
     private $userService;
+    private $userTransFormer;
 
     public function __construct()
     {
         $this->userService = new UserService();
+        $this->userTransFormer = new UserTransFormer();
     }
 
     public function index()
@@ -36,7 +39,18 @@ class Controller extends \App\Http\Controllers\Controller
         try {
             $result = $this->userService->loginUser($request);
             if ($result === false) return $this->responseMaker(602, null, null);
-            $response = $this->responseMaker(101, null, null);
+            $response = $this->responseMaker(102, null, null);
+        } catch (\Exception $e) {
+            $response = $this->responseMaker(1, $e->getMessage(), null);
+        }
+        return $response;
+    }
+
+    public function logout()
+    {
+        try {
+            session()->remove('user_id');
+            $response = $this->responseMaker(109, null, null);
         } catch (\Exception $e) {
             $response = $this->responseMaker(1, $e->getMessage(), null);
         }
@@ -55,11 +69,23 @@ class Controller extends \App\Http\Controllers\Controller
         return $response;
     }
 
-    public function forgetPasswordPage(Form $request)
+    public function resetCodeCheck(Form $request)
     {
         try {
-            $result = $this->userService->forgetPasswordPageCheck($request);
-            if ($result === false) return $this->responseMaker(604, null, null);
+            $result = $this->userService->resetCodeCheck($request);
+            if ($result === false) return $this->responseMaker(701, null, null);
+            $response = $this->responseMaker(105, null, null);
+        } catch (\Exception $e) {
+            $response = $this->responseMaker(1, $e->getMessage(), null);
+        }
+        return $response;
+    }
+
+    public function resetCodePageCheck(Form $request)
+    {
+        try {
+            $result = $this->userService->resetCodePageCheck($request);
+            if ($result === false) return $this->responseMaker(701, null, null);
             $response = $this->responseMaker(105, null, null);
         } catch (\Exception $e) {
             $response = $this->responseMaker(1, $e->getMessage(), null);
@@ -96,7 +122,9 @@ class Controller extends \App\Http\Controllers\Controller
     public function show()
     {
         try {
-            $response = $this->responseMaker(501, null, null);
+            $result = $this->userService->getCurrentUser();
+            $data = $this->userTransFormer->getCurrentUserTransform($result);
+            $response = $this->responseMaker(201, null, $data);
         } catch (\Exception $e) {
             $response = $this->responseMaker(1, $e->getMessage(), null);
         }

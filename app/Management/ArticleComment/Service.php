@@ -9,14 +9,17 @@
 namespace App\Management\ArticleComment;
 
 use App\Management\BaseService;
+use App\Management\Article\Repository as ArticleRepository;
 
 class Service extends BaseService
 {
     private $repository;
+    private $articleRepository;
 
     public function __construct()
     {
         $this->repository = new Repository();
+        $this->articleRepository = new ArticleRepository();
     }
 
     public function store($request, $article_id)
@@ -26,6 +29,10 @@ class Service extends BaseService
             'user_id'    => $this->user_id,
             'comment'    => $request->comment
         ];
+
+        #更新article總表留言數
+        $article_data = $this->articleRepository->find($article_id);
+        $this->articleRepository->updateWheres(['id' => $article_id], ['comments' => $article_data['comments'] +1]);
 
         return $this->repository->insert($data);
     }

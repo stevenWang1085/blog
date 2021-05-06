@@ -8,23 +8,34 @@
 
 namespace App\Http\Controllers\ArticleComment;
 
+use App\Management\ArticleComment\SearchService\Search;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Management\ArticleComment\Service as ArticleCommentService;
+use App\Http\Controllers\ArticleComment\Transformer as ArticleCommentTransformer;
 
 class Controller extends \App\Http\Controllers\Controller
 {
     private $articleCommentService;
+    private $articleCommentTransformer;
 
     public function __construct()
     {
         $this->articleCommentService = new ArticleCommentService();
+        $this->articleCommentTransformer = new ArticleCommentTransformer();
     }
 
-    public function index()
+    public function index(Form $request, $article_id)
     {
         try {
-            $response = $this->responseMaker(501, null, null);
+            $filters = [
+                'article_id' => $article_id,
+                'per_page'   => 20
+            ];
+            $result = Search::apply($filters, 'page');
+            if (count($result) === 0) return $this->responseMaker(202, null, null);
+            $data = $this->articleCommentTransformer->articleCommentIndexTransform($result, $filters['per_page']);
+            $response = $this->responseMaker(201, null, $data);
         } catch (\Exception $e) {
             $response = $this->responseMaker(1, $e->getMessage(), null);
         }

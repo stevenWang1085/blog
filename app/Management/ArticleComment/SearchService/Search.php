@@ -13,7 +13,7 @@ use App\Management\ArticleComment\Entity;
 
 class Search extends BaseSearchService
 {
-    public function apply($filters, $type = 'page')
+    public static function apply($filters, $type = 'page')
     {
         foreach ($filters as $key => $val) {
             if (empty($val) || $val == '' || $val == null || $val == 'all') {
@@ -22,6 +22,7 @@ class Search extends BaseSearchService
         }
 
         $query = BaseSearchService::applyDecoratorsFromRequest($filters, (new Entity)
+            ->with('userRelation')
             ->newQuery(), 'Filters', __NAMESPACE__);
 
         if ($type == 'page') {

@@ -28,6 +28,27 @@ class BoardTest extends TestCase
         $response->assertStatus(200);
     }
 
+    public function testGetBoard()
+    {
+        $this->setArticleInit();
+        $response = $this->call('get', 'api/board', [
+            'name' => '查無資料'
+        ]);
+        $response->assertJson([
+            "http_status_code" => 200,
+            "status_message"   => "查無資料",
+            "return_data"      => null,
+            "code"             => "1202"
+        ]);
+
+        $response = $this->call('get', 'api/board', [
+            'name' => '閒聊'
+        ]);
+        $this->assertDatabaseHas('boards', ['name' => '閒聊']);
+        $response->assertOk();
+
+    }
+
     public function testCreateBoard()
     {
         factory(UserEntity::class)->create();

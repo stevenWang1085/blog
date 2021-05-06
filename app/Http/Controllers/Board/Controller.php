@@ -8,22 +8,34 @@
 
 namespace App\Http\Controllers\Board;
 
+use App\Management\Board\SearchService\Search;
 use App\Management\Board\Service as BoardService;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Board\Transformer as BoardTransformer;
 
 class Controller extends \App\Http\Controllers\Controller
 {
     private $boardService;
+    private $boardTransformer;
 
     public function __construct()
     {
         $this->boardService = new BoardService();
+        $this->boardTransformer = new BoardTransformer();
     }
 
-    public function index()
+    public function index(Form $request)
     {
         try {
-            $response = $this->responseMaker(501, null, null);
+            $filters = [
+                'name' => $request->name,
+                'per_page' => 20,
+            ];
+            $result = Search::apply($filters, 'page');
+            if (count($result) === 0) return $this->responseMaker(202, null, null);
+            $data = $this->boardTransformer->boardIndexTransformer($result, $filters['per_page']);
+
+            $response = $this->responseMaker(201, null, $data);
         } catch (\Exception $e) {
             $response = $this->responseMaker(1, $e->getMessage(), null);
         }

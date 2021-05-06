@@ -26,6 +26,52 @@ class ArticleTest extends TestCase
         $response->assertStatus(200);
     }
 
+    public function testGetArticle()
+    {
+        $this->setArticleInit();
+
+        $response = $this->call('get', 'api/article', []);
+        $response->assertJson([
+            "http_status_code" => 200,
+            "status_message"   => "查無資料",
+            "return_data"      => null,
+            "code"             => "1202"
+        ]);
+
+        $this->post('api/article', [
+            'board_id' => 1,
+            'title' => '閒聊',
+            'content' => '安安你好'
+        ]);
+
+        $response = $this->call('get', 'api/article', [
+            'content' => '安安你好'
+        ]);
+        $this->assertDatabaseHas('articles', ['content' => '安安你好']);
+        $response->assertOk();
+    }
+
+    public function testGetOneArticle()
+    {
+        $this->setArticleInit();
+        $this->post('api/article', [
+            'board_id' => 1,
+            'title' => '閒聊',
+            'content' => '安安你好'
+        ]);
+        $article = new Repository();
+        $data = $article->first(['title' => '閒聊']);
+        $response = $this->get('api/article/'.$data['id']);
+
+        $response->assertJson(['return_data' => [
+            'id'       => 1,
+            'title'    => '閒聊',
+            'content'  => '安安你好',
+            'board_id' => 1,
+            'favor'    => 0
+        ]]);
+    }
+
     public function testCreateArticle()
     {
         $this->setArticleInit();

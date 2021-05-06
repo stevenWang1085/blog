@@ -81,9 +81,9 @@ class Service extends BaseService
         }
     }
 
-    public function storeComment($request, $id)
+    public function showOneArticle($id)
     {
-
+        return $this->repository->find($id);
     }
 
 }

@@ -28,4 +28,9 @@ class Entity extends Model
         'updated_at',
         'deleted_at'
     ];
+
+    public function userRelation()
+    {
+        return $this->belongsTo(\App\Management\User\Entity::class, 'user_id', 'id');
+    }
 }
