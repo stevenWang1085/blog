@@ -43,8 +43,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\": "tests/",
-            "App\\Helpers\\": "app/Helper/"
+            "Tests\\": "tests/"
         }
     },
     "minimum-stability": "dev",
