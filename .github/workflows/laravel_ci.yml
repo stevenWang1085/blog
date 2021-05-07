@@ -23,7 +23,7 @@ jobs:
           composer install --no-scripts
       - name: install doctrine/dbal
         run: |
-          composer require doctrine/dbal 2.12.1
+          composer require doctrine/dbal:2.12.1
           composer dump-autoload
       - name: Generate key
         run: php artisan key:generate
