@@ -22,3 +22,4 @@ Route::get('/login', function () {
 Route::get('/reset_password/{code}', function ($code) {
     return view('reset_password_check');
 });
+
