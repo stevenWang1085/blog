@@ -51,7 +51,7 @@ class Service extends BaseService
      */
     public function loginUser($request)
     {
-        $user_data = $this->repository->first(['email' => $request->email]);
+        $user_data = $this->repository->firstUser($request->email);
         if ($user_data === null || password_verify($request->password, $user_data['password']) === false) return false;
         session()->put('user_id', $user_data->id);
 

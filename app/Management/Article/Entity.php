@@ -33,4 +33,9 @@ class Entity extends Model
     {
         return $this->belongsTo(\App\Management\User\Entity::class, 'edited_user_id', 'id');
     }
+
+    public function articleFavorRelation()
+    {
+        return $this->hasMany(\App\Management\ArticleFavor\Entity::class, 'article_id', 'id');
+    }
 }

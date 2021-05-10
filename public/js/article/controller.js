@@ -88,6 +88,8 @@ function getOneArticle(article_id) {
             $('#post_comment_aria').empty();
             $('#article_operation').empty();
             let data = success.return_data;
+            let color = 'black';
+            if (data.current_favor >= 1) color = 'blue';
             $('#article_detail').append('<div class="media forum-item">\n' +
                 '                                <a href="javascript:void(0)" class="card-link">\n' +
                 '                                    <img src="/images/forum_man.png" class="rounded-circle" width="50" alt="User" />\n' +
@@ -107,7 +109,7 @@ function getOneArticle(article_id) {
                 '                                </div>\n' +
                 '                            </div>');
             $('#post_comment_aria').append('<button class="btn btn-primary btn-sm shadow-none" type="button" id="post_comment" onclick="postComment('+data.id+')">Post comment</button>');
-            $('#article_operation').append('<div class="like p-2 cursor"><span class="ml-1" onclick="updateArticleFavor('+data.id+')"><i class="fas fa-thumbs-up"></i> Like</span></div>\n' +
+            $('#article_operation').append('<div class="like p-2 cursor"><span class="ml-1" onclick="updateArticleFavor('+data.id+')"><i class="fas fa-thumbs-up" style="color: '+color+'"></i> Like</span></div>\n' +
                 '                                <div class="like p-2 cursor action-collapse" data-toggle="collapse" aria-expanded="true" aria-controls="collapse-1" href="#collapse-1"><i class="far fa-comment"></i><span class="ml-1" id="comment_span">Comment</span></div>');
         },
         error: function (error) {

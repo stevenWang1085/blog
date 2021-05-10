@@ -34,15 +34,26 @@ class Transformer
     public function articleShowTransform($result)
     {
         return [
-            'id'         => $result['id'],
-            'board_id'   => $result['board_id'],
-            'title'      => $result['title'],
-            'content'    => $result['content'],
-            'favor'      => $result['favor'],
-            'comments'   => $result['comments'],
-            'user_id'    => $result->userRelation['id'],
-            'username'   => $result->userRelation['name'],
-            'created_at' => date('Y-m-d H:i:s', strtotime($result['created_at'])),
+            'id'            => $result['id'],
+            'board_id'      => $result['board_id'],
+            'title'         => $result['title'],
+            'content'       => $result['content'],
+            'favor'         => $result['favor'],
+            'comments'      => $result['comments'],
+            'user_id'       => $result->userRelation['id'],
+            'username'      => $result->userRelation['name'],
+            'created_at'    => date('Y-m-d H:i:s', strtotime($result['created_at'])),
+            'current_favor' => $this->checkUserHaveFavor($result->articleFavorRelation)
         ];
+    }
+
+    private function checkUserHaveFavor($favor_user)
+    {
+        $check = false;
+        foreach ($favor_user as $value) {
+            if ($value['user_id'] === session()->get('user_id')) $check = true;
+        }
+
+        return $check;
     }
 }
