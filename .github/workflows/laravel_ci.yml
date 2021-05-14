@@ -1,14 +1,12 @@
-name: Laravel
+name: Laravel CI
 
-on: push
-
-#    branches: [ master ]
-#  pull_request:
-#    branches: [ master ]
-
+on:
+  push:
+    branches:
+      - develop
 
 jobs:
-  laravel-tests:
+  laravel-ci:
 
     runs-on: ubuntu-latest
 
