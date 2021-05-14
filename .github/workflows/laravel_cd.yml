@@ -6,7 +6,7 @@ on:
       - master
 env:
   PROJECT_ID: ${{ secrets.GCE_PROJECT }}
-  GCE_INSTANCE: steven-test-supervisor
+  GCE_INSTANCE: test-actions
   GCE_INSTANCE_ZONE: asia-east1-b
 
 jobs:
