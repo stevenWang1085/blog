@@ -24,14 +24,7 @@ class UserTest extends TestCase
     {
         $this->assertTrue(true);
     }
-
-    public function testUserRegisterPage()
-    {
-        $response = $this->get(route('login'));
-
-        $response->assertSuccessful();
-    }
-
+    
     /**
      * 使用者註冊測試
      *
