@@ -15,6 +15,12 @@ trait ResponseHelper
         $project_code = 001;
 
         switch ($code) {
+            case 1:
+                $response = [
+                    'http_status_code' => 400,
+                    'status_message' => $message,
+                ];
+                break;
             case 201:
                 $response = [
                     'http_status_code' => 200,
@@ -42,7 +48,7 @@ trait ResponseHelper
             case 103:
                 $response = [
                     'http_status_code' => 200,
-                    'status_message' => '信件寄送成功',
+                    'status_message' => '重置信件已寄送，請至此信箱檢查。',
                 ];
                 break;
             case 104:

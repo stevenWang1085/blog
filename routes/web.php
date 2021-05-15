@@ -12,12 +12,13 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('login');
 });
 
-Route::get('/login', function () {
-    return view('login');
-})->name('login');
+Route::get('/forum', function () {
+    return view('forum');
+});
+
 
 Route::get('/reset_password/{code}', function ($code) {
     return view('reset_password_check');

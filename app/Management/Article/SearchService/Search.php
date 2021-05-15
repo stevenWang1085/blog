@@ -23,6 +23,7 @@ class Search extends BaseSearchService
 
         $query = BaseSearchService::applyDecoratorsFromRequest($filters, (new Entity)
             ->with(['userRelation', 'articleFavorRelation'])
+            ->orderBy('created_at', 'desc')
             ->newQuery(), 'Filters', __NAMESPACE__);
 
         if ($type == 'page') {

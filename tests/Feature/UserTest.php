@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Management\User\Repository as UserRepository;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -39,7 +40,7 @@ class UserTest extends TestCase
     {
         $user_data = [
             'name'     => $this->faker->name,
-            'email'    => $this->faker->email,
+            'email'    => '4a114019@stust.edu.tw',
             'password' => 'dwdwdsswd'
         ];
 

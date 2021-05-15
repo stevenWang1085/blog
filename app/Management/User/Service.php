@@ -8,9 +8,10 @@
 
 namespace App\Management\User;
 
+use App\Events\UserRegistered;
+use App\Jobs\SendEmail;
 use App\Management\BaseService;
-use Illuminate\Support\Facades\Mail;
-use SebastianBergmann\CodeCoverage\Report\PHP;
+
 
 class Service extends BaseService
 {
@@ -40,7 +41,11 @@ class Service extends BaseService
             'password' => password_hash($request->password, PASSWORD_DEFAULT)
         ];
 
-        return $this->repository->insert($user_data);
+        if ($this->repository->insert($user_data)) {
+            event(new UserRegistered($user_data));
+        }
+
+        return false;
     }
 
     /**
@@ -73,7 +78,7 @@ class Service extends BaseService
         $title = "[會員重置密碼]";
         $content = "會員：{$mail_to}";
         $content .= "重置代碼：".$reset_code.PHP_EOL;
-        $link = "http://localhost:90/reset_password.html?email={$mail_to}";
+        $link = "http://localhost:81/reset_password.html?email={$mail_to}";
         $data = [
             'subject' => $title,
             'content' => nl2br($content),
@@ -82,9 +87,8 @@ class Service extends BaseService
         ];
 
         if ($this->updateResetData($mail_to, $reset_code, $link_limit_time)) {
-            Mail::send('reset_password', $data, function($message) use ($title, $mail_to){
-                $message->to($mail_to)->subject($title);
-            });
+            $job = new SendEmail('reset_password', $data, $title, $mail_to);
+            dispatch($job);
 
             return true;
         }
