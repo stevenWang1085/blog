@@ -15,15 +15,17 @@ class Search extends BaseSearchService
 {
     public static  function apply($filters, $type = 'page')
     {
+        $order = [];
         foreach ($filters as $key => $val) {
-            if (empty($val) || $val == '' || $val == null || $val == 'all') {
+            if (empty($val) || $val == '' || $val == null || $val == 'all' || $key == 'order_column' || $key == 'order_column_by') {
+                $order[$key] = $val;
                 unset($filters[$key]);
             }
         }
 
         $query = BaseSearchService::applyDecoratorsFromRequest($filters, (new Entity)
             ->with(['userRelation', 'articleFavorRelation'])
-            ->orderBy('created_at', 'desc')
+            ->orderBy($order['order_column'], $order['order_column_by'])
             ->newQuery(), 'Filters', __NAMESPACE__);
 
         if ($type == 'page') {

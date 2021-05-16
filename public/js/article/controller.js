@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    getChangeSelectValueFromForum();
     getAllArticle();
 
     $('#article_post').click(function () {
@@ -12,10 +13,9 @@ $(document).ready(function () {
             data: {
                 board_id: board,
                 title: title,
-                content: content
+                content: content,
             },
             success: function (success) {
-                alert(success.status_message);
                 location.reload();
                 console.log(success);
             },
@@ -33,15 +33,33 @@ $(document).ready(function () {
 
 });
 
-function getAllArticle(title = null, contents = null, board_id = null) {
+function getChangeSelectValueFromForum() {
 
+    sessionStorage.setItem('order_column', $('#select_forum_list').val());
+    sessionStorage.setItem('order_column_by', $('#select_forum_type').val());
+
+    $('#select_forum_list').on('change', function () {
+        sessionStorage.setItem('order_column', $('#select_forum_list').val());
+        getAllArticle();
+    })
+
+    $('#select_forum_type').on('change', function () {
+        sessionStorage.setItem('order_column_by', $('#select_forum_type').val());
+        getAllArticle();
+    })
+
+}
+
+function getAllArticle(title = null, contents = null, board_id = null) {
     $.ajax({
         url: 'api/article',
         type: "GET",
         data: {
             title: title,
             contents: contents,
-            board_id: board_id
+            board_id: board_id,
+            order_column: sessionStorage.getItem('order_column'),
+            order_column_by: sessionStorage.getItem('order_column_by')
         },
         success: function (success) {
             console.log(success);

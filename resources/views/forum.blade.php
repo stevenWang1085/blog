@@ -70,15 +70,17 @@
                 <!-- Inner main header -->
                 <div class="inner-main-header">
                     <a class="nav-link nav-icon rounded-circle nav-link-faded mr-3 d-md-none" href="#" data-toggle="inner-sidebar"><i class="material-icons">arrow_forward_ios</i></a>
-                    <select class="custom-select custom-select-sm w-auto mr-1">
-                        <option selected="">Latest</option>
-                        <option value="1">Popular</option>
-                        <option value="3">Solved</option>
-                        <option value="3">Unsolved</option>
-                        <option value="3">No Replies Yet</option>
+                    <select class="custom-select custom-select-sm w-auto mr-1" id="select_forum_list">
+                        <option selected="" value="created_at">發表時間</option>
+                        <option value="favor">按讚數</option>
+                        <option value="comment">留言數</option>
+                    </select>
+                    <select class="custom-select custom-select-sm w-auto mr-1" id="select_forum_type">
+                        <option selected="" value="desc">降冪</option>
+                        <option value="asc">升冪</option>
                     </select>
                     <span class="input-icon input-icon-sm col-2">
-                    <input type="text" class="form-control form-control-sm bg-gray-200 border-gray-200 shadow-none mb-4 mt-4" placeholder="Search forum" />
+                    <input type="text" class="form-control form-control-sm bg-gray-200 border-gray-200 shadow-none mb-4 mt-4" placeholder="標題或內容" />
                     </span>
                     <span class="input-icon input-icon-sm ml-auto user_aria">
                         <label>Hello </label> <label id="current_username">123</label>
