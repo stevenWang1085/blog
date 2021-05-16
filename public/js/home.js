@@ -18,6 +18,7 @@ $(document).ready(function () {
     showLoginUser();
 });
 
+
 function showLoginUser() {
     $.ajax({
         url: 'api/user/get_current',
