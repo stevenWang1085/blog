@@ -47,7 +47,6 @@ function getChangeSelectValueFromForum() {
         sessionStorage.setItem('order_column_by', $('#select_forum_type').val());
         getAllArticle();
     })
-
 }
 
 function getAllArticle(title = null, contents = null, board_id = null) {
