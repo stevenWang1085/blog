@@ -28,7 +28,7 @@ class SendWelcomeMail implements ShouldQueue
      */
     public function handle(UserRegistered $event)
     {
-        //寄信給註冊成功使用者，送入佇列
+        #寄信給註冊成功使用者，送入佇列
         $job = new SendEmail('welcome', $event->user, '歡迎註冊論壇！', $event->user['email']);
         dispatch($job);
     }

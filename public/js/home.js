@@ -6,7 +6,7 @@ $(document).ready(function () {
             data: {
             },
             success: function (success) {
-                window.location.href = '/login.html';
+                window.location.href = '/';
                 console.log(success);
             },
             error: function (error) {

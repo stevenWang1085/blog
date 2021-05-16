@@ -123,6 +123,12 @@ trait ResponseHelper
                     'status_message' => '無權限訪問',
                 ];
                 break;
+            case 503:
+                $response = [
+                    'http_status_code' => 403,
+                    'status_message' => '尚未登入',
+                ];
+                break;
             case 601:
                 $response = [
                     'http_status_code' => 402,
