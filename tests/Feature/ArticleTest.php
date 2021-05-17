@@ -29,7 +29,6 @@ class ArticleTest extends TestCase
     public function testGetArticle()
     {
         $this->setArticleInit();
-
         $response = $this->call('get', 'api/article', []);
         $response->assertJson([
             "http_status_code" => 200,

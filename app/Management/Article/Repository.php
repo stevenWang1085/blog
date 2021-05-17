@@ -21,4 +21,12 @@ class Repository extends BaseRepository
         $this->entity = new Entity();
     }
 
+    public function getOneWithRelation($id, $relations)
+    {
+        return $this->entity
+            ->with($relations)
+            ->where('id', $id)
+            ->first();
+    }
+
 }

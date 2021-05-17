@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    getChangeSelectValueFromForum();
     getAllArticle();
 
     $('#article_post').click(function () {
@@ -12,10 +13,9 @@ $(document).ready(function () {
             data: {
                 board_id: board,
                 title: title,
-                content: content
+                content: content,
             },
             success: function (success) {
-                alert(success.status_message);
                 location.reload();
                 console.log(success);
             },
@@ -33,15 +33,32 @@ $(document).ready(function () {
 
 });
 
-function getAllArticle(title = null, contents = null, board_id = null) {
+function getChangeSelectValueFromForum() {
 
+    sessionStorage.setItem('order_column', $('#select_forum_list').val());
+    sessionStorage.setItem('order_column_by', $('#select_forum_type').val());
+
+    $('#select_forum_list').on('change', function () {
+        sessionStorage.setItem('order_column', $('#select_forum_list').val());
+        getAllArticle();
+    })
+
+    $('#select_forum_type').on('change', function () {
+        sessionStorage.setItem('order_column_by', $('#select_forum_type').val());
+        getAllArticle();
+    })
+}
+
+function getAllArticle(title = null, contents = null, board_id = null) {
     $.ajax({
         url: 'api/article',
         type: "GET",
         data: {
             title: title,
             contents: contents,
-            board_id: board_id
+            board_id: board_id,
+            order_column: sessionStorage.getItem('order_column'),
+            order_column_by: sessionStorage.getItem('order_column_by')
         },
         success: function (success) {
             console.log(success);
@@ -88,6 +105,8 @@ function getOneArticle(article_id) {
             $('#post_comment_aria').empty();
             $('#article_operation').empty();
             let data = success.return_data;
+            let color = 'black';
+            if (data.current_favor >= 1) color = 'blue';
             $('#article_detail').append('<div class="media forum-item">\n' +
                 '                                <a href="javascript:void(0)" class="card-link">\n' +
                 '                                    <img src="/images/forum_man.png" class="rounded-circle" width="50" alt="User" />\n' +
@@ -107,7 +126,7 @@ function getOneArticle(article_id) {
                 '                                </div>\n' +
                 '                            </div>');
             $('#post_comment_aria').append('<button class="btn btn-primary btn-sm shadow-none" type="button" id="post_comment" onclick="postComment('+data.id+')">Post comment</button>');
-            $('#article_operation').append('<div class="like p-2 cursor"><span class="ml-1" onclick="updateArticleFavor('+data.id+')"><i class="fas fa-thumbs-up"></i> Like</span></div>\n' +
+            $('#article_operation').append('<div class="like p-2 cursor"><span class="ml-1" onclick="updateArticleFavor('+data.id+')"><i class="fas fa-thumbs-up" style="color: '+color+'"></i> Like</span></div>\n' +
                 '                                <div class="like p-2 cursor action-collapse" data-toggle="collapse" aria-expanded="true" aria-controls="collapse-1" href="#collapse-1"><i class="far fa-comment"></i><span class="ml-1" id="comment_span">Comment</span></div>');
         },
         error: function (error) {

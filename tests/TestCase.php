@@ -12,6 +12,7 @@ abstract class TestCase extends BaseTestCase
     public function setArticleInit()
     {
         $this->withoutExceptionHandling();
+        $this->withoutMiddleware();
 
         $this->seed('RootSeeder');
         $this->seed('BoardSeeder');

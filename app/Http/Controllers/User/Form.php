@@ -25,7 +25,7 @@ class Form extends BaseForm
                 break;
             case "store":
                 $different_rules = [
-                    'name'     => 'required',
+                    'name'     => 'required|unique:users',
                     'email'    => 'required|email|unique:users',
                     'password' => 'required|min:6'
                 ];
@@ -73,8 +73,9 @@ class Form extends BaseForm
             'required'     => ':attribute為必填。',
             'min'          => ':attribute長度需大於六位字元。',
             'email'        => ":attribute須為正確格式。",
-            'email.unique' => "信箱已被註冊過，請更換。",
-            'email.exists' => "信箱不存在，請註冊。",
+            'email.unique' => ":attribute已被註冊過，請更換。",
+            'name.unique'  => ":attribute已被註冊過，請更換。",
+            'email.exists' => ":attribute不存在，請註冊。",
             'confirm_reset_password.same' => "密碼請輸入一致。",
             'reset_password_code.exists' => "重置代碼錯誤。"
         ];

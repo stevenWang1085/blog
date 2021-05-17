@@ -11,14 +11,19 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group(['middleware' => 'check_login:web'], function () {
+    Route::get('/forum', function () {
+        return view('forum');
+    });
 });
 
-Route::get('/login', function () {
+Route::get('/', function () {
     return view('login');
-})->name('login');
+})->middleware('check_login:login');
+
 
 Route::get('/reset_password/{code}', function ($code) {
     return view('reset_password_check');
 });
+
+

@@ -21,4 +21,12 @@ class Repository extends BaseRepository
         $this->entity = new Entity();
     }
 
+    public function firstUser($data)
+    {
+        return $this->entity
+            ->where('email', $data)
+            ->orWhere('name', $data)
+            ->first();
+    }
+
 }

@@ -12,8 +12,7 @@ $(document).ready(function () {
                 password: password
             },
             success: function (success) {
-                alert(success.status_message);
-                window.location.href = '/forum.html';
+                window.location.href = '/forum';
                 console.log(success);
             },
             error: function (error) {
@@ -39,8 +38,7 @@ $(document).ready(function () {
                 password: password
             },
             success: function (success) {
-                alert(success.status_message);
-                window.location.href = '/login.html';
+                window.location.href = '/';
                 console.log(success);
             },
             error: function (error) {
@@ -60,8 +58,7 @@ $(document).ready(function () {
                 email: email,
             },
             success: function (success) {
-                alert(success.status_message);
-                window.location.href = '/login.html';
+                window.location.href = '/';
                 console.log(success);
             },
             error: function (error) {
@@ -80,7 +77,6 @@ $(document).ready(function () {
                 reset_password_code: reset_code,
             },
             success: function (success) {
-                alert(success.status_message);
                 window.location.href = '/check_reset_password.html';
                 console.log(success);
             },
@@ -106,8 +102,7 @@ $(document).ready(function () {
                 email: email
             },
             success: function (success) {
-                alert(success.status_message);
-                window.location.href = '/login.html';
+                window.location.href = '/';
                 console.log(success);
             },
             error: function (error) {
