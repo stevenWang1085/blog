@@ -25,7 +25,7 @@ RUN mkdir vendor \
 
 USER nginx
 RUN composer install \
-    && ./artisan config:clear
+    && ./artisan config:clear \
     && ./artisan key:generate
 
 ENV WEBROOT $SOURCE_ROOT/public
