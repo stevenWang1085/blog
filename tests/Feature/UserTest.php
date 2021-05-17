@@ -24,13 +24,14 @@ class UserTest extends TestCase
     {
         $this->assertTrue(true);
     }
-    
+
     /**
      * 使用者註冊測試
      *
      */
     public function testUserRegister()
     {
+        $this->withoutMiddleware();
         $user_data = [
             'name'     => $this->faker->name,
             'email'    => '4a114019@stust.edu.tw',
@@ -47,33 +48,12 @@ class UserTest extends TestCase
     }
 
     /**
-     *  使用者註冊資料驗證
-     *
-     */
-    public function testUserRegisterValidate()
-    {
-        $this->post('api/user', [
-            'name' => 'steven',
-            'email' => '0ada@mail.com',
-            'password' => 'asas122'
-        ]);
-
-        #email重複
-        $response = $this->post('api/user', [
-            'name' => 'steven2',
-            'email' => '0ada@mail.com',
-            'password' => 'asas122wf'
-        ]);
-
-        $response->assertStatus(402);
-    }
-
-    /**
      * 登入測試
      *
      */
     public function testUserLogin()
     {
+        $this->withoutMiddleware();
         #註冊
         $this->post('api/user', [
             'name' => 'steven',
@@ -104,6 +84,7 @@ class UserTest extends TestCase
      */
     public function testForgetPasswordSendEmail()
     {
+        $this->withoutMiddleware();
         $this->post('api/user', [
             'name' => 'steven',
             'email' => '4a114019@stust.edu.tw',
@@ -123,6 +104,7 @@ class UserTest extends TestCase
      */
     public function testResetPasswordPageCheck()
     {
+        $this->withoutMiddleware();
         $user_data = new  UserRepository();
         $user_data->insert(
             [
@@ -145,6 +127,7 @@ class UserTest extends TestCase
      */
     public function testResetPasswordCheck()
     {
+        $this->withoutMiddleware();
         $user_data = new  UserRepository();
         $user_data->insert(
             [

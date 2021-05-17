@@ -51,6 +51,7 @@ class BoardTest extends TestCase
 
     public function testCreateBoard()
     {
+        $this->setArticleInit();
         factory(UserEntity::class)->create();
         $response = $this->post('api/board', [
             'name' => 'test1',
@@ -66,6 +67,7 @@ class BoardTest extends TestCase
 
     public function testUpdateBoard()
     {
+        $this->setArticleInit();
         factory(UserEntity::class)->create();
         $this->post('api/board', [
             'name' => 'test1',
@@ -87,6 +89,7 @@ class BoardTest extends TestCase
 
     public function testDeleteBoard()
     {
+        $this->setArticleInit();
         factory(UserEntity::class)->create();
         $this->post('api/board', [
             'name' => 'test1',
