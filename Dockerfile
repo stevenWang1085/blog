@@ -8,6 +8,7 @@ RUN mkdir $SOURCE_ROOT/conf
 RUN mkdir $SOURCE_ROOT/script
 COPY nginx-site.conf $SOURCE_ROOT/conf
 COPY 00-init.sh $SOURCE_ROOT/script
+COPY .env.cd $SOURCE_ROOT/.env
 
 WORKDIR $SOURCE_ROOT
 RUN mkdir vendor \
