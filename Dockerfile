@@ -6,7 +6,7 @@ COPY . $SOURCE_ROOT
 RUN rm -rf vendor
 RUN mkdir $SOURCE_ROOT/conf
 RUN mkdir $SOURCE_ROOT/script
-COPY nginx-site.conf $SOURCE_ROOT/conf
+COPY default.conf $SOURCE_ROOT/conf
 COPY 00-init.sh $SOURCE_ROOT/script
 COPY .env.cd $SOURCE_ROOT/.env
 
@@ -25,9 +25,13 @@ RUN mkdir vendor \
 
 USER nginx
 RUN composer install \
+    && ./artisan config:clear
     && ./artisan key:generate
 
 ENV WEBROOT $SOURCE_ROOT/public
 ENV RUN_SCRIPTS 1
 ENV SKIP_COMPOSER 1
 USER root
+
+RUN cp $SOURCE_ROOT/default.conf /etc/nginx/sites-available/default.conf
+RUN supervisorctl reload

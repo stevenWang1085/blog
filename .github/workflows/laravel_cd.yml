@@ -39,13 +39,6 @@ jobs:
       - name: Execute tests (Unit and Feature tests) via PHPUnit
         run: vendor/bin/phpunit
 
-      - name: Copy .env.cd
-        run:  php -r "file_exists('.env') || copy('.env.cd', '.env');"
-      - name: set production database
-        run: |
-          php artisan config:clear
-          php artisan migrate
-
       # Setup gcloud CLI
       - uses: google-github-actions/setup-gcloud@master
         with:
