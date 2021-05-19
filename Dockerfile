@@ -34,4 +34,6 @@ ENV SKIP_COMPOSER 1
 USER root
 
 RUN cp $SOURCE_ROOT/default.conf /etc/nginx/sites-available/default.conf
-RUN supervisorctl reload
+RUN apk add supervisor
+RUN supervisorctl restart nginx
+RUN supervisorctl restart php-fpm
