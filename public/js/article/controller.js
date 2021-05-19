@@ -56,7 +56,7 @@ function getAllArticle(title = null, contents = null, board_id = null) {
         data: {
             title: title,
             contents: contents,
-            board_id: board_id,
+            board_id: sessionStorage.getItem('board_id'),
             order_column: sessionStorage.getItem('order_column'),
             order_column_by: sessionStorage.getItem('order_column_by')
         },
@@ -68,12 +68,12 @@ function getAllArticle(title = null, contents = null, board_id = null) {
             body += '                    <div class="card mb-2">\n' +
                 '                        <div class="card-body p-2 p-sm-3">\n' +
                 '                            <div class="media forum-item">\n' +
-                '                                <a href="#" data-toggle="collapse" data-target=".forum-content"><img src="/images/forum_man.png" class="mr-3 rounded-circle" width="50" alt="User" /></a>\n' +
+                '                                <a><img src="/images/forum_man.png" class="mr-3 rounded-circle" width="50" alt="User" /></a>\n' +
                 '                                <div class="media-body">\n' +
                 '                                    <h6><a href="javascript:void(0)" data-toggle="collapse" data-target=".forum-content" class="text-body" onclick="getArticleDetail('+val.id+')">'+val.title+'</a></h6>\n' +
                 '                                    <p class="text-secondary" style="overflow: hidden; text-overflow: ellipsis; width: 7em; height: 3em" >\n' +
                 '                                        '+val.content+' </p>\n' +
-                '                                    <p class="text-muted"><a href="javascript:void(0)">'+val.username+'</a> 發表於 <span class="text-secondary font-weight-bold">'+val.created_at+'</span></p>\n' +
+                '                                    <p class="text-muted"><a style="color: blue">'+val.username+'</a> 發表於 <span class="text-secondary font-weight-bold">'+val.created_at+'</span></p>\n' +
                 '                                </div>\n' +
                 '                                <div class="text-muted small text-center align-self-center">\n' +
                 '                                    <span class="d-none d-sm-inline-block"><i class="fas fa-thumbs-up"></i> '+val.favor+'</span>\n' +
@@ -108,12 +108,11 @@ function getOneArticle(article_id) {
             let color = 'black';
             if (data.current_favor >= 1) color = 'blue';
             $('#article_detail').append('<div class="media forum-item">\n' +
-                '                                <a href="javascript:void(0)" class="card-link">\n' +
+                '                                <a class="card-link">\n' +
                 '                                    <img src="/images/forum_man.png" class="rounded-circle" width="50" alt="User" />\n' +
-                '                                    <small class="d-block text-center text-muted">Newbie</small>\n' +
                 '                                </a>\n' +
                 '                                <div class="media-body ml-3">\n' +
-                '                                    <a href="javascript:void(0)" class="text-secondary">'+data.username+'</a>\n' +
+                '                                    <a style="color: blue" class="text-secondary">'+data.username+'</a>\n' +
                 '                                    <small class="text-muted ml-2">'+data.created_at+'</small>\n' +
                 '                                    <h5 class="mt-1">'+data.title+'</h5>\n' +
                 '                                    <div class="mt-3 font-size-sm">\n' +
@@ -169,12 +168,11 @@ function getCommentByOneArticle(article_id) {
                 $.each(success.return_data.data, function (key, val) {
                     comment += ' <div class="card-body">' +
                         ' <div class="media forum-item">\n' +
-                        '                                <a href="javascript:void(0)" class="card-link">\n' +
+                        '                                <a  class="card-link">\n' +
                         '                                    <img src="/images/forum_women.png" class="rounded-circle" width="50" alt="User" />\n' +
-                        '                                    <small class="d-block text-center text-muted">Pro</small>\n' +
                         '                                </a>\n' +
                         '                                <div class="media-body ml-3">\n' +
-                        '                                    <a href="javascript:void(0)" class="text-secondary">'+val.username+'</a>\n' +
+                        '                                    <a class="text-secondary">'+val.username+'</a>\n' +
                         '                                    <small class="text-muted ml-2">'+val.updated_at+'</small>\n' +
                         '                                    <div class="mt-3 font-size-sm">\n' +
                                                                 val.comment+
