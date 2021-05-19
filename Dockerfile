@@ -26,7 +26,9 @@ RUN mkdir vendor \
 USER nginx
 RUN composer install \
     && ./artisan config:clear \
-    && ./artisan key:generate
+    && ./artisan key:generate \
+    && ./artisan db:seed
+
 
 ENV WEBROOT $SOURCE_ROOT/public
 ENV RUN_SCRIPTS 1
