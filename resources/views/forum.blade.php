@@ -73,7 +73,7 @@
                     <select class="custom-select custom-select-sm w-auto mr-1" id="select_forum_list">
                         <option selected="" value="created_at">發表時間</option>
                         <option value="favor">按讚數</option>
-                        <option value="comment">留言數</option>
+                        <option value="comments">留言數</option>
                     </select>
                     <select class="custom-select custom-select-sm w-auto mr-1" id="select_forum_type">
                         <option selected="" value="desc">降冪</option>

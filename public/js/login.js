@@ -38,6 +38,7 @@ $(document).ready(function () {
                 password: password
             },
             success: function (success) {
+                alert(success.status_message);
                 window.location.href = '/';
                 console.log(success);
             },
@@ -102,6 +103,7 @@ $(document).ready(function () {
                 email: email
             },
             success: function (success) {
+                alert(success.status_message);
                 window.location.href = '/';
                 console.log(success);
             },

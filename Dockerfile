@@ -35,5 +35,5 @@ USER root
 
 RUN cp $SOURCE_ROOT/default.conf /etc/nginx/sites-available/default.conf
 RUN apk add supervisor
-RUN supervisorctl restart nginx
-RUN supervisorctl restart php-fpm
+RUN cp $SOURCE_ROOT/supervisord.conf /etc/supervisord.conf
+RUN supervisorctl reload

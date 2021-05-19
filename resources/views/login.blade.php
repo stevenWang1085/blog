@@ -14,7 +14,7 @@
         <div class="card card-inverse card-info">
             <div class="card-header">
                 <div class="card-title">Sign In</div>
-                <div style="float: right; font-size: 80%; position: relative; top: -10px;"><a href="#" onclick="$('#loginbox').hide(); $('#forgotbox').show()">Forgot password?</a>
+                <div style="float: right; font-size: 80%; position: relative; top: -10px;"><a  href="javascript:void(0)" onclick="$('#loginbox').hide(); $('#forgotbox').show()">Forgot password?</a>
                 </div>
             </div>
             <div style="padding-top: 30px;" class="card-block">
@@ -32,12 +32,12 @@
                     </div>
                     <div style="margin-top: 10px;" class="form-group">
                         <!-- Button -->
-                        <div class="col-md-12 controls"> <a id="btn-login" href="#" class="btn btn-success">Login  </a>
+                        <div class="col-md-12 controls"> <a id="btn-login" href="javascript:void(0)" class="btn btn-success">Login  </a>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-lg-12 control">
-                            <div style="padding-top: 15px; font-size: 85%;">Don't have an account! <a href="#" onclick="$('#loginbox').hide(); $('#signupbox').show(); $('#forgotbox').hide()">
+                            <div style="padding-top: 15px; font-size: 85%;">Don't have an account! <a  href="javascript:void(0)" onclick="$('#loginbox').hide(); $('#signupbox').show(); $('#forgotbox').hide()">
 
                                     Sign Up Here
 
@@ -53,7 +53,7 @@
         <div class="card card-inverse card-info">
             <div class="card-header">
                 <div class="card-title">Sign Up</div>
-                <div style="float: right; font-size: 85%; position: relative; top: -10px;"><a id="signinlink" href="#" onclick="$('#signupbox').hide(); $('#loginbox').show(); $('#forgotbox').hide()">Sign In</a>
+                <div style="float: right; font-size: 85%; position: relative; top: -10px;"><a id="signinlink"  href="javascript:void(0)" onclick="$('#signupbox').hide(); $('#loginbox').show(); $('#forgotbox').hide()">Sign In</a>
                 </div>
             </div>
             <div class="card-block">
@@ -103,7 +103,7 @@
         <div class="card card-inverse card-info">
             <div class="card-header">
                 <div class="card-title">Forgot Password</div>
-                <div style="float: right; font-size: 85%; position: relative; top: -10px;"><a id="forgot_link" href="#" onclick="$('#signupbox').hide(); $('#loginbox').show(); $('#forgotbox').hide()">Sign In</a>
+                <div style="float: right; font-size: 85%; position: relative; top: -10px;"><a id="forgot_link"  href="javascript:void(0)" onclick="$('#signupbox').hide(); $('#loginbox').show(); $('#forgotbox').hide()">Sign In</a>
                 </div>
             </div>
             <div class="card-block">

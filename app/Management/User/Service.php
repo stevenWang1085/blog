@@ -71,6 +71,14 @@ class Service extends BaseService
      */
     public function forgetPasswordSendEmail($request)
     {
+        $env = config('app.env');
+
+        if ($env !== 'prod') {
+            $host = "http://localhost:90/reset_password.html";
+        } else {
+            $host = "http://35.221.149.244/reset_password.html";
+        }
+
         $mail_to = $request->email;
         $now = time();
         $reset_code = md5($now);
@@ -78,7 +86,7 @@ class Service extends BaseService
         $title = "[會員重置密碼]";
         $content = "會員：{$mail_to}";
         $content .= "重置代碼：".$reset_code.PHP_EOL;
-        $link = "http://localhost:81/reset_password.html?email={$mail_to}";
+        $link = "{$host}?email={$mail_to}";
         $data = [
             'subject' => $title,
             'content' => nl2br($content),

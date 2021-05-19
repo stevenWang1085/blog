@@ -17,7 +17,7 @@ class Search extends BaseSearchService
     {
         $order = [];
         foreach ($filters as $key => $val) {
-            if (empty($val) || $val == '' || $val == null || $val == 'all' || $key == 'order_column' || $key == 'order_column_by') {
+            if (empty($val) || $val == '' || $val == null || $val == 'all' || $key == 'order_column' || $key == 'order_column_by' || $val == 'null') {
                 $order[$key] = $val;
                 unset($filters[$key]);
             }
