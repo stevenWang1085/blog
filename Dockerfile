@@ -27,7 +27,6 @@ USER nginx
 RUN composer install \
     && ./artisan config:clear \
     && ./artisan key:generate \
-    && ./artisan db:seed
 
 
 ENV WEBROOT $SOURCE_ROOT/public
@@ -35,6 +34,7 @@ ENV RUN_SCRIPTS 1
 ENV SKIP_COMPOSER 1
 USER root
 
+RUN ./artisan db:seed
 RUN cp $SOURCE_ROOT/default.conf /etc/nginx/sites-available/default.conf
 RUN apk add supervisor
 RUN cp $SOURCE_ROOT/supervisord.conf /etc/supervisord.conf
