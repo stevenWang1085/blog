@@ -178,6 +178,7 @@ function getCommentByOneArticle(article_id) {
                                                                 val.comment+
                         '                                    </div>\n' +
                         '                                </div>\n' +
+                        '                                <small><a href="javascript:void(0)"><span><i class="fa fa-reply"></i> reply</span></a></small>\n' +
                         '                            </div>' +
                         '</div>';
                 });
