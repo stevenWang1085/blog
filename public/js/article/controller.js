@@ -31,6 +31,10 @@ $(document).ready(function () {
         }
     );
 
+    $('#reply_comment').click(function () {
+        postReplyComment(sessionStorage.getItem('comment_id'), sessionStorage.getItem('article_id'));
+    });
+
 });
 
 function getChangeSelectValueFromForum() {
@@ -162,10 +166,29 @@ function getCommentByOneArticle(article_id) {
             console.log(success);
             $('#all_comment').empty();
             let comment = "";
+            let reply_comment = "";
             if (success.code === '1202') {
                 comment = "尚無留言";
             } else {
                 $.each(success.return_data.data, function (key, val) {
+                    reply_comment = "";
+                    $.each(val.reply_comment, function (reply_key, reply_val) {
+                        reply_comment +=' <div class="card-body">' +
+                            ' <div class="media forum-item">\n' +
+                            '                                <a  class="card-link">\n' +
+                            '                                    <img src="/images/forum_man.png" class="rounded-circle" width="50" alt="User" />\n' +
+                            '                                </a>\n' +
+                            '                                <div class="media-body ml-3">\n' +
+                            '                                    <a class="text-secondary">'+reply_val.username+'</a>\n' +
+                            '                                    <small class="text-muted ml-2">'+reply_val.updated_at+'</small>\n' +
+                            '                                    <div class="mt-3 font-size-sm">\n' +
+                                                                    reply_val.comment+
+                            '                                    </div>\n' +
+                            '                                </div>\n' +
+                            '                            </div>' +
+                            '</div>';
+                    });
+
                     comment += ' <div class="card-body">' +
                         ' <div class="media forum-item">\n' +
                         '                                <a  class="card-link">\n' +
@@ -175,10 +198,10 @@ function getCommentByOneArticle(article_id) {
                         '                                    <a class="text-secondary">'+val.username+'</a>\n' +
                         '                                    <small class="text-muted ml-2">'+val.updated_at+'</small>\n' +
                         '                                    <div class="mt-3 font-size-sm">\n' +
-                                                                val.comment+
+                                                                val.comment+'\n'+reply_comment+
                         '                                    </div>\n' +
                         '                                </div>\n' +
-                        '                                <small><a href="javascript:void(0)"><span><i class="fa fa-reply"></i> reply</span></a></small>\n' +
+                        '                                <small><a id="reply_btn" onclick="setData('+val.id+', '+article_id+')" href="javascript:void(0)" data-toggle="modal" data-target="#exampleModal"><span><i class="fa fa-reply"></i> reply</span></a href="javascript:void(0)" ></small>\n' +
                         '                            </div>' +
                         '</div>';
                 });
@@ -218,4 +241,31 @@ function postComment(article_id) {
         }
     })
 
+}
+
+function postReplyComment(comment_id, article_id) {
+    let comment = $('#reply_comment_detail').val();
+    $.ajax({
+        url: 'api/comment/'+comment_id+'/reply',
+        type: "POST",
+        data: {
+            comment: comment
+        },
+        success: function (success) {
+            console.log(success);
+            $('#reply_comment_detail').val("");
+            getCommentByOneArticle(article_id);
+            getOneArticle(article_id);
+        },
+        error: function (error) {
+            alert(error.responseJSON.status_message);
+            console.log(error);
+        }
+    })
+
+}
+
+function setData(comment_id, article_id) {
+    sessionStorage.setItem('comment_id', comment_id);
+    sessionStorage.setItem('article_id', article_id);
 }

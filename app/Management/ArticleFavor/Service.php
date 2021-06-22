@@ -16,7 +16,6 @@ class Service extends BaseService
 
     public function __construct()
     {
-        parent::__construct();
         $this->repository = new Repository();
     }
 }

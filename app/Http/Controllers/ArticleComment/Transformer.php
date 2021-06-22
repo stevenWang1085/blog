@@ -17,11 +17,21 @@ class Transformer
         $data = [];
 
         foreach ($result as $key => $value) {
+            $reply = [];
+            foreach ($value->articleReplyCommentRelation as $reply_value) {
+                $reply[] = [
+                    'comment'    => $reply_value['comment'],
+                    'username'   => $reply_value->userRelation['name'],
+                    'updated_at' => date('Y-m-d H:i:s', strtotime($reply_value['updated_at'])),
+                ];
+            }
+
             $data[] = [
                 'id'         => $value['id'],
                 'comment'    => $value['comment'],
                 'username'   => $value->userRelation['name'],
-                'updated_at' => date('Y-m-d H:i:s', strtotime($value['updated_at']))
+                'updated_at' => date('Y-m-d H:i:s', strtotime($value['updated_at'])),
+                'reply_comment' => $reply
             ];
         }
 

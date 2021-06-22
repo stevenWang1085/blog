@@ -6,14 +6,14 @@
  * Time: 下午5:06
  */
 
-namespace App\Management\ArticleComment\SearchService;
+namespace App\Management\ArticleCommentReply\SearchService;
 
 use App\Management\BaseSearchService;
-use App\Management\ArticleComment\Entity;
+use App\Management\ArticleCommentReply\Entity;
 
 class Search extends BaseSearchService
 {
-    public static function apply($filters, $type = 'page')
+    public function apply($filters, $type = 'page')
     {
         foreach ($filters as $key => $val) {
             if (empty($val) || $val == '' || $val == null || $val == 'all') {
@@ -22,7 +22,6 @@ class Search extends BaseSearchService
         }
 
         $query = BaseSearchService::applyDecoratorsFromRequest($filters, (new Entity)
-            ->with('userRelation', 'articleReplyCommentRelation.userRelation')
             ->newQuery(), 'Filters', __NAMESPACE__);
 
         if ($type == 'page') {

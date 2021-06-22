@@ -30,6 +30,9 @@ Route::group(['middleware' => ['check_login:api']], function () {
     Route::post('/article/{article_id}/comment', 'ArticleComment\Controller@store');
     Route::patch('/article/{comment_id}/comment', 'ArticleComment\Controller@update');
     Route::delete('/article/{comment_id}/comment', 'ArticleComment\Controller@destroy');
+
+
+    Route::post('/comment/{comment_id}/reply', 'ArticleCommentReply\controller@store');
 });
 
 

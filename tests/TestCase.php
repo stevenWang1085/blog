@@ -13,8 +13,8 @@ abstract class TestCase extends BaseTestCase
     {
         $this->withoutExceptionHandling();
         $this->withoutMiddleware();
-
         $this->seed('RootSeeder');
         $this->seed('BoardSeeder');
+        $this->session(['user_id' => 1]);
     }
 }
