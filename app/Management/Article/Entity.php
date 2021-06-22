@@ -18,9 +18,11 @@ class Entity extends Model
     protected $table = 'articles';
 
     protected $fillable = [
+        'board_id',
         'title',
         'content',
-        'favor'
+        'favor',
+        'edited_user_id'
     ];
 
     protected $dates = [
@@ -37,5 +39,10 @@ class Entity extends Model
     public function articleFavorRelation()
     {
         return $this->hasMany(\App\Management\ArticleFavor\Entity::class, 'article_id', 'id');
+    }
+
+    public function boardRelation()
+    {
+        return $this->belongsTo(\App\Management\Board\Entity::class, 'board_id', 'id');
     }
 }

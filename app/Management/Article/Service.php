@@ -83,7 +83,7 @@ class Service extends BaseService
 
     public function showOneArticle($id)
     {
-        return $this->repository->getOneWithRelation($id, ['userRelation', 'articleFavorRelation']);
+        return $this->repository->getOneWithRelation($id, ['userRelation', 'articleFavorRelation', 'boardRelation']);
     }
 
 }

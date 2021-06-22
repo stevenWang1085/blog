@@ -25,17 +25,46 @@ $(document).ready(function () {
             }
         })
     });
-    $('#article_back').click(
-        function () {
-            getAllArticle();
+    $('#article_back').click(function () {
+        sessionStorage.setItem('has_back', "false");
+        getAllArticle();
         }
     );
 
     $('#reply_comment').click(function () {
         postReplyComment(sessionStorage.getItem('comment_id'), sessionStorage.getItem('article_id'));
     });
-
+    homeBarActive();
 });
+
+function homeBarActive() {
+
+    $('#home').click(function () {
+        sessionStorage.setItem('my_article', 0);
+        $('.from_bar').removeClass('active');
+        $('#home').addClass('active');
+        sessionStorage.setItem('board_id', null);
+        sessionStorage.setItem('has_back', 'false');
+        window.location.href = '/forum';
+    });
+    $('#my_article').click(function () {
+        sessionStorage.setItem('my_article', 1);
+        $('.from_bar').removeClass('active');
+        $('#my_article').addClass('active');
+        if (sessionStorage.getItem('has_back') === 'true') {
+            $('#article_back').click();
+        }
+        getAllArticle();
+    });
+    $('#my_friend').click(function () {
+        $('.from_bar').removeClass('active');
+        $('#my_friend').addClass('active');
+    });
+    $('#my_notify').click(function () {
+        $('.from_bar').removeClass('active');
+        $('#my_notify').addClass('active');
+    });
+}
 
 function getChangeSelectValueFromForum() {
 
@@ -62,7 +91,8 @@ function getAllArticle(title = null, contents = null, board_id = null) {
             contents: contents,
             board_id: sessionStorage.getItem('board_id'),
             order_column: sessionStorage.getItem('order_column'),
-            order_column_by: sessionStorage.getItem('order_column_by')
+            order_column_by: sessionStorage.getItem('order_column_by'),
+            edited_user_id: sessionStorage.getItem('my_article')
         },
         success: function (success) {
             console.log(success);
@@ -74,7 +104,7 @@ function getAllArticle(title = null, contents = null, board_id = null) {
                 '                            <div class="media forum-item">\n' +
                 '                                <a><img src="/images/forum_man.png" class="mr-3 rounded-circle" width="50" alt="User" /></a>\n' +
                 '                                <div class="media-body">\n' +
-                '                                    <h6><a href="javascript:void(0)" data-toggle="collapse" data-target=".forum-content" class="text-body" onclick="getArticleDetail('+val.id+')">'+val.title+'</a></h6>\n' +
+                '                                    <h6><a href="javascript:void(0)" data-toggle="collapse" data-target=".forum-content" class="text-body" onclick="getArticleDetail('+val.id+')">['+val.board_name+'] '+val.title+'</a></h6>\n' +
                 '                                    <p class="text-secondary" style="overflow: hidden; text-overflow: ellipsis; width: 7em; height: 3em" >\n' +
                 '                                        '+val.content+' </p>\n' +
                 '                                    <p class="text-muted"><a style="color: blue">'+val.username+'</a> 發表於 <span class="text-secondary font-weight-bold">'+val.created_at+'</span></p>\n' +
@@ -99,6 +129,7 @@ function getAllArticle(title = null, contents = null, board_id = null) {
 }
 
 function getOneArticle(article_id) {
+    sessionStorage.setItem('has_back', "true");
     $.ajax({
         url: 'api/article/'+article_id,
         type: "GET",
@@ -118,7 +149,7 @@ function getOneArticle(article_id) {
                 '                                <div class="media-body ml-3">\n' +
                 '                                    <a style="color: blue" class="text-secondary">'+data.username+'</a>\n' +
                 '                                    <small class="text-muted ml-2">'+data.created_at+'</small>\n' +
-                '                                    <h5 class="mt-1">'+data.title+'</h5>\n' +
+                '                                    <h5 class="mt-1">['+data.board_name+'] '+data.title+'</h5>\n' +
                 '                                    <div class="mt-3 font-size-sm">\n' +
                                                         data.content+
                 '                                    </div>\n' +
@@ -131,6 +162,9 @@ function getOneArticle(article_id) {
             $('#post_comment_aria').append('<button class="btn btn-primary btn-sm shadow-none" type="button" id="post_comment" onclick="postComment('+data.id+')">Post comment</button>');
             $('#article_operation').append('<div class="like p-2 cursor"><span class="ml-1" onclick="updateArticleFavor('+data.id+')"><i class="fas fa-thumbs-up" style="color: '+color+'"></i> Like</span></div>\n' +
                 '                                <div class="like p-2 cursor action-collapse" data-toggle="collapse" aria-expanded="true" aria-controls="collapse-1" href="#collapse-1"><i class="far fa-comment"></i><span class="ml-1" id="comment_span">Comment</span></div>');
+            if (sessionStorage.getItem('my_article') == 1) {
+                $('#article_operation').append('<div class="like p-2 cursor"><span class="ml-1" onclick="updateArticleFavor('+data.id+')"><i class="fas fa-pencil-alt" style="color: darkorange"></i> Edit</span></div>');
+            }
         },
         error: function (error) {
             alert(error.responseJSON.status_message);
