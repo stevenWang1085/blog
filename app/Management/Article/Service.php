@@ -51,7 +51,8 @@ class Service extends BaseService
 
     public function delete($id)
     {
-        $result = $this->repository->delete(['id' => $id]);
+        #刪除文章
+        $result = $this->repository->find($id)->delete();
         if ($result === false) return false;
 
         return true;

@@ -34,6 +34,9 @@ $(document).ready(function () {
     $('#reply_comment').click(function () {
         postReplyComment(sessionStorage.getItem('comment_id'), sessionStorage.getItem('article_id'));
     });
+    $('#confirm_edit_article').click(function () {
+        confirmEditArticle();
+    });
     homeBarActive();
 });
 
@@ -95,9 +98,12 @@ function getAllArticle(title = null, contents = null, board_id = null) {
             edited_user_id: sessionStorage.getItem('my_article')
         },
         success: function (success) {
-            console.log(success);
             $('#article_body').empty();
             let body = "";
+            if (success.return_data === null) {
+                $('#article_body').append('<div class="card mb-2">尚無文章</div>');
+                return;
+            }
             $.each(success.return_data.data, function (key, val) {
             body += '                    <div class="card mb-2">\n' +
                 '                        <div class="card-body p-2 p-sm-3">\n' +
@@ -163,7 +169,8 @@ function getOneArticle(article_id) {
             $('#article_operation').append('<div class="like p-2 cursor"><span class="ml-1" onclick="updateArticleFavor('+data.id+')"><i class="fas fa-thumbs-up" style="color: '+color+'"></i> Like</span></div>\n' +
                 '                                <div class="like p-2 cursor action-collapse" data-toggle="collapse" aria-expanded="true" aria-controls="collapse-1" href="#collapse-1"><i class="far fa-comment"></i><span class="ml-1" id="comment_span">Comment</span></div>');
             if (sessionStorage.getItem('my_article') == 1) {
-                $('#article_operation').append('<div class="like p-2 cursor"><span class="ml-1" onclick="updateArticleFavor('+data.id+')"><i class="fas fa-pencil-alt" style="color: darkorange"></i> Edit</span></div>');
+                $('#article_operation').append('<div class="like p-2 cursor"><span class="ml-1" onclick="showEditArticleData('+article_id+')" data-toggle="modal" data-target="#editArticleModal"><i class="fas fa-pencil-alt" style="color: darkorange"></i> Edit</span></div>');
+                $('#article_operation').append('<div class="like p-2 cursor"><span class="ml-1" onclick="removeArticle('+article_id+')"><i class="fas fa-trash-alt" style="color: red"></i> Remove</span></div>');
             }
         },
         error: function (error) {
@@ -302,4 +309,62 @@ function postReplyComment(comment_id, article_id) {
 function setData(comment_id, article_id) {
     sessionStorage.setItem('comment_id', comment_id);
     sessionStorage.setItem('article_id', article_id);
+}
+
+function removeArticle(article_id) {
+    if (confirm('確定要刪除文章嗎？')) {
+        $.ajax({
+            url: 'api/article/'+article_id,
+            type: "DELETE",
+            data: {
+            },
+            success: function (success) {
+                alert(success.status_message);
+                getOneArticle(article_id);
+            },
+            error: function (error) {
+                alert(error.responseJSON.status_message);
+                console.log(error);
+            }
+        })
+    }
+}
+
+function showEditArticleData(article_id) {
+    sessionStorage.setItem('confirm_edit_article_id', article_id);
+    $.ajax({
+        url: 'api/article/'+article_id,
+        type: "GET",
+        data: {
+        },
+        success: function (success) {
+            let data = success.return_data;
+            $('#edit_article_title').val(data.title);
+            $('#edit_article_content').val(data.content);
+        },
+        error: function (error) {
+            alert(error.responseJSON.status_message);
+            console.log(error);
+        }
+    })
+}
+
+function confirmEditArticle() {
+    let article_id = sessionStorage.getItem('confirm_edit_article_id');
+    $.ajax({
+        url: 'api/article/'+article_id,
+        type: "PATCH",
+        data: {
+            title: $('#edit_article_title').val(),
+            content: $('#edit_article_content').val()
+        },
+        success: function (success) {
+           alert(success.status_message);
+           getOneArticle(article_id);
+        },
+        error: function (error) {
+            alert(error.responseJSON.status_message);
+            console.log(error);
+        }
+    })
 }

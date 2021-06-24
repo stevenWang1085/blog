@@ -281,6 +281,33 @@
                 </div>
             </div>
         </div>
+
+        <div class="modal fade" id="editArticleModal" tabindex="-1" role="dialog" aria-labelledby="editArticleModal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">文章</h5>
+                        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="mb-3">
+                                <label for="recipient-name" class="col-form-label">標題：</label>
+                                <input type="text" class="form-control" id="edit_article_title">
+                            </div>
+                            <div class="mb-3">
+                                <label for="message-text" class="col-form-label">內容：</label>
+                                <textarea class="form-control" id="edit_article_content"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary" id="confirm_edit_article" data-dismiss="modal">修改</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 </body>

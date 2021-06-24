@@ -8,14 +8,17 @@
 
 namespace App\Management\ArticleComment;
 
+use Iatstuti\Database\Support\CascadeSoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Entity extends Model
 {
     use SoftDeletes;
+    use CascadeSoftDeletes;
 
     protected $table = 'article_comments';
+    protected $cascadeDeletes = ['articleReplyCommentRelation'];
 
     protected $fillable = [
         'article_id',
