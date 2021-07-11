@@ -13,7 +13,7 @@
     <script src="js/article/controller.js"></script>
     <script src="js/board/controller.js"></script>
     <script src="js/login.js"></script>
-    <title>Title</title>
+    <title>Forum</title>
 </head>
 <body>
 
@@ -31,11 +31,11 @@
                 <form class="form-inline my-2 my-lg-0">
                     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                         <div class="navbar-nav">
-                            <a class="nav-item nav-link active from_bar" id="home" style="cursor: pointer">首頁</a>
-                            <a class="nav-item nav-link from_bar" style="cursor: pointer" id="my_article">我的文章</a>
-                            <a class="nav-item nav-link from_bar" style="cursor: pointer" id="my_friend">我的好友</a>
-                            <a class="nav-item nav-link from_bar" style="cursor: pointer" id="my_notify">我的通知</a>
-                            <a class="nav-item nav-link from_bar" style="cursor: pointer" id="btn_logout">登出</a>
+                            <a class="nav-item nav-link active from_bar" id="home" style="cursor: pointer"><i class="fas fa-home"></i>首頁</a>
+                            <a class="nav-item nav-link from_bar" style="cursor: pointer" id="my_article"><i class="far fa-edit"></i>我的文章</a>
+{{--                            <a class="nav-item nav-link from_bar" style="cursor: pointer" id="my_friend">我的好友</a>--}}
+                            <a class="nav-item nav-link from_bar" href="/notify" style="cursor: pointer" id="my_notify"><i class="fas fa-bell" id="notify_count"></i>&nbsp&nbsp通知</a>
+                            <a class="nav-item nav-link from_bar" style="cursor: pointer" id="btn_logout"><i class="fas fa-sign-out-alt"></i>登出</a>
                         </div>
                     </div>
                 </form>

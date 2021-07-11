@@ -133,4 +133,38 @@ body{
 .ml-1 {
     cursor: pointer
 }
+.fas[data-count]{
+    position:relative;
+}
+.fas[data-count]:after{
+    position: absolute;
+    right: -1.75em;
+    top: -1.75em;
+    content: attr(data-count);
+    /*padding: .5em;*/
+    border-radius: 10em;
+    line-height: .9em;
+    color: white;
+    background: rgba(255,0,0,.75);
+    text-align: center;
+    min-width: 3em;
+    font: bold .4em sans-serif;
+}
+body{
+    margin-top:20px;
+    background-color: #f0f2f5;
+}
+.dropdown-list-image {
+    position: relative;
+    height: 2.5rem;
+    width: 2.5rem;
+}
+.dropdown-list-image img {
+    height: 2.5rem;
+    width: 2.5rem;
+}
+.btn-light {
+    background-color: #e5f7f0;
+    border-color: #d8f7eb;
+}
 

@@ -41,4 +41,9 @@ class Entity extends Model
     {
         return $this->hasMany(\App\Management\ArticleCommentReply\Entity::class, 'article_comment_id', 'id');
     }
+
+    public function articleRelation()
+    {
+        return $this->belongsTo(\App\Management\Article\Entity::class, 'article_id', 'id');
+    }
 }

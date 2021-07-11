@@ -33,6 +33,7 @@ Route::group(['middleware' => ['check_login:api']], function () {
 
 
     Route::post('/comment/{comment_id}/reply', 'ArticleCommentReply\controller@store');
+    Route::get('/notification', 'Notification\Controller@index');
 });
 
 

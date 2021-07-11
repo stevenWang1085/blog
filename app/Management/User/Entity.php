@@ -9,9 +9,26 @@
 namespace App\Management\User;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 
 class Entity extends Model
 {
+
+    use Notifiable;
+//    use Notifiable {
+//        notify as protected laravelNotify;
+//    }
+//
+//    public function notify($instance)
+//    {
+//        if($this->id == Auth::id()) {
+//            return;
+//        }
+//        $this->increment('notification_count');
+//        $this->laravelNotify($instance);
+//    }
+
     protected $table = 'users';
 
     protected $fillable = [

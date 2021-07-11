@@ -15,6 +15,9 @@ Route::group(['middleware' => 'check_login:web'], function () {
     Route::get('/forum', function () {
         return view('forum');
     });
+    Route::get('/notify', function () {
+        return view('notify');
+    });
 });
 
 Route::get('/', function () {

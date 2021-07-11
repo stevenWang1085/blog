@@ -18,7 +18,7 @@ class CheckLoginMiddleware
     public function handle($request, Closure $next, $route)
     {
         $check = session()->has('user_id');
-        if ($check === false && $route == 'api') {
+        if (($check === false && $route == 'api')) {
             $response = ResponseHelper::responseMaker(503, null, null);
             throw new HttpResponseException(response()->json($response, 400)->header('Content-Type', 'application/json'));
             //return redirect('/');
