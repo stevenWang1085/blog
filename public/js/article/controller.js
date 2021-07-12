@@ -25,11 +25,6 @@ $(document).ready(function () {
             }
         })
     });
-    $('#article_back').click(function () {
-        sessionStorage.setItem('has_back', "false");
-        getAllArticle();
-        }
-    );
 
     $('#reply_comment').click(function () {
         postReplyComment(sessionStorage.getItem('comment_id'), sessionStorage.getItem('article_id'));
@@ -38,6 +33,9 @@ $(document).ready(function () {
         confirmEditArticle();
     });
     homeBarActive();
+    $('#article_detail_close').click(function () {
+        getAllArticle();
+    });
 });
 
 function homeBarActive() {
@@ -54,9 +52,6 @@ function homeBarActive() {
         sessionStorage.setItem('my_article', 1);
         $('.from_bar').removeClass('active');
         $('#my_article').addClass('active');
-        if (sessionStorage.getItem('has_back') === 'true') {
-            $('#article_back').click();
-        }
         getAllArticle();
     });
     $('#my_friend').click(function () {
@@ -67,6 +62,10 @@ function homeBarActive() {
         $('.from_bar').removeClass('active');
         $('#my_notify').addClass('active');
     });
+    if (sessionStorage.getItem('my_article') === '1') {
+        $('.from_bar').removeClass('active');
+        $('#my_article').addClass('active');
+    }
 }
 
 function getChangeSelectValueFromForum() {
@@ -110,7 +109,7 @@ function getAllArticle(title = null, contents = null, board_id = null) {
                 '                            <div class="media forum-item">\n' +
                 '                                <a><img src="/images/forum_man.png" class="mr-3 rounded-circle" width="50" alt="User" /></a>\n' +
                 '                                <div class="media-body">\n' +
-                '                                    <h6><a href="javascript:void(0)" data-toggle="collapse" data-target=".forum-content" class="text-body" onclick="getArticleDetail('+val.id+')">['+val.board_name+'] '+val.title+'</a></h6>\n' +
+                '                                    <h6><a href="javascript:void(0)" class="text-body" data-toggle="modal" data-target="#exampleModalLong" onclick="getArticleDetail('+val.id+')">['+val.board_name+'] '+val.title+'</a></h6>\n' +
                 '                                    <p class="text-secondary" style="overflow: hidden; text-overflow: ellipsis; width: 7em; height: 3em" >\n' +
                 '                                        '+val.content+' </p>\n' +
                 '                                    <p class="text-muted"><a style="color: blue">'+val.username+'</a> 發表於 <span class="text-secondary font-weight-bold">'+val.created_at+'</span></p>\n' +
@@ -290,7 +289,8 @@ function postReplyComment(comment_id, article_id) {
         url: 'api/comment/'+comment_id+'/reply',
         type: "POST",
         data: {
-            comment: comment
+            comment: comment,
+            article_id: article_id
         },
         success: function (success) {
             console.log(success);

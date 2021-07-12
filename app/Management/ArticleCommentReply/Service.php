@@ -13,18 +13,21 @@ use App\Notifications\ArticleReply;
 use Illuminate\Support\Facades\Notification;
 use App\Management\ArticleComment\Repository as ArticleCommentRepository;
 use App\Management\User\Repository as UserRepository;
+use App\Management\Article\Repository as ArticleRepository;
 
 class Service extends BaseService
 {
     private $repository;
     private $articleCommentRepository;
     private $userRepository;
+    private $articleRepository;
 
     public function __construct()
     {
         $this->repository = new Repository();
         $this->articleCommentRepository = new ArticleCommentRepository();
         $this->userRepository = new UserRepository();
+        $this->articleRepository = new ArticleRepository();
     }
 
     public function store($data, $comment_id)
@@ -36,6 +39,8 @@ class Service extends BaseService
         ];
 
         if ($this->repository->insert($insert_data)) {
+            #更新留言總數
+            $this->articleRepository->find($data['article_id'])->increment('comments', 1);
             #留言回覆通知
             $this->processNotify($comment_id);
             return true;

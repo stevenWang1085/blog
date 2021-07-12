@@ -32,7 +32,7 @@
                     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                         <div class="navbar-nav">
                             <a class="nav-item nav-link active from_bar" href="/forum" id="home" style="cursor: pointer"><i class="fas fa-home"></i>首頁</a>
-                            <a class="nav-item nav-link from_bar" style="cursor: pointer" id="my_article"><i class="far fa-edit"></i>我的文章</a>
+                            <a class="nav-item nav-link from_bar" style="cursor: pointer" id="my_article" href="/forum"><i class="far fa-edit"></i>我的文章</a>
 {{--                            <a class="nav-item nav-link from_bar" style="cursor: pointer" id="my_friend">我的好友</a>--}}
                             <a class="nav-item nav-link from_bar" style="cursor: pointer" id="my_notify"><i class="fas fa-bell" href="/notify" id="notify_count" ></i>&nbsp&nbsp通知</a>
                             <a class="nav-item nav-link from_bar" style="cursor: pointer" id="btn_logout"><i class="fas fa-sign-out-alt"></i>登出</a>

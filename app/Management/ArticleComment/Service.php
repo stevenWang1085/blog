@@ -34,13 +34,12 @@ class Service extends BaseService
             'user_id'    => $this->user_id,
             'comment'    => $request->comment
         ];
-
-        #更新article總表留言數
         $article_data = $this->articleRepository->find($article_id);
-        $this->articleRepository->updateWheres(['id' => $article_id], ['comments' => $article_data['comments'] +1]);
         #新增留言
         $insert_result = $this->repository->insert($data);
         if ($insert_result) {
+            #更新article總表留言數
+            $article_data->increment('comments', 1);
             #處理回覆通知
             $this->processSendNotify($article_data);
             return  true;

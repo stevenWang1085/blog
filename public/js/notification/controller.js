@@ -1,9 +1,20 @@
 $(document).ready(function () {
     getNotifications(0);
 
+    $('#my_article').click(function () {
+        sessionStorage.setItem('my_article', 1);
+        $('.from_bar').removeClass('active');
+        $('#my_article').addClass('active');
+    });
 });
 
 function getNotifications (status=null) {
+    if (status === -1) {
+        if (!confirm('是否清除全部通知?')) {
+            return;
+        }
+    }
+
     $.ajax({
         url: 'api/notification',
         type: "GET",
@@ -20,10 +31,10 @@ function getNotifications (status=null) {
                 '  <div class="collapse navbar-collapse" id="navbarNav">\n' +
                 '    <ul class="navbar-nav">\n' +
                 '      <li class="nav-item">\n' +
-                '        <a class="nav-link" href="javascript:void(0)" onclick="getNotifications(0)">未讀通知</a>\n' +
+                '        <a class="nav-link" id="unread_link" href="javascript:void(0)" onclick="getNotifications(0)">未讀通知</a>\n' +
                 '      </li>\n' +
                 '      <li class="nav-item">\n' +
-                '        <a class="nav-link" href="javascript:void(0)" onclick="getNotifications(1)">已讀通知</a>\n' +
+                '        <a class="nav-link" id="read" href="javascript:void(0)" onclick="getNotifications(1)">已讀通知</a>\n' +
                 '      </li>\n' +
                 '      <li class="nav-item">\n' +
                 '        <a class="nav-link" href="javascript:void(0)" onclick="getNotifications(-1)">清除全部通知</a>\n' +

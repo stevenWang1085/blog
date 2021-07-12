@@ -148,74 +148,16 @@
                 <!-- /Forum List -->
 
                 <!-- Forum Detail -->
-                <div class="inner-main-body p-2 p-sm-3 collapse forum-content">
-                    <a href="#" class="btn btn-light btn-sm mb-3 has-icon" data-toggle="collapse" id="article_back" data-target=".forum-content"><i class="fa fa-arrow-left mr-2"></i>Back</a>
-                    <div class="card mb-2">
-                        <div class="card-body" id="article_detail">
-                            <!--                            <div class="media forum-item">-->
-                            <!--                                <a href="javascript:void(0)" class="card-link">-->
-                            <!--                                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="rounded-circle" width="50" alt="User" />-->
-                            <!--                                    <small class="d-block text-center text-muted">Newbie</small>-->
-                            <!--                                </a>-->
-                            <!--                                <div class="media-body ml-3">-->
-                            <!--                                    <a href="javascript:void(0)" class="text-secondary">Mokrani</a>-->
-                            <!--                                    <small class="text-muted ml-2">1 hour ago</small>-->
-                            <!--                                    <h5 class="mt-1">Realtime fetching data</h5>-->
-                            <!--                                    <div class="mt-3 font-size-sm">-->
-                            <!--                                        <p>Hellooo :)</p>-->
-                            <!--                                        <p>-->
-                            <!--                                            I'm newbie with laravel and i want to fetch data from database in realtime for my dashboard anaytics and i found a solution with ajax but it dosen't work if any one have a simple solution it will be-->
-                            <!--                                            helpful-->
-                            <!--                                        </p>-->
-                            <!--                                        <p>Thank</p>-->
-                            <!--                                    </div>-->
-                            <!--                                </div>-->
-                            <!--                                <div class="text-muted small text-center">-->
-                            <!--                                    <span class="d-none d-sm-inline-block"><i class="far fa-eye"></i> 19</span>-->
-                            <!--                                    <span><i class="far fa-comment ml-2"></i> 3</span>-->
-                            <!--                                </div>-->
-                            <!--                            </div>-->
-                        </div>
-                        <div class="bg-white p-2">
-                            <div class="d-flex flex-row fs-12" id="article_operation">
-                                <!--                                <div class="like p-2 cursor"><span class="ml-1"><i class="fas fa-thumbs-up"></i> Like</span></div>-->
-                                <!--                                <div class="like p-2 cursor action-collapse" data-toggle="collapse" aria-expanded="true" aria-controls="collapse-1" href="#collapse-1"><i class="far fa-comment"></i><span class="ml-1" id="comment_span">Comment</span></div>-->
-                            </div>
-                        </div>
 
-                    </div>
-                    <div id="collapse-1" class="bg-light p-2 collapse" data-parent="#article_detail">
-                        <div class="d-flex flex-row align-items-start"><textarea class="form-control ml-1 shadow-none textarea" id="comment_detail"></textarea></div>
-                        <div class="mt-2 text-right" id="post_comment_aria">
-                            <!--                            <button class="btn btn-primary btn-sm shadow-none" type="button" id="">Post comment</button>-->
-                        </div>
-                    </div>
-                    <br>
-                    <div class="card mb-2" id="all_comment">
-                        <!--                        <div class="card-body">-->
-                        <!--                            <div class="media forum-item">-->
-                        <!--                                <a href="javascript:void(0)" class="card-link">-->
-                        <!--                                    <img src="" class="rounded-circle" width="50" alt="User" />-->
-                        <!--                                    <small class="d-block text-center text-muted">Pro</small>-->
-                        <!--                                </a>-->
-                        <!--                                <div class="media-body ml-3">-->
-                        <!--                                    <a href="javascript:void(0)" class="text-secondary">drewdan</a>-->
-                        <!--                                    <small class="text-muted ml-2">1 hour ago</small>-->
-                        <!--                                    <div class="mt-3 font-size-sm">-->
-                        <!--                                        <p>What exactly doesn't work with your ajax calls?</p>-->
-                        <!--                                        <p>Also, WebSockets are a great solution for realtime data on a dashboard. Laravel offers this out of the box using broadcasting</p>-->
-                        <!--                                    </div>-->
-                        <!--                                </div>-->
-                        <!--                            </div>-->
-                        <!--                        </div>-->
-                    </div>
-                </div>
                 <!-- /Forum Detail -->
 
                 <!-- /Inner main body -->
             </div>
             <!-- /Inner main -->
         </div>
+
+
+        {{-- article detail modal--}}
 
         <!-- New Thread Modal -->
         <div class="modal fade" id="threadModal" tabindex="-1" role="dialog" aria-labelledby="threadModalLabel" aria-hidden="true">
@@ -257,6 +199,45 @@
                             <button type="button" class="btn btn-primary" id="article_post">Post</button>
                         </div>
                     </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModalLong" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h7 class="modal-title" id=""><i class="far fa-bookmark"></i>文章內容</h7>
+                        <button type="button" class="close" id="article_detail_close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="inner-main-body p-2 p-sm-3 forum-content">
+                        <div class="card mb-2">
+                            <div class="card-body" id="article_detail">
+
+                            </div>
+                            <div class="bg-white p-2">
+                                <div class="d-flex flex-row fs-12" id="article_operation">
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <div id="collapse-1" class="bg-light p-2 collapse" data-parent="#article_detail">
+                            <div class="d-flex flex-row align-items-start"><textarea class="form-control ml-1 shadow-none textarea" id="comment_detail"></textarea></div>
+                            <div class="mt-2 text-right" id="post_comment_aria">
+                                <!--                            <button class="btn btn-primary btn-sm shadow-none" type="button" id="">Post comment</button>-->
+                            </div>
+                        </div>
+                        <div class="modal-header">
+                            <h7 class="modal-title" id=""><i class="far fa-comment"></i>留言區</h7>
+                        </div>
+                        <div class="card mb-2" id="all_comment">
+
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

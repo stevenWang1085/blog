@@ -27,11 +27,12 @@ class Transformer
             }
 
             $data[] = [
-                'id'         => $value['id'],
-                'comment'    => $value['comment'],
-                'username'   => $value->userRelation['name'],
-                'updated_at' => date('Y-m-d H:i:s', strtotime($value['updated_at'])),
-                'reply_comment' => $reply
+                'id'            => $value['id'],
+                'comment'       => $value['comment'],
+                'username'      => $value->userRelation['name'],
+                'updated_at'    => date('Y-m-d H:i:s', strtotime($value['updated_at'])),
+                'reply_comment' => $reply,
+                'article_id'    => $value['article_id']
             ];
         }
 
