@@ -6,6 +6,8 @@ $(document).ready(function () {
         $('.from_bar').removeClass('active');
         $('#my_article').addClass('active');
     });
+    $('.from_bar').removeClass('active');
+    $('#my_notify').addClass('active');
 });
 
 function getNotifications (status=null) {
