@@ -43,6 +43,27 @@
         </nav>
 
         <div class="col-lg-20">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">\n' +
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" id="unread_link" href="javascript:void(0)"
+                               onclick="getNotifications(0)">未讀通知</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="read_link" href="javascript:void(0)"
+                               onclick="getNotifications(1)">已讀通知</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="javascript:void(0)" onclick="getNotifications(-1)">清除全部通知</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
             <div class="box shadow-sm rounded bg-white mb-3" id="notify_body">
 {{--                <div class="box-title border-bottom p-3">--}}
 {{--                    <h6 class="m-0">Recent</h6>--}}

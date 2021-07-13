@@ -13,6 +13,7 @@
     <script src="js/article/controller.js"></script>
     <script src="js/board/controller.js"></script>
     <script src="js/login.js"></script>
+    <script src="js/page_button.js"></script>
     <title>Forum</title>
 </head>
 <body>
@@ -103,7 +104,7 @@
                         <option value="asc">升冪</option>
                     </select>
                     <span class="input-icon input-icon-sm col-2">
-                    <input type="text" class="form-control form-control-sm bg-gray-200 border-gray-200 shadow-none mb-4 mt-4" placeholder="標題或內容" />
+                    <input type="text" id="search_article_title" class="form-control form-control-sm bg-gray-200 border-gray-200 shadow-none mb-4 mt-4" placeholder="標題或內容" />
                     </span>
                 </div>
                 <!-- /Inner main header -->
@@ -154,6 +155,35 @@
                 <!-- /Inner main body -->
             </div>
             <!-- /Inner main -->
+        </div>
+
+        <div id="period_calculate_table_pagination" class=""
+             style="margin-top: 1.5em; margin-left: 23em;" >
+            <input type="hidden" id="current_page" value="1">
+            <input type="hidden" id="last_page" value="1">
+            <div style="float: left;">
+                <span id="total_data_num"></span>
+                <select name="per_page" id="per_page" style="padding: 5px 5px; height: 35px; border-radius: 4px;">
+                    <option value="10">10筆/頁</option>
+                    <option value="30">30筆/頁</option>
+                    <option value="50">50筆/頁</option>
+                </select>
+            </div>
+            <div style="float: left">
+                <input style="font-weight: bold" type="button" class="btn btn-outline-primary" id="btn_first_page"
+                       onclick="clickChangePage('first', null, getAllArticle)" value="第一頁">
+                <input style="font-weight: bold" type="button" class="btn btn-outline-primary" id="btn_previous_page"
+                       onclick="clickChangePage('previous', null, getAllArticle)" value="上一頁">
+            </div>
+            <div id="page_buttons" style="float: left; margin-left: 3px; margin-right: 3px;">
+
+            </div>
+            <div style="float: left">
+                <input style="font-weight: bold" type="button" class="btn btn-outline-primary" id="btn_next_page"
+                       onclick="clickChangePage('next', null, getAllArticle)" value="下一頁">
+                <input style="font-weight: bold" type="button" class="btn btn-outline-primary" id="btn_last_page"
+                       onclick="clickChangePage('last', null, getAllArticle)" value="最末頁">
+            </div>
         </div>
 
 

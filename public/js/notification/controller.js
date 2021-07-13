@@ -6,9 +6,22 @@ $(document).ready(function () {
         $('.from_bar').removeClass('active');
         $('#my_article').addClass('active');
     });
+    processActive();
+});
+
+function processActive() {
     $('.from_bar').removeClass('active');
     $('#my_notify').addClass('active');
-});
+    $('#unread_link').addClass('active');
+    $('#unread_link').click(function () {
+        $('#unread_link').addClass('active');
+        $('#read_link').removeClass('active');
+    });
+    $('#read_link').click(function () {
+        $('#unread_link').removeClass('active');
+        $('#read_link').addClass('active');
+    });
+}
 
 function getNotifications (status=null) {
     if (status === -1) {
@@ -26,24 +39,6 @@ function getNotifications (status=null) {
         success: function (success) {
             let notify_content = "";
             $('#notify_body').empty();
-            notify_content = '<nav class="navbar navbar-expand-lg navbar-light bg-light">\n' +
-                '  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">\n' +
-                '    <span class="navbar-toggler-icon"></span>\n' +
-                '  </button>\n' +
-                '  <div class="collapse navbar-collapse" id="navbarNav">\n' +
-                '    <ul class="navbar-nav">\n' +
-                '      <li class="nav-item">\n' +
-                '        <a class="nav-link" id="unread_link" href="javascript:void(0)" onclick="getNotifications(0)">未讀通知</a>\n' +
-                '      </li>\n' +
-                '      <li class="nav-item">\n' +
-                '        <a class="nav-link" id="read" href="javascript:void(0)" onclick="getNotifications(1)">已讀通知</a>\n' +
-                '      </li>\n' +
-                '      <li class="nav-item">\n' +
-                '        <a class="nav-link" href="javascript:void(0)" onclick="getNotifications(-1)">清除全部通知</a>\n' +
-                '      </li>\n' +
-                '    </ul>\n' +
-                '  </div>\n' +
-                '</nav>';
             if (success.return_data.length === 0) {
                 notify_content += '<div class="box-body p-0">\n' +
                     '                    <div class="p-3 d-flex align-items-center osahan-post-header">\n' +

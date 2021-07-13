@@ -3,27 +3,7 @@ $(document).ready(function () {
     getAllArticle();
 
     $('#article_post').click(function () {
-        let title = $('#article_title').val();
-        let content = $('#article_content').val();
-        let board = $('#board_select').val();
-
-        $.ajax({
-            url: 'api/article',
-            type: "POST",
-            data: {
-                board_id: board,
-                title: title,
-                content: content,
-            },
-            success: function (success) {
-                location.reload();
-                console.log(success);
-            },
-            error: function (error) {
-                alert(error.responseJSON.status_message);
-                console.log(error);
-            }
-        })
+        articlePost();
     });
 
     $('#reply_comment').click(function () {
@@ -34,9 +14,41 @@ $(document).ready(function () {
     });
     homeBarActive();
     $('#article_detail_close').click(function () {
-        getAllArticle();
+        getAllArticle($('#search_article_title').val());
     });
+    changePerPage();
+    searchArticleTitleContent();
 });
+
+function searchArticleTitleContent() {
+    $('#search_article_title').change(function () {
+        getAllArticle($('#search_article_title').val());
+    });
+}
+
+function articlePost() {
+    let title = $('#article_title').val();
+    let content = $('#article_content').val();
+    let board = $('#board_select').val();
+
+    $.ajax({
+        url: 'api/article',
+        type: "POST",
+        data: {
+            board_id: board,
+            title: title,
+            content: content,
+        },
+        success: function (success) {
+            location.reload();
+            console.log(success);
+        },
+        error: function (error) {
+            alert(error.responseJSON.status_message);
+            console.log(error);
+        }
+    })
+}
 
 function homeBarActive() {
 
@@ -52,6 +64,7 @@ function homeBarActive() {
         sessionStorage.setItem('my_article', 1);
         $('.from_bar').removeClass('active');
         $('#my_article').addClass('active');
+        $('#search_article_title').val('');
         getAllArticle();
     });
     $('#my_friend').click(function () {
@@ -85,6 +98,10 @@ function getChangeSelectValueFromForum() {
 }
 
 function getAllArticle(title = null, contents = null, board_id = null) {
+
+    let page_button_num = $('#current_page').val();
+    let per_page = $('#per_page').val();
+
     $.ajax({
         url: 'api/article',
         type: "GET",
@@ -94,7 +111,9 @@ function getAllArticle(title = null, contents = null, board_id = null) {
             board_id: sessionStorage.getItem('board_id'),
             order_column: sessionStorage.getItem('order_column'),
             order_column_by: sessionStorage.getItem('order_column_by'),
-            edited_user_id: sessionStorage.getItem('my_article')
+            edited_user_id: sessionStorage.getItem('my_article'),
+            page: page_button_num,
+            per_page: per_page,
         },
         success: function (success) {
             $('#article_body').empty();
@@ -115,8 +134,8 @@ function getAllArticle(title = null, contents = null, board_id = null) {
                 '                                    <p class="text-muted"><a style="color: blue">'+val.username+'</a> 發表於 <span class="text-secondary font-weight-bold">'+val.created_at+'</span></p>\n' +
                 '                                </div>\n' +
                 '                                <div class="text-muted small text-center align-self-center">\n' +
-                '                                    <span class="d-none d-sm-inline-block"><i class="fas fa-thumbs-up"></i> '+val.favor+'</span>\n' +
-                '                                    <span><i class="far fa-comment ml-2"></i>'+val.comments+'</span>\n' +
+                '                                    <span class="d-none d-sm-inline-block"><i class="fas fa-thumbs-up" style="color: cornflowerblue"></i> '+val.favor+'</span>\n' +
+                '                                    <span><i class="far fa-comment ml-2" style="color: orangered"></i>'+val.comments+'</span>\n' +
                 '                                </div>\n' +
                 '                            </div>\n' +
                 '                        </div>\n' +
@@ -124,6 +143,8 @@ function getAllArticle(title = null, contents = null, board_id = null) {
 
             });
             $('#article_body').append(body);
+            buildPageButtons(success.return_data, 'getAllArticle');
+            $('#page_button_' + page_button_num).addClass('active');
 
         },
         error: function (error) {
@@ -131,6 +152,13 @@ function getAllArticle(title = null, contents = null, board_id = null) {
             console.log(error);
         }
     })
+}
+
+function changePerPage() {
+    $('#per_page').change(function () {
+        sessionStorage.setItem('per_page', 'true');
+        getAllArticle();
+    });
 }
 
 function getOneArticle(article_id) {
@@ -320,7 +348,7 @@ function removeArticle(article_id) {
             },
             success: function (success) {
                 alert(success.status_message);
-                getOneArticle(article_id);
+                $('#article_detail_close').click();
             },
             error: function (error) {
                 alert(error.responseJSON.status_message);

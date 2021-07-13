@@ -9,6 +9,7 @@ class Title implements IFilter
 {
     public static function apply(Builder $builder, $value)
     {
-        return $builder->where('title', 'like', '%'.$value.'%');
+        return $builder->where('title', 'like', '%'.$value.'%')
+                       ->orWhere('content', 'like', '%'.$value.'%');
     }
 }

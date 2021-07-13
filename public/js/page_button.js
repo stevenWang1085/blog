@@ -75,9 +75,9 @@ function buildPageButtons(data, function_name, action_current_page, action_last_
     //建立頁籤之按鈕
     for (let i = first_page_button; i <= total_page_buttons; i++) {
         if (action_page_buttons != null) {
-            html += '<input type="button" class="btn_simple_page ui button white-solid-btn" style="margin-right: 2px;" id="action_page_button_' + i + '" onclick="clickChangePage(\'set\', this.value, ' + function_name + ', \'' + action_current_page + '\', \'' + action_last_page + '\')" value="' + i + '">';
+            html += '<input type="button" class="btn btn-outline-primary" style="margin-right: 2px;" id="action_page_button_' + i + '" onclick="clickChangePage(\'set\', this.value, ' + function_name + ', \'' + action_current_page + '\', \'' + action_last_page + '\')" value="' + i + '">';
         }else{
-            html += '<input type="button" class="btn_simple_page ui button white-solid-btn" style="margin-right: 2px;" id="page_button_' + i + '" onclick="clickChangePage(\'set\', this.value, '+function_name+')" value="' + i + '">';
+            html += '<input type="button" class="btn btn-outline-primary" style="margin-right: 2px;" id="page_button_' + i + '" onclick="clickChangePage(\'set\', this.value, '+function_name+')" value="' + i + '">';
         }
     }
 
