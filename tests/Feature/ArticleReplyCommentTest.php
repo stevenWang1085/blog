@@ -33,7 +33,8 @@ class ArticleReplyCommentTest extends TestCase
         $comment = new \App\Management\ArticleComment\Repository();
         $comment_data = $comment->find(1);
         $response = $this->post("api/comment/{$comment_data->id}/reply", [
-            'comment' => 'im reply comment'
+            'comment' => 'im reply comment',
+            'article_id' => $data->id
         ]);
         $response->assertOk();
         $this->assertDatabaseHas('article_reply_comments', [

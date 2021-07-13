@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ModifyUsersTable extends Migration
+class ModifyUsersTable20210713001 extends Migration
 {
     /**
      * Run the migrations.
@@ -26,7 +26,7 @@ class ModifyUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('notification_count');
+            \DB::raw("ALTER TABLE users DROP COLUMN notification_count;");
         });
     }
 }
