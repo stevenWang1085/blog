@@ -32,7 +32,7 @@ Route::group(['middleware' => ['check_login:api']], function () {
     Route::delete('/article/{comment_id}/comment', 'ArticleComment\Controller@destroy');
 
 
-    Route::post('/comment/{comment_id}/reply', 'ArticleCommentReply\controller@store');
+    Route::post('/comment/{comment_id}/reply', 'ArticleCommentReply\Controller@store');
     Route::get('/notification', 'Notification\Controller@index');
 });
 
