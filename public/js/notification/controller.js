@@ -78,6 +78,7 @@ function getNotifications (status=null) {
                         '                        </div>\n' +
                         '                        <div class="font-weight-bold mr-3">\n' +
                         '                            <div class="text-truncate"><a href="javascript:void(0)" class="text-body" data-toggle="modal" data-target="#exampleModalLong" onclick="getArticleDetail('+value.article_id+')">'+value.message+'</a></div>\n' +
+                        '                            <div class="small">'+value.time+'</div>\n'+
                         '                        </div>\n' +
                         // '                        <span class="ml-auto mb-auto">\n' +
                         // '                            <div class="btn-group">\n' +
