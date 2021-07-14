@@ -14,6 +14,7 @@
     <script src="js/board/controller.js"></script>
     <script src="js/login.js"></script>
     <script src="js/page_button.js"></script>
+    <script src="js/getArticleHelper.js"></script>
     <title>Forum</title>
 </head>
 <body>
@@ -162,7 +163,7 @@
             <input type="hidden" id="current_page" value="1">
             <input type="hidden" id="last_page" value="1">
             <div style="float: left;">
-                <span id="total_data_num"></span>
+                共<span id="total_data_num"></span>筆
                 <select name="per_page" id="per_page" style="padding: 5px 5px; height: 35px; border-radius: 4px;">
                     <option value="10">10筆/頁</option>
                     <option value="30">30筆/頁</option>

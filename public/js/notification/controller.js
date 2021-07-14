@@ -77,8 +77,7 @@ function getNotifications (status=null) {
                         '                            <img src="'+img+'" class="img-fluid" alt="Responsive image" />\n' +
                         '                        </div>\n' +
                         '                        <div class="font-weight-bold mr-3">\n' +
-                        '                            <div class="text-truncate">'+value.message+'</div>\n' +
-                        '                            <div class="small">'+value.time+'</div>\n' +
+                        '                            <div class="text-truncate"><a href="javascript:void(0)" class="text-body" data-toggle="modal" data-target="#exampleModalLong" onclick="getArticleDetail('+value.article_id+')">'+value.message+'</a></div>\n' +
                         '                        </div>\n' +
                         // '                        <span class="ml-auto mb-auto">\n' +
                         // '                            <div class="btn-group">\n' +
@@ -99,6 +98,7 @@ function getNotifications (status=null) {
             }
 
             $('#notify_body').html(notify_content);
+            $('#notify_count').removeAttr('data-count');
         },
         error: function (error) {
             alert(error.responseJSON.status_message);

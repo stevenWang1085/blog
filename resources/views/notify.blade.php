@@ -11,8 +11,7 @@
     <link rel="stylesheet" href="css/forum.css">
     <script src="js/home.js"></script>
     <script src="js/notification/controller.js"></script>
-{{--    <script src="js/board/controller.js"></script>--}}
-{{--    <script src="js/login.js"></script>--}}
+    <script src="js/getArticleHelper.js"></script>
     <title>Notification</title>
 </head>
 <body>
@@ -92,6 +91,64 @@
 {{--                        </span>--}}
 {{--                    </div>--}}
 {{--                </div>--}}
+            </div>
+{{--            modal--}}
+            <div class="modal fade" id="exampleModalLong" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h7 class="modal-title" id=""><i class="far fa-bookmark"></i>文章內容</h7>
+                            <button type="button" class="close" id="article_detail_close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="inner-main-body p-2 p-sm-3 forum-content">
+                            <div class="card mb-2">
+                                <div class="card-body" id="article_detail">
+
+                                </div>
+                                <div class="bg-white p-2">
+                                    <div class="d-flex flex-row fs-12" id="article_operation">
+
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div id="collapse-1" class="bg-light p-2 collapse" data-parent="#article_detail">
+                                <div class="d-flex flex-row align-items-start"><textarea class="form-control ml-1 shadow-none textarea" id="comment_detail"></textarea></div>
+                                <div class="mt-2 text-right" id="post_comment_aria">
+                                    <!--                            <button class="btn btn-primary btn-sm shadow-none" type="button" id="">Post comment</button>-->
+                                </div>
+                            </div>
+                            <div class="modal-header">
+                                <h7 class="modal-title" id=""><i class="far fa-comment"></i>留言區</h7>
+                            </div>
+                            <div class="card mb-2" id="all_comment">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">回覆內容</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control" id="reply_comment_detail"></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                            <button type="button" class="btn btn-primary" id="reply_comment" data-dismiss="modal">回覆</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
