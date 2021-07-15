@@ -13,18 +13,43 @@
     <script src="js/article/controller.js"></script>
     <script src="js/board/controller.js"></script>
     <script src="js/login.js"></script>
-    <title>Title</title>
+    <script src="js/page_button.js"></script>
+    <script src="js/getArticleHelper.js"></script>
+    <title>Forum</title>
 </head>
 <body>
 
 <div class="container">
     <div class="main-body p-0">
+
+        <nav class="navbar navbar-expand-lg  navbar-dark bg-secondary">
+            <a class="navbar-brand" >Welcome <label id="current_username"></label></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                        <div class="navbar-nav">
+                            <a class="nav-item nav-link active from_bar" id="home" style="cursor: pointer"><i class="fas fa-home"></i>首頁</a>
+                            <a class="nav-item nav-link from_bar" style="cursor: pointer" id="my_article"><i class="far fa-edit"></i>我的文章</a>
+{{--                            <a class="nav-item nav-link from_bar" style="cursor: pointer" id="my_friend">我的好友</a>--}}
+                            <a class="nav-item nav-link from_bar" href="/notify" style="cursor: pointer" id="my_notify"><i class="fas fa-bell" id="notify_count"></i>&nbsp&nbsp通知</a>
+                            <a class="nav-item nav-link from_bar" style="cursor: pointer" id="btn_logout"><i class="fas fa-sign-out-alt"></i>登出</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </nav>
+
         <div class="inner-wrapper">
             <!-- Inner sidebar -->
             <div class="inner-sidebar">
                 <!-- Inner sidebar header -->
                 <div class="inner-sidebar-header justify-content-center">
-                    <button class="btn btn-primary has-icon btn-block" type="button" data-toggle="modal" data-target="#threadModal" id="create_article">
+                    <button class="btn btn-outline-primary" type="button" data-toggle="modal" data-target="#threadModal" id="create_article">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus mr-2">
                             <line x1="12" y1="5" x2="12" y2="19"></line>
                             <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -80,13 +105,7 @@
                         <option value="asc">升冪</option>
                     </select>
                     <span class="input-icon input-icon-sm col-2">
-                    <input type="text" class="form-control form-control-sm bg-gray-200 border-gray-200 shadow-none mb-4 mt-4" placeholder="標題或內容" />
-                    </span>
-                    <span class="input-icon input-icon-sm ml-auto user_aria">
-                        <label>Hello </label> <label id="current_username">123</label>
-                    </span>
-                    <span class="input-icon input-icon-sm  ">
-                    <button class="btn btn-warning" id="btn_logout"> 登出</button>
+                    <input type="text" id="search_article_title" class="form-control form-control-sm bg-gray-200 border-gray-200 shadow-none mb-4 mt-4" placeholder="標題或內容" />
                     </span>
                 </div>
                 <!-- /Inner main header -->
@@ -131,74 +150,45 @@
                 <!-- /Forum List -->
 
                 <!-- Forum Detail -->
-                <div class="inner-main-body p-2 p-sm-3 collapse forum-content">
-                    <a href="#" class="btn btn-light btn-sm mb-3 has-icon" data-toggle="collapse" id="article_back" data-target=".forum-content"><i class="fa fa-arrow-left mr-2"></i>Back</a>
-                    <div class="card mb-2">
-                        <div class="card-body" id="article_detail">
-                            <!--                            <div class="media forum-item">-->
-                            <!--                                <a href="javascript:void(0)" class="card-link">-->
-                            <!--                                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="rounded-circle" width="50" alt="User" />-->
-                            <!--                                    <small class="d-block text-center text-muted">Newbie</small>-->
-                            <!--                                </a>-->
-                            <!--                                <div class="media-body ml-3">-->
-                            <!--                                    <a href="javascript:void(0)" class="text-secondary">Mokrani</a>-->
-                            <!--                                    <small class="text-muted ml-2">1 hour ago</small>-->
-                            <!--                                    <h5 class="mt-1">Realtime fetching data</h5>-->
-                            <!--                                    <div class="mt-3 font-size-sm">-->
-                            <!--                                        <p>Hellooo :)</p>-->
-                            <!--                                        <p>-->
-                            <!--                                            I'm newbie with laravel and i want to fetch data from database in realtime for my dashboard anaytics and i found a solution with ajax but it dosen't work if any one have a simple solution it will be-->
-                            <!--                                            helpful-->
-                            <!--                                        </p>-->
-                            <!--                                        <p>Thank</p>-->
-                            <!--                                    </div>-->
-                            <!--                                </div>-->
-                            <!--                                <div class="text-muted small text-center">-->
-                            <!--                                    <span class="d-none d-sm-inline-block"><i class="far fa-eye"></i> 19</span>-->
-                            <!--                                    <span><i class="far fa-comment ml-2"></i> 3</span>-->
-                            <!--                                </div>-->
-                            <!--                            </div>-->
-                        </div>
-                        <div class="bg-white p-2">
-                            <div class="d-flex flex-row fs-12" id="article_operation">
-                                <!--                                <div class="like p-2 cursor"><span class="ml-1"><i class="fas fa-thumbs-up"></i> Like</span></div>-->
-                                <!--                                <div class="like p-2 cursor action-collapse" data-toggle="collapse" aria-expanded="true" aria-controls="collapse-1" href="#collapse-1"><i class="far fa-comment"></i><span class="ml-1" id="comment_span">Comment</span></div>-->
-                            </div>
-                        </div>
 
-                    </div>
-                    <div id="collapse-1" class="bg-light p-2 collapse" data-parent="#article_detail">
-                        <div class="d-flex flex-row align-items-start"><textarea class="form-control ml-1 shadow-none textarea" id="comment_detail"></textarea></div>
-                        <div class="mt-2 text-right" id="post_comment_aria">
-                            <!--                            <button class="btn btn-primary btn-sm shadow-none" type="button" id="">Post comment</button>-->
-                        </div>
-                    </div>
-                    <br>
-                    <div class="card mb-2" id="all_comment">
-                        <!--                        <div class="card-body">-->
-                        <!--                            <div class="media forum-item">-->
-                        <!--                                <a href="javascript:void(0)" class="card-link">-->
-                        <!--                                    <img src="" class="rounded-circle" width="50" alt="User" />-->
-                        <!--                                    <small class="d-block text-center text-muted">Pro</small>-->
-                        <!--                                </a>-->
-                        <!--                                <div class="media-body ml-3">-->
-                        <!--                                    <a href="javascript:void(0)" class="text-secondary">drewdan</a>-->
-                        <!--                                    <small class="text-muted ml-2">1 hour ago</small>-->
-                        <!--                                    <div class="mt-3 font-size-sm">-->
-                        <!--                                        <p>What exactly doesn't work with your ajax calls?</p>-->
-                        <!--                                        <p>Also, WebSockets are a great solution for realtime data on a dashboard. Laravel offers this out of the box using broadcasting</p>-->
-                        <!--                                    </div>-->
-                        <!--                                </div>-->
-                        <!--                            </div>-->
-                        <!--                        </div>-->
-                    </div>
-                </div>
                 <!-- /Forum Detail -->
 
                 <!-- /Inner main body -->
             </div>
             <!-- /Inner main -->
         </div>
+
+        <div id="period_calculate_table_pagination" class=""
+             style="margin-top: 1.5em; margin-left: 23em;" >
+            <input type="hidden" id="current_page" value="1">
+            <input type="hidden" id="last_page" value="1">
+            <div style="float: left;">
+                共<span id="total_data_num"></span>筆
+                <select name="per_page" id="per_page" style="padding: 5px 5px; height: 35px; border-radius: 4px;">
+                    <option value="10">10筆/頁</option>
+                    <option value="30">30筆/頁</option>
+                    <option value="50">50筆/頁</option>
+                </select>
+            </div>
+            <div style="float: left">
+                <input style="font-weight: bold" type="button" class="btn btn-outline-primary" id="btn_first_page"
+                       onclick="clickChangePage('first', null, getAllArticle)" value="第一頁">
+                <input style="font-weight: bold" type="button" class="btn btn-outline-primary" id="btn_previous_page"
+                       onclick="clickChangePage('previous', null, getAllArticle)" value="上一頁">
+            </div>
+            <div id="page_buttons" style="float: left; margin-left: 3px; margin-right: 3px;">
+
+            </div>
+            <div style="float: left">
+                <input style="font-weight: bold" type="button" class="btn btn-outline-primary" id="btn_next_page"
+                       onclick="clickChangePage('next', null, getAllArticle)" value="下一頁">
+                <input style="font-weight: bold" type="button" class="btn btn-outline-primary" id="btn_last_page"
+                       onclick="clickChangePage('last', null, getAllArticle)" value="最末頁">
+            </div>
+        </div>
+
+
+        {{-- article detail modal--}}
 
         <!-- New Thread Modal -->
         <div class="modal fade" id="threadModal" tabindex="-1" role="dialog" aria-labelledby="threadModalLabel" aria-hidden="true">
@@ -240,6 +230,93 @@
                             <button type="button" class="btn btn-primary" id="article_post">Post</button>
                         </div>
                     </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModalLong" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h7 class="modal-title" id=""><i class="far fa-bookmark"></i>文章內容</h7>
+                        <button type="button" class="close" id="article_detail_close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="inner-main-body p-2 p-sm-3 forum-content">
+                        <div class="card mb-2">
+                            <div class="card-body" id="article_detail">
+
+                            </div>
+                            <div class="bg-white p-2">
+                                <div class="d-flex flex-row fs-12" id="article_operation">
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <div id="collapse-1" class="bg-light p-2 collapse" data-parent="#article_detail">
+                            <div class="d-flex flex-row align-items-start"><textarea class="form-control ml-1 shadow-none textarea" id="comment_detail"></textarea></div>
+                            <div class="mt-2 text-right" id="post_comment_aria">
+                                <!--                            <button class="btn btn-primary btn-sm shadow-none" type="button" id="">Post comment</button>-->
+                            </div>
+                        </div>
+                        <div class="modal-header">
+                            <h7 class="modal-title" id=""><i class="far fa-comment"></i>留言區</h7>
+                        </div>
+                        <div class="card mb-2" id="all_comment">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">回覆內容</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-control" id="reply_comment_detail"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary" id="reply_comment" data-dismiss="modal">回覆</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="editArticleModal" tabindex="-1" role="dialog" aria-labelledby="editArticleModal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">文章</h5>
+                        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="mb-3">
+                                <label for="recipient-name" class="col-form-label">標題：</label>
+                                <input type="text" class="form-control" id="edit_article_title">
+                            </div>
+                            <div class="mb-3">
+                                <label for="message-text" class="col-form-label">內容：</label>
+                                <textarea class="form-control" id="edit_article_content"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary" id="confirm_edit_article" data-dismiss="modal">修改</button>
+                    </div>
                 </div>
             </div>
         </div>

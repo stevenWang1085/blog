@@ -24,7 +24,8 @@ class Transformer
                 'comments'   => $value['comments'],
                 'created_at' => date('Y-m-d H:i:s', strtotime($value['created_at'])),
                 'user_id'    => $value->userRelation['id'],
-                'username'   => $value->userRelation['name']
+                'username'   => $value->userRelation['name'],
+                'board_name' => $value->boardRelation['name']
             ];
         }
 
@@ -43,7 +44,8 @@ class Transformer
             'user_id'       => $result->userRelation['id'],
             'username'      => $result->userRelation['name'],
             'created_at'    => date('Y-m-d H:i:s', strtotime($result['created_at'])),
-            'current_favor' => $this->checkUserHaveFavor($result->articleFavorRelation)
+            'current_favor' => $this->checkUserHaveFavor($result->articleFavorRelation),
+            'board_name'    => $result->boardRelation['name']
         ];
     }
 

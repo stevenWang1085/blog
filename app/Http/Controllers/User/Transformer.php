@@ -14,9 +14,10 @@ class Transformer
     public function getCurrentUserTransform($result)
     {
         return [
-            'id'    => $result['id'],
-            'name'  => $result['name'],
-            'email' => $result['email']
+            'id'           => $result['id'],
+            'name'         => $result['name'],
+            'email'        => $result['email'],
+            'notify_count' => $result['notification_count']
         ];
     }
 

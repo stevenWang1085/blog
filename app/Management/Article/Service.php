@@ -10,16 +10,21 @@ namespace App\Management\Article;
 
 use App\Management\BaseService;
 use App\Management\ArticleFavor\Repository as ArticleFavorRepository;
+use App\Notifications\ArticleReply;
+use Illuminate\Support\Facades\Notification;
+use App\Management\User\Repository as UserRepository;
 
 class Service extends BaseService
 {
     private $repository;
     private $articleFavorRepository;
+    private $userRepository;
 
     public function __construct()
     {
         $this->repository = new Repository();
         $this->articleFavorRepository = new ArticleFavorRepository();
+        $this->userRepository = new UserRepository();
     }
 
     public function store($request)
@@ -51,7 +56,8 @@ class Service extends BaseService
 
     public function delete($id)
     {
-        $result = $this->repository->delete(['id' => $id]);
+        #刪除文章
+        $result = $this->repository->find($id)->delete();
         if ($result === false) return false;
 
         return true;
@@ -72,6 +78,8 @@ class Service extends BaseService
             $where = ['id' => $id];
             $update_data = ['favor' => $article_data['favor'] +1];
             $this->repository->updateWheres($where, $update_data);
+            #按讚通知
+            $this->processNotify($article_data);
         } else {
             #按過讚，刪除該按讚資料，並在article表中的favor總值-1
             $this->articleFavorRepository->delete($favor_data);
@@ -81,9 +89,27 @@ class Service extends BaseService
         }
     }
 
+    private function processNotify($article_data)
+    {
+        if ($this->user_id != $article_data['edited_user_id']) {
+            $notify_user = $this->userRepository->find($article_data['edited_user_id']);
+            $notify_user->increment('notification_count', 1);
+            $notify_data = [
+                'notify_from_user_id'   => $this->user_id,
+                'notify_to_user_id'     => $notify_user['id'],
+                'notify_from_user_name' => $this->user_name,
+                'article_title'         => $article_data['title'],
+                'notify_type'           => 'favor',
+                'article_id'            => $article_data['id'],
+                'time'                  => date('Y-m-d H:i:s')
+            ];
+            Notification::send($notify_user, new ArticleReply($notify_data));
+        }
+    }
+
     public function showOneArticle($id)
     {
-        return $this->repository->getOneWithRelation($id, ['userRelation', 'articleFavorRelation']);
+        return $this->repository->getOneWithRelation($id, ['userRelation', 'articleFavorRelation', 'boardRelation']);
     }
 
 }

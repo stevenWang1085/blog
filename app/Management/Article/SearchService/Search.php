@@ -24,7 +24,7 @@ class Search extends BaseSearchService
         }
 
         $query = BaseSearchService::applyDecoratorsFromRequest($filters, (new Entity)
-            ->with(['userRelation', 'articleFavorRelation'])
+            ->with(['userRelation', 'articleFavorRelation', 'boardRelation'])
             ->orderBy($order['order_column'], $order['order_column_by'])
             ->newQuery(), 'Filters', __NAMESPACE__);
 

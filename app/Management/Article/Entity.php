@@ -8,19 +8,25 @@
 
 namespace App\Management\Article;
 
+use Iatstuti\Database\Support\CascadeSoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Entity extends Model
 {
     use SoftDeletes;
+    use CascadeSoftDeletes;
 
     protected $table = 'articles';
 
+    protected $cascadeDeletes = ['articleCommentRelation', 'articleFavorRelation'];
+
     protected $fillable = [
+        'board_id',
         'title',
         'content',
-        'favor'
+        'favor',
+        'edited_user_id'
     ];
 
     protected $dates = [
@@ -37,5 +43,15 @@ class Entity extends Model
     public function articleFavorRelation()
     {
         return $this->hasMany(\App\Management\ArticleFavor\Entity::class, 'article_id', 'id');
+    }
+
+    public function boardRelation()
+    {
+        return $this->belongsTo(\App\Management\Board\Entity::class, 'board_id', 'id');
+    }
+
+    public function articleCommentRelation()
+    {
+        return $this->hasMany(\App\Management\ArticleComment\Entity::class, 'article_id', 'id');
     }
 }

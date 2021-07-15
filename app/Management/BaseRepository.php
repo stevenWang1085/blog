@@ -38,9 +38,13 @@ abstract class BaseRepository
         })->get();
     }
 
-    public function find($id)
+    public function find($id, $relations = null)
     {
-        return $this->query()->findOrFail($id);
+        if (is_null($relations)) {
+            return $this->query()->findOrFail($id);
+        }
+
+        return $this->query()->with($relations)->findOrFail($id);
     }
 
     public function lockForUpdate($id)

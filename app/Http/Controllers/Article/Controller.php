@@ -34,7 +34,8 @@ class Controller extends \App\Http\Controllers\Controller
                 'title'           => $request->title,
                 'order_column'    => $request->order_column,
                 'order_column_by' => $request->order_column_by,
-                'per_page'        => $request->per_page ?? 20
+                'per_page'        => $request->per_page ?? 20,
+                'edited_user_id'  => $request->edited_user_id == 1 ? session()->get('user_id') : null
             ];
             $result = Search::apply($filters, 'page');
             if (count($result) === 0) return $this->responseMaker(202, null, null);
