@@ -34,10 +34,10 @@ ENV RUN_SCRIPTS 1
 ENV SKIP_COMPOSER 1
 USER root
 
-RUN ./artisan migrate
 RUN cp $SOURCE_ROOT/default.conf /etc/nginx/sites-available/default.conf
 RUN apk add supervisor
 RUN cp $SOURCE_ROOT/supervisord.conf /etc/supervisord.conf
 RUN supervisorctl restart nginx
 RUN supervisorctl restart php-fpm
 RUN supervisorctl restart blog-queue
+RUN ./artisan migrate
