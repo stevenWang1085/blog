@@ -7,6 +7,7 @@ $(document).ready(function () {
             },
             success: function (success) {
                 window.location.href = '/';
+                sessionStorage.clear();
                 console.log(success);
             },
             error: function (error) {
