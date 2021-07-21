@@ -40,4 +40,3 @@ RUN cp $SOURCE_ROOT/supervisord.conf /etc/supervisord.conf
 RUN supervisorctl restart nginx
 RUN supervisorctl restart php-fpm
 RUN supervisorctl restart blog-queue
-RUN ./artisan migrate
