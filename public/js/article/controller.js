@@ -71,6 +71,7 @@ function homeBarActive() {
     $('#my_notify').click(function () {
         $('.from_bar').removeClass('active');
         $('#my_notify').addClass('active');
+        sessionStorage.setItem('my_article', 0);
     });
     if (sessionStorage.getItem('my_article') === '1') {
         $('.from_bar').removeClass('active');
