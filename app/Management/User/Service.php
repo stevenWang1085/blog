@@ -76,7 +76,7 @@ class Service extends BaseService
         if ($env !== 'prod') {
             $host = "http://localhost:90/reset_password.html";
         } else {
-            $host = "http://35.221.149.244/reset_password.html";
+            $host = "http://34.81.120.79/reset_password.html";
         }
 
         $mail_to = $request->email;
