@@ -55,7 +55,7 @@ class UserTest extends TestCase
     {
         $this->withoutMiddleware();
         #註冊
-        $this->post('api/user', [
+        $this->post('api/user/register', [
             'name' => 'steven',
             'email' => 'steven@mail.com',
             'password' => 'password'
@@ -85,7 +85,7 @@ class UserTest extends TestCase
     public function testForgetPasswordSendEmail()
     {
         $this->withoutMiddleware();
-        $this->post('api/user', [
+        $this->post('api/user/register', [
             'name' => 'steven',
             'email' => '4a114019@stust.edu.tw',
             'password' => '123456'
