@@ -34,6 +34,37 @@ class Controller extends \App\Http\Controllers\Controller
         return $response;
     }
 
+    /**
+     *
+     *  @OA\Post(
+     *     path="/api/user/login",
+     *     tags={"User"},
+     *     summary="使用者登入",
+     *     description="使用者登入",
+     *     @OA\Parameter(
+     *         name="email",
+     *         description="信箱",
+     *         required=true,
+     *         in="query",
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
+     *     @OA\Parameter(
+     *         name="password",
+     *         description="密碼",
+     *         required=true,
+     *         in="query",
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
+     *     @OA\Response(response="1602", description="帳號或密碼錯誤"),
+     *     @OA\Response(response="1102", description="登入成功"),
+     *     @OA\Response(response="1601", description="請求格式錯誤")
+     *
+     * )
+     */
     public function login(Form $request)
     {
         try {
@@ -57,6 +88,37 @@ class Controller extends \App\Http\Controllers\Controller
         return $response;
     }
 
+    /**
+     *
+     *  @OA\Post(
+     *     path="/api/user/forget_password/send",
+     *     tags={"User"},
+     *     summary="使用者登入",
+     *     description="使用者登入",
+     *     @OA\Parameter(
+     *         name="email",
+     *         description="信箱",
+     *         required=true,
+     *         in="query",
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
+     *     @OA\Parameter(
+     *         name="password",
+     *         description="密碼",
+     *         required=true,
+     *         in="query",
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
+     *     @OA\Response(response="1602", description="帳號或密碼錯誤"),
+     *     @OA\Response(response="1102", description="登入成功"),
+     *     @OA\Response(response="1601", description="請求格式錯誤")
+     *
+     * )
+     */
     public function forgetPasswordSendEmail(Form $request)
     {
         try {
@@ -105,6 +167,45 @@ class Controller extends \App\Http\Controllers\Controller
         return $response;
     }
 
+    /**
+     *
+     *  @OA\Post(
+     *     path="/api/user/register",
+     *     tags={"User"},
+     *     summary="使用者註冊",
+     *     description="使用者註冊",
+     *     @OA\Parameter(
+     *         name="name",
+     *         description="姓名",
+     *         required=true,
+     *         in="query",
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
+     *     @OA\Parameter(
+     *         name="email",
+     *         description="信箱",
+     *         required=true,
+     *         in="query",
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
+     *     @OA\Parameter(
+     *         name="password",
+     *         description="密碼",
+     *         required=true,
+     *         in="query",
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
+     *     @OA\Response(response="1101", description="註冊成功"),
+     *     @OA\Response(response="1601", description="請求格式錯誤")
+     *
+     * )
+     */
     public function store(Form $request)
     {
         try {
@@ -119,7 +220,7 @@ class Controller extends \App\Http\Controllers\Controller
         return $response;
     }
 
-    public function show()
+    public function getCurrentUser()
     {
         try {
             $result = $this->userService->getCurrentUser();

@@ -24,7 +24,28 @@ class Controller extends \App\Http\Controllers\Controller
         $this->articleCommentService = new ArticleCommentService();
         $this->articleCommentTransformer = new ArticleCommentTransformer();
     }
-
+    /**
+     *
+     *  @OA\Get(
+     *     path="/api/article/{article_id}/comment",
+     *     tags={"Article Comment"},
+     *     summary="取得指定文章所有留言",
+     *     description="取得指定文章所有留言與回覆訊息",
+     *     @OA\Parameter(
+     *         name="article_id",
+     *         description="文章編號",
+     *         required=true,
+     *         in="path",
+     *         @OA\Schema(
+     *             type="integer"
+     *         )
+     *     ),
+     *     @OA\Response(response="1201", description="查詢成功"),
+     *     @OA\Response(response="1202", description="查無資料"),
+     *     @OA\Response(response="400", description="程式異常")
+     *
+     * )
+     */
     public function index(Form $request, $article_id)
     {
         try {
@@ -42,6 +63,36 @@ class Controller extends \App\Http\Controllers\Controller
         return $response;
     }
 
+    /**
+     *
+     *  @OA\Post(
+     *     path="/api/article/{article_id}/comment",
+     *     tags={"Article Comment"},
+     *     summary="於指定文章新增留言",
+     *     description="於指定文章新增留言",
+     *     @OA\Parameter(
+     *         name="article_id",
+     *         description="文章編號",
+     *         required=true,
+     *         in="path",
+     *         @OA\Schema(
+     *             type="integer"
+     *         )
+     *     ),
+     *    @OA\Parameter(
+     *         name="comment",
+     *         description="留言內容",
+     *         required=true,
+     *         in="query",
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
+     *     @OA\Response(response="1108", description="新增成功"),
+     *     @OA\Response(response="1608", description="新增異常")
+     *
+     * )
+     */
     public function store(Form $request, $article_id)
     {
         try {
@@ -66,6 +117,36 @@ class Controller extends \App\Http\Controllers\Controller
         return $response;
     }
 
+    /**
+     *
+     *  @OA\Patch(
+     *     path="/api/article_comment/{comment_id}",
+     *     tags={"Article Comment"},
+     *     summary="指定文章內之留言更新",
+     *     description="指定文章內之留言更新",
+     *     @OA\Parameter(
+     *         name="comment_id",
+     *         description="留言編號",
+     *         required=true,
+     *         in="path",
+     *         @OA\Schema(
+     *             type="integer"
+     *         )
+     *     ),
+     *    @OA\Parameter(
+     *         name="comment",
+     *         description="留言內容",
+     *         required=true,
+     *         in="query",
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
+     *     @OA\Response(response="1302", description="更新成功"),
+     *     @OA\Response(response="1802", description="更新異常")
+     *
+     * )
+     */
     public function update(Form $request, $comment_id)
     {
         try {
@@ -80,6 +161,27 @@ class Controller extends \App\Http\Controllers\Controller
         return $response;
     }
 
+    /**
+     *
+     *  @OA\Delete(
+     *     path="/api/article_comment/{comment_id}",
+     *     tags={"Article Comment"},
+     *     summary="指定文章內之留言刪除",
+     *     description="指定文章內之留言刪除",
+     *     @OA\Parameter(
+     *         name="comment_id",
+     *         description="留言編號",
+     *         required=true,
+     *         in="path",
+     *         @OA\Schema(
+     *             type="integer"
+     *         )
+     *     ),
+     *     @OA\Response(response="1402", description="刪除成功"),
+     *     @OA\Response(response="1902", description="刪除異常")
+     *
+     * )
+     */
     public function destroy(Form $request, $comment_id)
     {
         try {

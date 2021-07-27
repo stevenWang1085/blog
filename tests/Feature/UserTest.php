@@ -38,7 +38,7 @@ class UserTest extends TestCase
             'password' => 'dwdwdsswd'
         ];
 
-        $response = $this->post('api/user', $user_data);
+        $response = $this->post('api/user/register', $user_data);
         $this->assertDatabaseHas('users', [
             'name'     => $user_data['name'],
             'email'    => $user_data['email']

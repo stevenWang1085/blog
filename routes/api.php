@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::resource('/user', 'User\Controller');
+Route::post('/user/register', 'User\Controller@store');
 Route::post('/user/login', 'User\Controller@login');
 Route::post('/user/forget_password/send', 'User\Controller@forgetPasswordSendEmail');
 Route::post('/user/reset_code/check', 'User\Controller@resetCodeCheck');
@@ -28,8 +28,8 @@ Route::group(['middleware' => ['check_login:api']], function () {
     Route::patch('/article/{id}/favor', 'Article\Controller@updateFavor');
     Route::get('/article/{article_id}/comment', 'ArticleComment\Controller@index');
     Route::post('/article/{article_id}/comment', 'ArticleComment\Controller@store');
-    Route::patch('/article/{comment_id}/comment', 'ArticleComment\Controller@update');
-    Route::delete('/article/{comment_id}/comment', 'ArticleComment\Controller@destroy');
+    Route::patch('/article_comment/{comment_id}', 'ArticleComment\Controller@update');
+    Route::delete('/article_comment/{comment_id}', 'ArticleComment\Controller@destroy');
 
 
     Route::post('/comment/{comment_id}/reply', 'ArticleCommentReply\Controller@store');

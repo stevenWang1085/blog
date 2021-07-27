@@ -32,6 +32,45 @@ class Controller extends \App\Http\Controllers\Controller
         return $response;
     }
 
+    /**
+     *
+     *  @OA\Post(
+     *     path="/api/comment/{comment_id}/reply",
+     *     tags={"Article Comment Reply"},
+     *     summary="於指定文章留言新增回覆訊息",
+     *     description="於指定文章留言新增回覆訊息",
+     *     @OA\Parameter(
+     *         name="comment_id",
+     *         description="留言編號",
+     *         required=true,
+     *         in="path",
+     *         @OA\Schema(
+     *             type="integer"
+     *         )
+     *     ),
+     *     @OA\Parameter(
+     *         name="comment",
+     *         description="回覆內容",
+     *         required=true,
+     *         in="query",
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
+     *     @OA\Parameter(
+     *         name="article_id",
+     *         description="文章編號",
+     *         required=true,
+     *         in="query",
+     *         @OA\Schema(
+     *             type="integer"
+     *         )
+     *     ),
+     *     @OA\Response(response="1108", description="新增成功"),
+     *     @OA\Response(response="400", description="新增異常")
+     *
+     * )
+     */
     public function store(Form $request, $comment_id)
     {
         try {

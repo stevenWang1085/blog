@@ -1,0 +1,599 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "My First API",
+        "version": "0.1"
+    },
+    "paths": {
+        "/api/article": {
+            "get": {
+                "tags": [
+                    "Article"
+                ],
+                "summary": "取得文章列表",
+                "description": "取得文章列表",
+                "operationId": "f4c6a1c1e2e3a6d071675da1a11de268",
+                "parameters": [
+                    {
+                        "name": "order_column",
+                        "in": "query",
+                        "description": "排序欄位(created_at、favor、comments)",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "order_column_by",
+                        "in": "query",
+                        "description": "排序形式(asc、desc)",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "board_id",
+                        "in": "query",
+                        "description": "看板代號",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "title",
+                        "in": "query",
+                        "description": "標題",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "contents",
+                        "in": "query",
+                        "description": "內容",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "1201": {
+                        "description": "查詢成功"
+                    },
+                    "1202": {
+                        "description": "查無資料"
+                    },
+                    "400": {
+                        "description": "程式異常"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Article"
+                ],
+                "summary": "新增文章",
+                "description": "指定看板新增文章",
+                "operationId": "53c5bfda6b31cd5acb68f1115f17541c",
+                "parameters": [
+                    {
+                        "name": "board_id",
+                        "in": "query",
+                        "description": "看板代號",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "title",
+                        "in": "query",
+                        "description": "文章標題",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "content",
+                        "in": "query",
+                        "description": "文章內容",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "資源成功建立"
+                    },
+                    "1601": {
+                        "description": "請求格式錯誤"
+                    },
+                    "400": {
+                        "description": "程式異常"
+                    }
+                }
+            }
+        },
+        "/api/article/{id}": {
+            "get": {
+                "tags": [
+                    "Article"
+                ],
+                "summary": "取得文章詳情",
+                "description": "取得文章詳情",
+                "operationId": "8f27bc8b3e288622496ff94ebc52b3d4",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Article ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "查詢成功"
+                    },
+                    "1202": {
+                        "description": "查無資料"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Article"
+                ],
+                "summary": "刪除文章",
+                "description": "刪除文章",
+                "operationId": "c8c6a538653121624ff05d97596248f6",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Article ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "刪除成功"
+                    },
+                    "400": {
+                        "description": "刪除失敗"
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "Article"
+                ],
+                "summary": "更新文章",
+                "description": "更新文章",
+                "operationId": "70e2a20ec4242d45637353a37470f135",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Article ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "title",
+                        "in": "query",
+                        "description": "文章標題",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "content",
+                        "in": "query",
+                        "description": "文章內容",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "更新成功"
+                    },
+                    "400": {
+                        "description": "更新失敗"
+                    },
+                    "1601": {
+                        "description": "請求格式錯誤"
+                    }
+                }
+            }
+        },
+        "/api/article/{id}/favor": {
+            "patch": {
+                "tags": [
+                    "Article"
+                ],
+                "summary": "按讚文章",
+                "description": "按讚文章",
+                "operationId": "697518cc815e322fefbf1d52fcd04dd3",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Article ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "更新成功"
+                    },
+                    "400": {
+                        "description": "更新失敗"
+                    }
+                }
+            }
+        },
+        "/api/article/{article_id}/comment": {
+            "get": {
+                "tags": [
+                    "Article Comment"
+                ],
+                "summary": "取得指定文章所有留言",
+                "description": "取得指定文章所有留言與回覆訊息",
+                "operationId": "ba21a5f3296ed0c1a05ba5c78b90f0f7",
+                "parameters": [
+                    {
+                        "name": "article_id",
+                        "in": "path",
+                        "description": "文章編號",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "1201": {
+                        "description": "查詢成功"
+                    },
+                    "1202": {
+                        "description": "查無資料"
+                    },
+                    "400": {
+                        "description": "程式異常"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Article Comment"
+                ],
+                "summary": "於指定文章新增留言",
+                "description": "於指定文章新增留言",
+                "operationId": "dc1fd368e0eec7072f3e56c2aa08ec36",
+                "parameters": [
+                    {
+                        "name": "article_id",
+                        "in": "path",
+                        "description": "文章編號",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "comment",
+                        "in": "query",
+                        "description": "留言內容",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "1108": {
+                        "description": "新增成功"
+                    },
+                    "1608": {
+                        "description": "新增異常"
+                    }
+                }
+            }
+        },
+        "/api/article_comment/{comment_id}": {
+            "delete": {
+                "tags": [
+                    "Article Comment"
+                ],
+                "summary": "指定文章內之留言刪除",
+                "description": "指定文章內之留言刪除",
+                "operationId": "28d6bc7d8f2bc199549e7d165dc9ba48",
+                "parameters": [
+                    {
+                        "name": "comment_id",
+                        "in": "path",
+                        "description": "留言編號",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "1402": {
+                        "description": "刪除成功"
+                    },
+                    "1902": {
+                        "description": "刪除異常"
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "Article Comment"
+                ],
+                "summary": "指定文章內之留言更新",
+                "description": "指定文章內之留言更新",
+                "operationId": "d65aceaa5170712c53c4a054677ca4be",
+                "parameters": [
+                    {
+                        "name": "comment_id",
+                        "in": "path",
+                        "description": "留言編號",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "comment",
+                        "in": "query",
+                        "description": "留言內容",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "1302": {
+                        "description": "更新成功"
+                    },
+                    "1802": {
+                        "description": "更新異常"
+                    }
+                }
+            }
+        },
+        "/api/comment/{comment_id}/reply": {
+            "post": {
+                "tags": [
+                    "Article Comment Reply"
+                ],
+                "summary": "於指定文章留言新增回覆訊息",
+                "description": "於指定文章留言新增回覆訊息",
+                "operationId": "2a32a4ad9f8ed37ecccff8b5d981cda6",
+                "parameters": [
+                    {
+                        "name": "comment_id",
+                        "in": "path",
+                        "description": "留言編號",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "comment",
+                        "in": "query",
+                        "description": "回覆內容",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "article_id",
+                        "in": "query",
+                        "description": "文章編號",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "1108": {
+                        "description": "新增成功"
+                    },
+                    "400": {
+                        "description": "新增異常"
+                    }
+                }
+            }
+        },
+        "/api/board": {
+            "get": {
+                "tags": [
+                    "Board"
+                ],
+                "summary": "取得看板列表",
+                "description": "取得看板列表",
+                "operationId": "f4de2df6f3c7fa1c26290931e5a35859",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "看板名稱",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "1201": {
+                        "description": "查詢成功"
+                    },
+                    "1202": {
+                        "description": "查無資料"
+                    },
+                    "400": {
+                        "description": "程式異常"
+                    }
+                }
+            }
+        },
+        "/api/user/login": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "使用者登入",
+                "description": "使用者登入",
+                "operationId": "d4bfda9a297690c3d2850ce1936c3116",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "信箱",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "密碼",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "1602": {
+                        "description": "帳號或密碼錯誤"
+                    },
+                    "1102": {
+                        "description": "登入成功"
+                    },
+                    "1601": {
+                        "description": "請求格式錯誤"
+                    }
+                }
+            }
+        },
+        "/api/user/forget_password/send": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "使用者登入",
+                "description": "使用者登入",
+                "operationId": "990903575f5e8d26d9b9ae8441e18870",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "信箱",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "密碼",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "1602": {
+                        "description": "帳號或密碼錯誤"
+                    },
+                    "1102": {
+                        "description": "登入成功"
+                    },
+                    "1601": {
+                        "description": "請求格式錯誤"
+                    }
+                }
+            }
+        },
+        "/api/user/register": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "使用者註冊",
+                "description": "使用者註冊",
+                "operationId": "0bae2f152355c470cfa6330f37efaa04",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "姓名",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "信箱",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "密碼",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "1101": {
+                        "description": "註冊成功"
+                    },
+                    "1601": {
+                        "description": "請求格式錯誤"
+                    }
+                }
+            }
+        }
+    }
+}

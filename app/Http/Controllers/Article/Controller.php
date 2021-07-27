@@ -25,6 +25,64 @@ class Controller extends \App\Http\Controllers\Controller
         $this->articleTransformer = new ArticleTransformer();
     }
 
+    /**
+     *
+     *  @OA\Get(
+     *     path="/api/article",
+     *     tags={"Article"},
+     *     summary="取得文章列表",
+     *     description="取得文章列表",
+     *     @OA\Parameter(
+     *         name="order_column",
+     *         description="排序欄位(created_at、favor、comments)",
+     *         required=true,
+     *         in="query",
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
+     *     @OA\Parameter(
+     *         name="order_column_by",
+     *         description="排序形式(asc、desc)",
+     *         required=true,
+     *         in="query",
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
+     *     @OA\Parameter(
+     *         name="board_id",
+     *         description="看板代號",
+     *         required=false,
+     *         in="query",
+     *         @OA\Schema(
+     *             type="integer"
+     *         )
+     *     ),
+     *    @OA\Parameter(
+     *         name="title",
+     *         description="標題",
+     *         required=false,
+     *         in="query",
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
+     *     @OA\Parameter(
+     *         name="contents",
+     *         description="內容",
+     *         required=false,
+     *         in="query",
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
+     *     @OA\Response(response="1201", description="查詢成功"),
+     *     @OA\Response(response="1202", description="查無資料"),
+     *     @OA\Response(response="400", description="程式異常")
+     *
+     * )
+     */
     public function index(Form $request)
     {
         try {
@@ -46,7 +104,54 @@ class Controller extends \App\Http\Controllers\Controller
         }
         return $response;
     }
-
+    /**
+     * @OA\Post(
+     *      path="/api/article",
+     *      tags={"Article"},
+     *      summary="新增文章",
+     *      description="指定看板新增文章",
+     *      @OA\Parameter(
+     *          name="board_id",
+     *          description="看板代號",
+     *          required=true,
+     *          in="query",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\Parameter(
+     *          name="title",
+     *          description="文章標題",
+     *          required=true,
+     *          in="query",
+     *          @OA\Schema(
+     *              type="string"
+     *          )
+     *      ),
+     *      @OA\Parameter(
+     *          name="content",
+     *          description="文章內容",
+     *          required=true,
+     *          in="query",
+     *          @OA\Schema(
+     *              type="string"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="資源成功建立"
+     *       ),
+     *      @OA\Response(
+     *          response=1601,
+     *          description="請求格式錯誤"
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="程式異常"
+     *       )
+     * )
+     *
+     */
     public function store(Form $request)
     {
         try {
@@ -62,10 +167,30 @@ class Controller extends \App\Http\Controllers\Controller
         return $response;
     }
 
+    /**
+     * @OA\Get(
+     *      path="/api/article/{id}",
+     *      tags={"Article"},
+     *      summary="取得文章詳情",
+     *      description="取得文章詳情",
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="Article ID",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *     @OA\Response(response="200", description="查詢成功"),
+     *     @OA\Response(response="1202", description="查無資料"),
+     * )
+     */
     public function show(Form $request, $id)
     {
         try {
             $result = $this->articleService->showOneArticle($id);
+            if (is_null($result)) return $this->responseMaker(202, null, null);
             $data = $this->articleTransformer->articleShowTransform($result);
             $response = $this->responseMaker(201, null, $data);
         } catch (\Exception $e) {
@@ -74,6 +199,44 @@ class Controller extends \App\Http\Controllers\Controller
         return $response;
     }
 
+    /**
+     * @OA\Patch(
+     *      path="/api/article/{id}",
+     *      tags={"Article"},
+     *      summary="更新文章",
+     *      description="更新文章",
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="Article ID",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\Parameter(
+     *          name="title",
+     *          description="文章標題",
+     *          required=true,
+     *          in="query",
+     *          @OA\Schema(
+     *              type="string"
+     *          )
+     *      ),
+     *      @OA\Parameter(
+     *          name="content",
+     *          description="文章內容",
+     *          required=true,
+     *          in="query",
+     *          @OA\Schema(
+     *              type="string"
+     *          )
+     *      ),
+     *     @OA\Response(response="200", description="更新成功"),
+     *     @OA\Response(response="400", description="更新失敗"),
+     *     @OA\Response(response="1601", description="請求格式錯誤"),
+     * )
+     */
     public function update(Form $request, $id)
     {
         try {
@@ -88,7 +251,25 @@ class Controller extends \App\Http\Controllers\Controller
         }
         return $response;
     }
-
+    /**
+     * @OA\Patch(
+     *      path="/api/article/{id}/favor",
+     *      tags={"Article"},
+     *      summary="按讚文章",
+     *      description="按讚文章",
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="Article ID",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *     @OA\Response(response="200", description="更新成功"),
+     *     @OA\Response(response="400", description="更新失敗"),
+     * )
+     */
     public function updateFavor(Form $request, $id)
     {
         try {
@@ -102,7 +283,25 @@ class Controller extends \App\Http\Controllers\Controller
         }
         return $response;
     }
-
+    /**
+     * @OA\Delete(
+     *      path="/api/article/{id}",
+     *      tags={"Article"},
+     *      summary="刪除文章",
+     *      description="刪除文章",
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="Article ID",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *     @OA\Response(response="200", description="刪除成功"),
+     *     @OA\Response(response="400", description="刪除失敗"),
+     * )
+     */
     public function destroy(Form $request, $id)
     {
         try {
@@ -113,7 +312,7 @@ class Controller extends \App\Http\Controllers\Controller
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
-            $response = $this->responseMaker(1, $e->getMessage(), null);
+            $response = $this->responseMaker(902, $e->getMessage(), null);
         }
         return $response;
     }

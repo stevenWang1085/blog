@@ -85,7 +85,7 @@ class ArticleCommentTest extends TestCase
             'comment' => 'comment1'
         ]);
 
-        $response = $this->patch("api/article/{$data->id}/comment", [
+        $response = $this->patch("api/article_comment/{$data->id}", [
             'comment' => '123'
         ]);
 
@@ -117,7 +117,7 @@ class ArticleCommentTest extends TestCase
             'comment' => 'comment1'
         ]);
 
-        $response = $this->delete("api/article/{$data->id}/comment");
+        $response = $this->delete("api/article_comment/{$data->id}");
         $response->assertOk();
         $this->assertSoftDeleted('article_comments', [
             'id' => $data->id

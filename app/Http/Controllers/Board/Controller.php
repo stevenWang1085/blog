@@ -24,6 +24,28 @@ class Controller extends \App\Http\Controllers\Controller
         $this->boardTransformer = new BoardTransformer();
     }
 
+    /**
+     *
+     *  @OA\Get(
+     *     path="/api/board",
+     *     tags={"Board"},
+     *     summary="取得看板列表",
+     *     description="取得看板列表",
+     *     @OA\Parameter(
+     *         name="name",
+     *         description="看板名稱",
+     *         required=false,
+     *         in="query",
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
+     *     @OA\Response(response="1201", description="查詢成功"),
+     *     @OA\Response(response="1202", description="查無資料"),
+     *     @OA\Response(response="400", description="程式異常")
+     *
+     * )
+     */
     public function index(Form $request)
     {
         try {

@@ -30,7 +30,7 @@ $(document).ready(function () {
         let confirm_password = $('#sign_confirm_password').val();
 
         $.ajax({
-            url: 'api/user',
+            url: 'api/user/register',
             type: "POST",
             data: {
                 name: name,
