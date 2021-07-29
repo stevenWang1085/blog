@@ -27,7 +27,7 @@ class Controller extends \App\Http\Controllers\Controller
         try {
             $response = $this->responseMaker(501, null, null);
         } catch (\Exception $e) {
-            $response = $this->responseMaker(1, $e->getMessage(), null);
+            $response = $this->responseMaker(500, $e->getMessage(), null);
         }
         return $response;
     }
@@ -35,7 +35,7 @@ class Controller extends \App\Http\Controllers\Controller
     /**
      *
      *  @OA\Post(
-     *     path="/api/comment/{comment_id}/reply",
+     *     path="/api/v1/comment/{comment_id}/reply",
      *     tags={"Article Comment Reply"},
      *     summary="於指定文章留言新增回覆訊息",
      *     description="於指定文章留言新增回覆訊息",
@@ -67,7 +67,7 @@ class Controller extends \App\Http\Controllers\Controller
      *         )
      *     ),
      *     @OA\Response(response="1108", description="新增成功"),
-     *     @OA\Response(response="400", description="新增異常")
+     *     @OA\Response(response="1500", description="程式異常新增異常")
      *
      * )
      */
@@ -80,7 +80,7 @@ class Controller extends \App\Http\Controllers\Controller
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
-            $response = $this->responseMaker(1, $e->getMessage(), null);
+            $response = $this->responseMaker(500, $e->getMessage(), null);
         }
         return $response;
     }
@@ -90,7 +90,7 @@ class Controller extends \App\Http\Controllers\Controller
         try {
             $response = $this->responseMaker(501, null, null);
         } catch (\Exception $e) {
-            $response = $this->responseMaker(1, $e->getMessage(), null);
+            $response = $this->responseMaker(500, $e->getMessage(), null);
         }
         return $response;
     }
@@ -100,7 +100,7 @@ class Controller extends \App\Http\Controllers\Controller
         try {
             $response = $this->responseMaker(501, null, null);
         } catch (\Exception $e) {
-            $response = $this->responseMaker(1, $e->getMessage(), null);
+            $response = $this->responseMaker(500, $e->getMessage(), null);
         }
         return $response;
     }
@@ -110,7 +110,7 @@ class Controller extends \App\Http\Controllers\Controller
         try {
             $response = $this->responseMaker(501, null, null);
         } catch (\Exception $e) {
-            $response = $this->responseMaker(1, $e->getMessage(), null);
+            $response = $this->responseMaker(500, $e->getMessage(), null);
         }
         return $response;
     }

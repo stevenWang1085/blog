@@ -27,7 +27,7 @@ class Controller extends \App\Http\Controllers\Controller
     /**
      *
      *  @OA\Get(
-     *     path="/api/article/{article_id}/comment",
+     *     path="/api/v1/article/{article_id}/comment",
      *     tags={"Article Comment"},
      *     summary="取得指定文章所有留言",
      *     description="取得指定文章所有留言與回覆訊息",
@@ -42,7 +42,7 @@ class Controller extends \App\Http\Controllers\Controller
      *     ),
      *     @OA\Response(response="1201", description="查詢成功"),
      *     @OA\Response(response="1202", description="查無資料"),
-     *     @OA\Response(response="400", description="程式異常")
+     *     @OA\Response(response="1500", description="程式異常")
      *
      * )
      */
@@ -58,7 +58,7 @@ class Controller extends \App\Http\Controllers\Controller
             $data = $this->articleCommentTransformer->articleCommentIndexTransform($result, $filters['per_page']);
             $response = $this->responseMaker(201, null, $data);
         } catch (\Exception $e) {
-            $response = $this->responseMaker(1, $e->getMessage(), null);
+            $response = $this->responseMaker(500, $e->getMessage(), null);
         }
         return $response;
     }
@@ -66,7 +66,7 @@ class Controller extends \App\Http\Controllers\Controller
     /**
      *
      *  @OA\Post(
-     *     path="/api/article/{article_id}/comment",
+     *     path="/api/v1/article/{article_id}/comment",
      *     tags={"Article Comment"},
      *     summary="於指定文章新增留言",
      *     description="於指定文章新增留言",
@@ -112,7 +112,7 @@ class Controller extends \App\Http\Controllers\Controller
         try {
             $response = $this->responseMaker(501, null, null);
         } catch (\Exception $e) {
-            $response = $this->responseMaker(1, $e->getMessage(), null);
+            $response = $this->responseMaker(500, $e->getMessage(), null);
         }
         return $response;
     }
@@ -120,7 +120,7 @@ class Controller extends \App\Http\Controllers\Controller
     /**
      *
      *  @OA\Patch(
-     *     path="/api/article_comment/{comment_id}",
+     *     path="/api/v1/article_comment/{comment_id}",
      *     tags={"Article Comment"},
      *     summary="指定文章內之留言更新",
      *     description="指定文章內之留言更新",
@@ -164,7 +164,7 @@ class Controller extends \App\Http\Controllers\Controller
     /**
      *
      *  @OA\Delete(
-     *     path="/api/article_comment/{comment_id}",
+     *     path="/api/v1/article_comment/{comment_id}",
      *     tags={"Article Comment"},
      *     summary="指定文章內之留言刪除",
      *     description="指定文章內之留言刪除",

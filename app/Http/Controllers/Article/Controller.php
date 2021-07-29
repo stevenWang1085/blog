@@ -28,7 +28,7 @@ class Controller extends \App\Http\Controllers\Controller
     /**
      *
      *  @OA\Get(
-     *     path="/api/article",
+     *     path="/api/v1/article",
      *     tags={"Article"},
      *     summary="取得文章列表",
      *     description="取得文章列表",
@@ -79,7 +79,7 @@ class Controller extends \App\Http\Controllers\Controller
      *     ),
      *     @OA\Response(response="1201", description="查詢成功"),
      *     @OA\Response(response="1202", description="查無資料"),
-     *     @OA\Response(response="400", description="程式異常")
+     *     @OA\Response(response="1500", description="程式異常")
      *
      * )
      */
@@ -100,13 +100,13 @@ class Controller extends \App\Http\Controllers\Controller
             $data = $this->articleTransformer->articleIndexTransform($result, $filters['per_page']);
             $response = $this->responseMaker(201, null, $data);
         } catch (\Exception $e) {
-            $response = $this->responseMaker(1, $e->getMessage(), null);
+            $response = $this->responseMaker(500, $e->getMessage(), null);
         }
         return $response;
     }
     /**
      * @OA\Post(
-     *      path="/api/article",
+     *      path="/api/v1/article",
      *      tags={"Article"},
      *      summary="新增文章",
      *      description="指定看板新增文章",
@@ -137,18 +137,9 @@ class Controller extends \App\Http\Controllers\Controller
      *              type="string"
      *          )
      *      ),
-     *      @OA\Response(
-     *          response=200,
-     *          description="資源成功建立"
-     *       ),
-     *      @OA\Response(
-     *          response=1601,
-     *          description="請求格式錯誤"
-     *       ),
-     *      @OA\Response(
-     *          response=400,
-     *          description="程式異常"
-     *       )
+     *      @OA\Response(response=1108,description="新增成功"),
+     *      @OA\Response(response=1601,description="請求格式錯誤"),
+     *      @OA\Response(response=1500,description="程式異常")
      * )
      *
      */
@@ -162,14 +153,14 @@ class Controller extends \App\Http\Controllers\Controller
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
-            $response = $this->responseMaker(1, $e->getMessage(), null);
+            $response = $this->responseMaker(500, $e->getMessage(), null);
         }
         return $response;
     }
 
     /**
      * @OA\Get(
-     *      path="/api/article/{id}",
+     *      path="/api/v1/article/{id}",
      *      tags={"Article"},
      *      summary="取得文章詳情",
      *      description="取得文章詳情",
@@ -194,14 +185,14 @@ class Controller extends \App\Http\Controllers\Controller
             $data = $this->articleTransformer->articleShowTransform($result);
             $response = $this->responseMaker(201, null, $data);
         } catch (\Exception $e) {
-            $response = $this->responseMaker(1, $e->getMessage(), null);
+            $response = $this->responseMaker(500, $e->getMessage(), null);
         }
         return $response;
     }
 
     /**
      * @OA\Patch(
-     *      path="/api/article/{id}",
+     *      path="/api/v1/article/{id}",
      *      tags={"Article"},
      *      summary="更新文章",
      *      description="更新文章",
@@ -232,8 +223,8 @@ class Controller extends \App\Http\Controllers\Controller
      *              type="string"
      *          )
      *      ),
-     *     @OA\Response(response="200", description="更新成功"),
-     *     @OA\Response(response="400", description="更新失敗"),
+     *     @OA\Response(response="1302", description="更新成功"),
+     *     @OA\Response(response="1500", description="程式異常更新失敗"),
      *     @OA\Response(response="1601", description="請求格式錯誤"),
      * )
      */
@@ -247,13 +238,13 @@ class Controller extends \App\Http\Controllers\Controller
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
-            $response = $this->responseMaker(1, $e->getMessage(), null);
+            $response = $this->responseMaker(500, $e->getMessage(), null);
         }
         return $response;
     }
     /**
      * @OA\Patch(
-     *      path="/api/article/{id}/favor",
+     *      path="/api/v1/article/{id}/favor",
      *      tags={"Article"},
      *      summary="按讚文章",
      *      description="按讚文章",
@@ -266,8 +257,8 @@ class Controller extends \App\Http\Controllers\Controller
      *              type="integer"
      *          )
      *      ),
-     *     @OA\Response(response="200", description="更新成功"),
-     *     @OA\Response(response="400", description="更新失敗"),
+     *     @OA\Response(response="1302", description="更新成功"),
+     *     @OA\Response(response="1500", description="程式異常"),
      * )
      */
     public function updateFavor(Form $request, $id)
@@ -285,7 +276,7 @@ class Controller extends \App\Http\Controllers\Controller
     }
     /**
      * @OA\Delete(
-     *      path="/api/article/{id}",
+     *      path="/api/v1/article/{id}",
      *      tags={"Article"},
      *      summary="刪除文章",
      *      description="刪除文章",
@@ -298,8 +289,9 @@ class Controller extends \App\Http\Controllers\Controller
      *              type="integer"
      *          )
      *      ),
-     *     @OA\Response(response="200", description="刪除成功"),
-     *     @OA\Response(response="400", description="刪除失敗"),
+     *     @OA\Response(response="1402", description="刪除失敗"),
+     *     @OA\Response(response="1902", description="刪除失敗"),
+     *     @OA\Response(response="1500", description="程式異常刪除失敗"),
      * )
      */
     public function destroy(Form $request, $id)

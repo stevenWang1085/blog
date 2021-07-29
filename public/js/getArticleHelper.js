@@ -6,7 +6,7 @@ $(document).ready(function () {
 
 function getOneArticle(article_id) {
     $.ajax({
-        url: 'api/article/'+article_id,
+        url: 'api/v1/article/'+article_id,
         type: "GET",
         data: {
         },
@@ -50,7 +50,7 @@ function getOneArticle(article_id) {
 }
 function getCommentByOneArticle(article_id) {
     $.ajax({
-        url: 'api/article/'+article_id+'/comment',
+        url: 'api/v1/article/'+article_id+'/comment',
         type: "GET",
         data: {
         },
@@ -108,7 +108,7 @@ function getCommentByOneArticle(article_id) {
 }
 function updateArticleFavor(article_id) {
     $.ajax({
-        url: 'api/article/'+article_id+'/favor',
+        url: 'api/v1/article/'+article_id+'/favor',
         type: "PATCH",
         data: {
         },
@@ -125,7 +125,7 @@ function updateArticleFavor(article_id) {
 function postComment(article_id) {
     let comment = $('#comment_detail').val();
     $.ajax({
-        url: 'api/article/'+article_id+'/comment',
+        url: 'api/v1/article/'+article_id+'/comment',
         type: "POST",
         data: {
             comment: comment
@@ -147,7 +147,7 @@ function postComment(article_id) {
 function postReplyComment(comment_id, article_id) {
     let comment = $('#reply_comment_detail').val();
     $.ajax({
-        url: 'api/comment/'+comment_id+'/reply',
+        url: 'api/v1/comment/'+comment_id+'/reply',
         type: "POST",
         data: {
             comment: comment,

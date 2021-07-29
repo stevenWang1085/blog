@@ -27,7 +27,7 @@ class Controller extends \App\Http\Controllers\Controller
     /**
      *
      *  @OA\Get(
-     *     path="/api/board",
+     *     path="/api/v1/board",
      *     tags={"Board"},
      *     summary="取得看板列表",
      *     description="取得看板列表",
@@ -42,7 +42,7 @@ class Controller extends \App\Http\Controllers\Controller
      *     ),
      *     @OA\Response(response="1201", description="查詢成功"),
      *     @OA\Response(response="1202", description="查無資料"),
-     *     @OA\Response(response="400", description="程式異常")
+     *     @OA\Response(response="1500", description="程式異常程式異常")
      *
      * )
      */
@@ -59,7 +59,7 @@ class Controller extends \App\Http\Controllers\Controller
 
             $response = $this->responseMaker(201, null, $data);
         } catch (\Exception $e) {
-            $response = $this->responseMaker(1, $e->getMessage(), null);
+            $response = $this->responseMaker(500, $e->getMessage(), null);
         }
         return $response;
     }
@@ -74,7 +74,7 @@ class Controller extends \App\Http\Controllers\Controller
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
-            $response = $this->responseMaker(1, $e->getMessage(), null);
+            $response = $this->responseMaker(500, $e->getMessage(), null);
         }
         return $response;
     }
@@ -84,7 +84,7 @@ class Controller extends \App\Http\Controllers\Controller
         try {
             $response = $this->responseMaker(501, null, null);
         } catch (\Exception $e) {
-            $response = $this->responseMaker(1, $e->getMessage(), null);
+            $response = $this->responseMaker(500, $e->getMessage(), null);
         }
         return $response;
     }
@@ -99,7 +99,7 @@ class Controller extends \App\Http\Controllers\Controller
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
-            $response = $this->responseMaker(1, $e->getMessage(), null);
+            $response = $this->responseMaker(500, $e->getMessage(), null);
         }
         return $response;
     }
@@ -114,7 +114,7 @@ class Controller extends \App\Http\Controllers\Controller
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
-            $response = $this->responseMaker(1, $e->getMessage(), null);
+            $response = $this->responseMaker(500, $e->getMessage(), null);
         }
         return $response;
     }
