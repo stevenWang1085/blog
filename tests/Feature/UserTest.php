@@ -38,7 +38,7 @@ class UserTest extends TestCase
             'password' => 'dwdwdsswd'
         ];
 
-        $response = $this->post('api/user/register', $user_data);
+        $response = $this->post('api/v1/user/register', $user_data);
         $this->assertDatabaseHas('users', [
             'name'     => $user_data['name'],
             'email'    => $user_data['email']
@@ -55,14 +55,14 @@ class UserTest extends TestCase
     {
         $this->withoutMiddleware();
         #註冊
-        $this->post('api/user/register', [
+        $this->post('api/v1/user/register', [
             'name' => 'steven',
             'email' => 'steven@mail.com',
             'password' => 'password'
         ]);
 
         #登入
-        $response = $this->post('api/user/login', [
+        $response = $this->post('api/v1/user/login', [
             'email'    => 'steven@mail.com',
             'password' => 'password'
         ]);
@@ -85,13 +85,13 @@ class UserTest extends TestCase
     public function testForgetPasswordSendEmail()
     {
         $this->withoutMiddleware();
-        $this->post('api/user/register', [
+        $this->post('api/v1/user/register', [
             'name' => 'steven',
             'email' => '4a114019@stust.edu.tw',
             'password' => '123456'
         ]);
 
-        $response = $this->post('api/user/forget_password/send', [
+        $response = $this->post('api/v1/user/forget_password/send', [
             'email' => '4a114019@stust.edu.tw',
         ]);
 
@@ -115,7 +115,7 @@ class UserTest extends TestCase
                 'reset_password_limit_time' => '2022-04-26 10:59:11'
             ]
         );
-        $response = $this->post('api/user/reset_code/check', [
+        $response = $this->post('api/v1/user/reset_code/check', [
             'reset_password_code' => 'reset_code',
         ]);
         $response->assertOk();
@@ -138,7 +138,7 @@ class UserTest extends TestCase
             ]
         );
 
-        $response = $this->post('api/user/forget_password/check', [
+        $response = $this->post('api/v1/user/forget_password/check', [
             'email'                  => '4a114019@stust.edu.tw',
             'reset_password'         => 'reset123456',
             'confirm_reset_password' => 'reset123456',
