@@ -29,18 +29,18 @@ class ArticleCommentTest extends TestCase
     public function testGetComment()
     {
         $this->setArticleInit();
-        $this->post('api/article', [
+        $this->post('api/v1/article', [
             'board_id' => 1,
             'title' => '閒聊',
             'content' => '安安你好'
         ]);
         $article = new Repository();
         $data = $article->first(['title' => '閒聊']);
-        $this->post("api/article/{$data->id}/comment", [
+        $this->post("api/v1/article/{$data->id}/comment", [
             'comment' => 'comment1'
         ]);
 
-        $response = $this->get("api/article/{$data->id}/comment");
+        $response = $this->get("api/v1/article/{$data->id}/comment");
         $response->assertJson(['code' => "1201"]);
     }
 
@@ -48,7 +48,7 @@ class ArticleCommentTest extends TestCase
     {
         $this->setArticleInit();
 
-        $this->post('api/article', [
+        $this->post('api/v1/article', [
             'board_id' => 1,
             'title' => '閒聊',
             'content' => '安安你好'
@@ -56,7 +56,7 @@ class ArticleCommentTest extends TestCase
 
         $article = new Repository();
         $data = $article->first(['title' => '閒聊']);
-        $response = $this->post("api/article/{$data->id}/comment", [
+        $response = $this->post("api/v1/article/{$data->id}/comment", [
             'comment' => 'comment1'
         ]);
 
@@ -72,7 +72,7 @@ class ArticleCommentTest extends TestCase
     {
         $this->setArticleInit();
 
-        $this->post('api/article', [
+        $this->post('api/v1/article', [
             'board_id' => 1,
             'title' => '閒聊',
             'content' => '安安你好'
@@ -81,11 +81,11 @@ class ArticleCommentTest extends TestCase
         $article = new Repository();
         $data = $article->first(['title' => '閒聊']);
 
-        $this->post("api/article/{$data->id}/comment", [
+        $this->post("api/v1/article/{$data->id}/comment", [
             'comment' => 'comment1'
         ]);
 
-        $response = $this->patch("api/article/{$data->id}/comment", [
+        $response = $this->patch("api/v1/article_comment/{$data->id}", [
             'comment' => '123'
         ]);
 
@@ -104,7 +104,7 @@ class ArticleCommentTest extends TestCase
     {
         $this->setArticleInit();
 
-        $this->post('api/article', [
+        $this->post('api/v1/article', [
             'board_id' => 1,
             'title' => '閒聊',
             'content' => '安安你好'
@@ -113,11 +113,11 @@ class ArticleCommentTest extends TestCase
         $article = new Repository();
         $data = $article->first(['title' => '閒聊']);
 
-        $this->post("api/article/{$data->id}/comment", [
+        $this->post("api/v1/article/{$data->id}/comment", [
             'comment' => 'comment1'
         ]);
 
-        $response = $this->delete("api/article/{$data->id}/comment");
+        $response = $this->delete("api/v1/article_comment/{$data->id}");
         $response->assertOk();
         $this->assertSoftDeleted('article_comments', [
             'id' => $data->id
@@ -128,7 +128,7 @@ class ArticleCommentTest extends TestCase
     public function testCountArticleComments()
     {
         $this->setArticleInit();
-        $this->post('api/article', [
+        $this->post('api/v1/article', [
             'board_id' => 1,
             'title' => '閒聊',
             'content' => '安安你好'
@@ -136,7 +136,7 @@ class ArticleCommentTest extends TestCase
 
         $article = new Repository();
         $data = $article->first(['title' => '閒聊']);
-        $this->post("api/article/{$data->id}/comment", [
+        $this->post("api/v1/article/{$data->id}/comment", [
             'comment' => 'comment1'
         ]);
         $check_data = $article->first(['title' => '閒聊']);

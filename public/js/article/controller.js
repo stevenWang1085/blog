@@ -29,7 +29,7 @@ function articlePost() {
     let board = $('#board_select').val();
 
     $.ajax({
-        url: 'api/article',
+        url: 'api/v1/article',
         type: "POST",
         data: {
             board_id: board,
@@ -71,6 +71,7 @@ function homeBarActive() {
     $('#my_notify').click(function () {
         $('.from_bar').removeClass('active');
         $('#my_notify').addClass('active');
+        sessionStorage.setItem('my_article', 0);
     });
     if (sessionStorage.getItem('my_article') === '1') {
         $('.from_bar').removeClass('active');
@@ -100,7 +101,7 @@ function getAllArticle(title = null, contents = null, board_id = null) {
     let per_page = $('#per_page').val();
 
     $.ajax({
-        url: 'api/article',
+        url: 'api/v1/article',
         type: "GET",
         data: {
             title: title,
@@ -171,7 +172,7 @@ function changePerPage() {
 function removeArticle(article_id) {
     if (confirm('確定要刪除文章嗎？')) {
         $.ajax({
-            url: 'api/article/'+article_id,
+            url: 'api/v1/article/'+article_id,
             type: "DELETE",
             data: {
             },
@@ -190,7 +191,7 @@ function removeArticle(article_id) {
 function showEditArticleData(article_id) {
     sessionStorage.setItem('confirm_edit_article_id', article_id);
     $.ajax({
-        url: 'api/article/'+article_id,
+        url: 'api/v1/article/'+article_id,
         type: "GET",
         data: {
         },
@@ -209,7 +210,7 @@ function showEditArticleData(article_id) {
 function confirmEditArticle() {
     let article_id = sessionStorage.getItem('confirm_edit_article_id');
     $.ajax({
-        url: 'api/article/'+article_id,
+        url: 'api/v1/article/'+article_id,
         type: "PATCH",
         data: {
             title: $('#edit_article_title').val(),

@@ -76,7 +76,7 @@ class Service extends BaseService
         if ($env !== 'prod') {
             $host = "http://localhost:90/reset_password.html";
         } else {
-            $host = "http://35.221.149.244/reset_password.html";
+            $host = "http://34.81.120.79/reset_password.html";
         }
 
         $mail_to = $request->email;
@@ -166,6 +166,12 @@ class Service extends BaseService
         return true;
     }
 
+    /**
+     * 檢測信箱是否有被重設密碼
+     *
+     * @param $request
+     * @return bool
+     */
     public function resetCodePageCheck($request)
     {
         $user_data = $this->repository->first(['email' => $request->email]);

@@ -1,7 +1,7 @@
 $(document).ready(function () {
     $('#btn_logout').click(function () {
         $.ajax({
-            url: 'api/user/logout',
+            url: 'api/v1/user/logout',
             type: "POST",
             data: {
             },
@@ -22,7 +22,7 @@ $(document).ready(function () {
 
 function showLoginUser() {
     $.ajax({
-        url: 'api/user/get_current',
+        url: 'api/v1/user/get_current',
         type: "GET",
         data: {
         },

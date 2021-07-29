@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    getNotifications(0);
+    getNotifications('unread');
 
     $('#my_article').click(function () {
         sessionStorage.setItem('my_article', 1);
@@ -24,14 +24,8 @@ function processActive() {
 }
 
 function getNotifications (status=null) {
-    if (status === -1) {
-        if (!confirm('是否清除全部通知?')) {
-            return;
-        }
-    }
-
     $.ajax({
-        url: 'api/notification',
+        url: 'api/v1/notification',
         type: "GET",
         data: {
             status: status
@@ -77,7 +71,7 @@ function getNotifications (status=null) {
                         '                            <img src="'+img+'" class="img-fluid" alt="Responsive image" />\n' +
                         '                        </div>\n' +
                         '                        <div class="font-weight-bold mr-3">\n' +
-                        '                            <div class="text-truncate"><a href="javascript:void(0)" class="text-body" data-toggle="modal" data-target="#exampleModalLong" onclick="getArticleDetail('+value.article_id+')">'+value.message+'</a></div>\n' +
+                        '                            <div class="text-truncate"><a href="javascript:void(0)" style="color: #669bdf" data-toggle="modal" data-target="#exampleModalLong" onclick="getArticleDetail('+value.article_id+')">'+value.message+'</a></div>\n' +
                         '                            <div class="small">'+value.time+'</div>\n'+
                         '                        </div>\n' +
                         // '                        <span class="ml-auto mb-auto">\n' +
@@ -99,10 +93,47 @@ function getNotifications (status=null) {
             }
 
             $('#notify_body').html(notify_content);
-            $('#notify_count').removeAttr('data-count');
         },
         error: function (error) {
             alert(error.responseJSON.status_message);
         }
     })
+}
+
+function readAllNotifications() {
+    if (!confirm('是否已讀全部通知?')) {
+        return;
+    }
+    $.ajax({
+        url: 'api/v1/notification/read/all',
+        type: "PATCH",
+        data: {
+        },
+        success: function (success) {
+            alert(success.status_message);
+            window.location.reload();
+        },
+        error: function (error) {
+            alert(error.responseJSON.status_message);
+        }
+    });
+}
+
+function cleanAllNotifications() {
+    if (!confirm('是否清除全部通知?')) {
+        return;
+    }
+    $.ajax({
+        url: 'api/v1/notification/clean/all',
+        type: "DELETE",
+        data: {
+        },
+        success: function (success) {
+            alert(success.status_message);
+            window.location.reload();
+        },
+        error: function (error) {
+            alert(error.responseJSON.status_message);
+        }
+    });
 }

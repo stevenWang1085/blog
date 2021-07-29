@@ -4,7 +4,7 @@ $(document).ready(function () {
 
 function getAllBoard() {
     $.ajax({
-        url: 'api/board',
+        url: 'api/v1/board',
         type: "GET",
         data: {
         },

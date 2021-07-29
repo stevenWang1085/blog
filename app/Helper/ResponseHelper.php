@@ -87,6 +87,12 @@ trait ResponseHelper
                     'status_message' => '登出成功',
                 ];
                 break;
+            case 110:
+                $response = [
+                    'http_status_code' => 200,
+                    'status_message' => '信箱檢測成功',
+                ];
+                break;
             case 301:
                 $response = [
                     'http_status_code' => 200,
@@ -109,6 +115,12 @@ trait ResponseHelper
                 $response = [
                     'http_status_code' => 200,
                     'status_message' => '刪除成功',
+                ];
+                break;
+            case 500:
+                $response = [
+                    'http_status_code' => 400,
+                    'status_message' => '程式異常:'.$message,
                 ];
                 break;
             case 501:
@@ -181,6 +193,12 @@ trait ResponseHelper
                 $response = [
                     'http_status_code' => 400,
                     'status_message' => '請檢查代碼並確認連結失效或是信箱錯誤。'
+                ];
+                break;
+            case 702:
+                $response = [
+                    'http_status_code' => 400,
+                    'status_message' => '此信箱沒有設置重置密碼。'
                 ];
                 break;
             case 801:

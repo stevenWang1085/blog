@@ -51,14 +51,17 @@
                     <ul class="navbar-nav">
                         <li class="nav-item">
                             <a class="nav-link" id="unread_link" href="javascript:void(0)"
-                               onclick="getNotifications(0)">未讀通知</a>
+                               onclick="getNotifications('unread')">未讀通知</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="read_link" href="javascript:void(0)"
-                               onclick="getNotifications(1)">已讀通知</a>
+                               onclick="getNotifications('read')">已讀通知</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="javascript:void(0)" onclick="getNotifications(-1)">清除全部通知</a>
+                            <a class="nav-link" href="javascript:void(0)" onclick="readAllNotifications()">已讀全部通知</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="javascript:void(0)" onclick="cleanAllNotifications()">清除全部通知</a>
                         </li>
                     </ul>
                 </div>
