@@ -17,7 +17,7 @@ class Controller extends \App\Http\Controllers\Controller
         try {
             $response = $this->responseMaker(501, null, null);
         } catch (\Exception $e) {
-            $response = $this->responseMaker(1, $e->getMessage(), null);
+            $response = $this->responseMaker(500, $e->getMessage(), null);
         }
         return $response;
     }
@@ -27,7 +27,7 @@ class Controller extends \App\Http\Controllers\Controller
         try {
             $response = $this->responseMaker(501, null, null);
         } catch (\Exception $e) {
-            $response = $this->responseMaker(1, $e->getMessage(), null);
+            $response = $this->responseMaker(500, $e->getMessage(), null);
         }
         return $response;
     }
@@ -37,7 +37,7 @@ class Controller extends \App\Http\Controllers\Controller
         try {
             $response = $this->responseMaker(501, null, null);
         } catch (\Exception $e) {
-            $response = $this->responseMaker(1, $e->getMessage(), null);
+            $response = $this->responseMaker(500, $e->getMessage(), null);
         }
         return $response;
     }
@@ -47,7 +47,7 @@ class Controller extends \App\Http\Controllers\Controller
         try {
             $response = $this->responseMaker(501, null, null);
         } catch (\Exception $e) {
-            $response = $this->responseMaker(1, $e->getMessage(), null);
+            $response = $this->responseMaker(500, $e->getMessage(), null);
         }
         return $response;
     }
@@ -57,7 +57,7 @@ class Controller extends \App\Http\Controllers\Controller
         try {
             $response = $this->responseMaker(501, null, null);
         } catch (\Exception $e) {
-            $response = $this->responseMaker(1, $e->getMessage(), null);
+            $response = $this->responseMaker(500, $e->getMessage(), null);
         }
         return $response;
     }

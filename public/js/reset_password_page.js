@@ -12,7 +12,7 @@ $(document).ready(function () {
         }
     }
     $.ajax({
-        url: 'api/user/reset_code_page/check',
+        url: 'api/v1/user/reset_code_page/check',
         type: "GET",
         data: {
             email: email,

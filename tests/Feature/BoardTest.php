@@ -31,7 +31,7 @@ class BoardTest extends TestCase
     public function testGetBoard()
     {
         $this->setArticleInit();
-        $response = $this->call('get', 'api/board', [
+        $response = $this->call('get', 'api/v1/board', [
             'name' => '查無資料'
         ]);
         $response->assertJson([
@@ -41,7 +41,7 @@ class BoardTest extends TestCase
             "code"             => "1202"
         ]);
 
-        $response = $this->call('get', 'api/board', [
+        $response = $this->call('get', 'api/v1/board', [
             'name' => '閒聊'
         ]);
         $this->assertDatabaseHas('boards', ['name' => '閒聊']);
@@ -53,7 +53,7 @@ class BoardTest extends TestCase
     {
         $this->setArticleInit();
         factory(UserEntity::class)->create();
-        $response = $this->post('api/board', [
+        $response = $this->post('api/v1/board', [
             'name' => 'test1',
             'memo' => '111',
         ]);
@@ -69,14 +69,14 @@ class BoardTest extends TestCase
     {
         $this->setArticleInit();
         factory(UserEntity::class)->create();
-        $this->post('api/board', [
+        $this->post('api/v1/board', [
             'name' => 'test1',
             'memo' => 'memo1',
         ]);
         $board = new Repository();
         $data = $board->first(['name' => 'test1']);
 
-        $response = $this->patch('api/board/'.$data->id, [
+        $response = $this->patch('api/v1/board/'.$data->id, [
             'name' => 'test1',
             'memo' => 'memo1_edit'
         ]);
@@ -91,14 +91,14 @@ class BoardTest extends TestCase
     {
         $this->setArticleInit();
         factory(UserEntity::class)->create();
-        $this->post('api/board', [
+        $this->post('api/v1/board', [
             'name' => 'test1',
             'memo' => 'memo1',
         ]);
         $board = new Repository();
         $data = $board->first(['name' => 'test1']);
 
-        $response = $this->delete('api/board/'.$data->id);
+        $response = $this->delete('api/v1/board/'.$data->id);
 
         $response->assertOk();
         $this->assertDatabaseMissing('boards', [

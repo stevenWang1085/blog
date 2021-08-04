@@ -23,25 +23,31 @@ class Service extends BaseService
     public function index($request)
     {
         $user_data = $this->userRepository->find($this->user_id);
-        $notify_data = [];
         switch ($request->status) {
-            case 0:
+            case 'unread':
                 $notify_data = $user_data->unreadnotifications;
-                $this->userRepository->updateWheres(['id' => $this->user_id], ['notification_count' => 0]);
-                $notify_data->markAsRead();
                 break;
-            case 1:
+            case 'read':
                 $notify_data = $user_data->readnotifications;
-                break;
-            case -1:
-                $user_data->notifications()->delete();
                 break;
             default:
                 return [];
         }
 
-
-
         return $notify_data;
+    }
+
+    public function update()
+    {
+        $user_data = $this->userRepository->find($this->user_id);
+        $notify_data = $user_data->unreadnotifications;
+        $this->userRepository->updateWheres(['id' => $this->user_id], ['notification_count' => 0]);
+        return $notify_data->markAsRead();
+    }
+
+    public function delete()
+    {
+        $user_data = $this->userRepository->find($this->user_id);
+        return $user_data->notifications()->delete();
     }
 }

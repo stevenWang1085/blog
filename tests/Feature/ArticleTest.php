@@ -29,7 +29,7 @@ class ArticleTest extends TestCase
     public function testGetArticle()
     {
         $this->setArticleInit();
-        $response = $this->call('get', 'api/article', []);
+        $response = $this->call('get', 'api/v1/article', []);
         $response->assertJson([
             "http_status_code" => 200,
             "status_message"   => "查無資料",
@@ -37,13 +37,13 @@ class ArticleTest extends TestCase
             "code"             => "1202"
         ]);
 
-        $this->post('api/article', [
+        $this->post('api/v1/article', [
             'board_id' => 1,
             'title' => '閒聊',
             'content' => '安安你好'
         ]);
 
-        $response = $this->call('get', 'api/article', [
+        $response = $this->call('get', 'api/v1/article', [
             'content' => '安安你好'
         ]);
         $this->assertDatabaseHas('articles', ['content' => '安安你好']);
@@ -53,14 +53,14 @@ class ArticleTest extends TestCase
     public function testGetOneArticle()
     {
         $this->setArticleInit();
-        $this->post('api/article', [
+        $this->post('api/v1/article', [
             'board_id' => 1,
             'title' => '閒聊',
             'content' => '安安你好'
         ]);
         $article = new Repository();
         $data = $article->first(['title' => '閒聊']);
-        $response = $this->get('api/article/'.$data['id']);
+        $response = $this->get('api/v1/article/'.$data['id']);
 
         $response->assertJson(['return_data' => [
             'id'       => 1,
@@ -75,7 +75,7 @@ class ArticleTest extends TestCase
     {
         $this->setArticleInit();
 
-        $response = $this->post('api/article', [
+        $response = $this->post('api/v1/article', [
             'board_id' => 1,
             'title' => '閒聊',
             'content' => '安安你好'
@@ -93,14 +93,14 @@ class ArticleTest extends TestCase
     {
         $this->setArticleInit();
 
-        $this->post('api/article', [
+        $this->post('api/v1/article', [
             'board_id' => 1,
             'title' => '閒聊',
             'content' => '安安你好'
         ]);
         $article = new Repository();
         $data = $article->first(['title' => '閒聊']);
-        $response = $this->patch('api/article/'.$data->id, [
+        $response = $this->patch('api/v1/article/'.$data->id, [
             'title' => '閒聊->edit',
             'content' => '安安你好->edit'
         ]);
@@ -114,20 +114,20 @@ class ArticleTest extends TestCase
     public function testUpdateArticleFavor()
     {
         $this->setArticleInit();
-        $this->post('api/article', [
+        $this->post('api/v1/article', [
             'board_id' => 1,
             'title' => '閒聊',
             'content' => '安安你好'
         ]);
         $article = new Repository();
         $data = $article->first(['title' => '閒聊']);
-        $response = $this->patch('api/article/'.$data->id.'/favor');
+        $response = $this->patch('api/v1/article/'.$data->id.'/favor');
         $check_data = $article->find($data->id);
 
         $response->assertOk();
         $this->assertEquals(1, $check_data['favor']);
 
-        $response = $this->patch('api/article/'.$data->id.'/favor');
+        $response = $this->patch('api/v1/article/'.$data->id.'/favor');
         $check_data = $article->find($data->id);
 
         $response->assertOk();
@@ -137,14 +137,14 @@ class ArticleTest extends TestCase
     public function testDeleteArticle()
     {
         $this->setArticleInit();
-        $this->post('api/article', [
+        $this->post('api/v1/article', [
             'board_id' => 1,
             'title' => '閒聊',
             'content' => '安安你好'
         ]);
         $article = new Repository();
         $data = $article->first(['title' => '閒聊']);
-        $response = $this->delete('api/article/'.$data->id);
+        $response = $this->delete('api/v1/article/'.$data->id);
         $response->assertOk();
         $this->assertSoftDeleted('articles', [
             'title' => '閒聊'

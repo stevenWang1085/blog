@@ -12,8 +12,6 @@ class ArticleReply extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public $tries = 1;
-
     public $notify_to_user_id;
     public $notify_from_user_id;
     public $notify_type;
