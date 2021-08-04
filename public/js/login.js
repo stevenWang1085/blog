@@ -5,7 +5,7 @@ $(document).ready(function () {
         let password = $('#login-password').val();
 
         $.ajax({
-            url: 'api/user/login',
+            url: 'api/v1/user/login',
             type: "POST",
             data: {
                 email: email,
@@ -30,7 +30,7 @@ $(document).ready(function () {
         let confirm_password = $('#sign_confirm_password').val();
 
         $.ajax({
-            url: 'api/user',
+            url: 'api/v1/user/register',
             type: "POST",
             data: {
                 name: name,
@@ -53,7 +53,7 @@ $(document).ready(function () {
     $('#btn-forgot').click(function () {
         let email = $('#forgot_email').val();
         $.ajax({
-            url: 'api/user/forget_password/send',
+            url: 'api/v1/user/forget_password/send',
             type: "POST",
             data: {
                 email: email,
@@ -72,7 +72,7 @@ $(document).ready(function () {
     $('#btn-reset').click(function () {
         let reset_code = $('#reset_code').val();
         $.ajax({
-            url: 'api/user/reset_code/check',
+            url: 'api/v1/user/reset_code/check',
             type: "POST",
             data: {
                 reset_password_code: reset_code,
@@ -94,7 +94,7 @@ $(document).ready(function () {
         let password = $('#reset_password').val();
         let confirm_password = $('#reset_confirm_password').val();
         $.ajax({
-            url: 'api/user/forget_password/check',
+            url: 'api/v1/user/forget_password/check',
             type: "POST",
             data: {
                 reset_password_code: reset_code,

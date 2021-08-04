@@ -166,6 +166,12 @@ class Service extends BaseService
         return true;
     }
 
+    /**
+     * 檢測信箱是否有被重設密碼
+     *
+     * @param $request
+     * @return bool
+     */
     public function resetCodePageCheck($request)
     {
         $user_data = $this->repository->first(['email' => $request->email]);

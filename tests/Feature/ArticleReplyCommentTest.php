@@ -20,19 +20,19 @@ class ArticleReplyCommentTest extends TestCase
     public function testArticleReplyCommentTest()
     {
         $this->setArticleInit();
-        $this->post('api/article', [
+        $this->post('api/v1/article', [
             'board_id' => 1,
             'title' => '閒聊',
             'content' => '安安你好'
         ]);
         $article = new Repository();
         $data = $article->first(['title' => '閒聊']);
-        $this->post("api/article/{$data->id}/comment", [
+        $this->post("api/v1/article/{$data->id}/comment", [
             'comment' => 'comment1'
         ]);
         $comment = new \App\Management\ArticleComment\Repository();
         $comment_data = $comment->find(1);
-        $response = $this->post("api/comment/{$comment_data->id}/reply", [
+        $response = $this->post("api/v1/comment/{$comment_data->id}/reply", [
             'comment' => 'im reply comment',
             'article_id' => $data->id
         ]);
@@ -46,6 +46,6 @@ class ArticleReplyCommentTest extends TestCase
     public function testGetReplyComment()
     {
         $this->testArticleReplyCommentTest();
-        $this->get("api/article/1/comment");
+        $this->get("api/v1/article/1/comment");
     }
 }
