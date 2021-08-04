@@ -72,7 +72,7 @@ class UserTest extends TestCase
 
     public function SendEmail()
     {
-        Mail::send('welcome', [], function($message) {
+        Mail::send('welcome', ['name' => 123], function($message) {
             $message->to('4a114019@stust.edu.tw')->subject('Testing mails');
         });
 
