@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Support\Facades\Mail;
 
 class ArticleReply extends Notification implements ShouldQueue
 {
@@ -80,5 +81,17 @@ class ArticleReply extends Notification implements ShouldQueue
             'article_id'            => $this->article_id,
             'time'                  => $this->time
         ];
+    }
+
+    public function failed (\Exception $exception)
+    {
+        $data = [
+            'error_type'  => 'Notification',
+            'error_msg'   => $exception->getMessage(),
+        ];
+
+        Mail::send('failed_job', $data, function($message) {
+            $message->to('4a114019@stust.edu.tw')->subject('! Failed Job !');
+        });
     }
 }

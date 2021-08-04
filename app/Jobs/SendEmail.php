@@ -42,4 +42,16 @@ class SendEmail implements ShouldQueue
             $message->to($this->mailTo)->subject($this->title);
         });
     }
+
+    public function failed (\Exception $exception)
+    {
+        $data = [
+            'error_type'  => 'Send Email',
+            'error_msg'   => $exception->getMessage(),
+        ];
+
+        Mail::send('failed_job', $data, function($message) {
+            $message->to('4a114019@stust.edu.tw')->subject('! Failed Job !');
+        });
+    }
 }
