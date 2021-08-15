@@ -191,7 +191,7 @@ class Controller extends \App\Http\Controllers\Controller
     }
 
     /**
-     * @OA\Patch(
+     * @OA\Put(
      *      path="/api/v1/article/{id}",
      *      tags={"Article"},
      *      summary="更新文章",
