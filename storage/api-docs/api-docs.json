@@ -149,43 +149,13 @@
                     }
                 }
             },
-            "delete": {
-                "tags": [
-                    "Article"
-                ],
-                "summary": "刪除文章",
-                "description": "刪除文章",
-                "operationId": "3f4a34adfa98479fbef4578e085d0009",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "Article ID",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "1402": {
-                        "description": "刪除失敗"
-                    },
-                    "1902": {
-                        "description": "刪除失敗"
-                    },
-                    "1500": {
-                        "description": "程式異常刪除失敗"
-                    }
-                }
-            },
-            "patch": {
+            "put": {
                 "tags": [
                     "Article"
                 ],
                 "summary": "更新文章",
                 "description": "更新文章",
-                "operationId": "743ac3627ba4733e039594a68767f371",
+                "operationId": "04537676f656009bac7839862c54b34d",
                 "parameters": [
                     {
                         "name": "id",
@@ -224,6 +194,36 @@
                     },
                     "1601": {
                         "description": "請求格式錯誤"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Article"
+                ],
+                "summary": "刪除文章",
+                "description": "刪除文章",
+                "operationId": "3f4a34adfa98479fbef4578e085d0009",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Article ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "1402": {
+                        "description": "刪除失敗"
+                    },
+                    "1902": {
+                        "description": "刪除失敗"
+                    },
+                    "1500": {
+                        "description": "程式異常刪除失敗"
                     }
                 }
             }
