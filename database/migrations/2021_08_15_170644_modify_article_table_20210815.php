@@ -27,7 +27,8 @@ class ModifyArticleTable20210815 extends Migration
     public function down()
     {
         Schema::table('articles', function (Blueprint $table) {
-            $table->dropIndex(['articles_title_index', 'articles_content_index']);
+            $table->dropIndex('articles_title_index');
+            $table->dropIndex('articles_content_index');
         });
     }
 }
